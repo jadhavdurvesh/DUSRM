@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "0.1-draft",
+  "dusrmVersion": "0.7-draft",
+  "descriptionId": "multi-layer-engine-example",
+  "title": "Multi-layer Component Example",
+  "summary": "Shows one software component realizing responsibilities in multiple layers.",
+  "status": "proposed",
+  "profileRefs": [
+    {
+      "profileId": "DUSRM-PROFILE-SWAPP",
+      "version": "0.1-draft"
+    }
+  ],
+  "context": {
+    "systemOfInterest": {
+      "id": "task-app",
+      "name": "Task Application",
+      "purpose": "Organize a user's tasks",
+      "status": "hypothetical"
+    },
+    "purpose": "Describe the architecture of a local task application.",
+    "scope": "Single-user application running on one computer.",
+    "boundary": {
+      "inclusions": [
+        "application process",
+        "user interface",
+        "task state"
+      ],
+      "exclusions": [
+        "host operating system internals",
+        "external network services"
+      ]
+    },
+    "environment": [
+      {
+        "id": "user",
+        "name": "User",
+        "role": "external actor",
+        "status": "specified"
+      },
+      {
+        "id": "host-os",
+        "name": "Host operating system",
+        "role": "external platform",
+        "status": "assumed"
+      }
+    ],
+    "assumptions": [
+      "No network service is required."
+    ]
+  },
+  "elements": [
+    {
+      "id": "engine-process",
+      "name": "Engine process",
+      "kind": "software-component",
+      "status": "proposed"
+    }
+  ],
+  "responsibilities": [
+    {
+      "id": "R-EXEC",
+      "name": "Execute operations",
+      "description": "Execute defined operations.",
+      "primaryLayer": "L3",
+      "status": "proposed"
+    },
+    {
+      "id": "R-STATE",
+      "name": "Maintain state",
+      "description": "Maintain engine state.",
+      "primaryLayer": "L4",
+      "status": "proposed"
+    },
+    {
+      "id": "R-COMPUTE",
+      "name": "Compute results",
+      "description": "Transform inputs into results.",
+      "primaryLayer": "L5",
+      "status": "proposed"
+    }
+  ],
+  "realizations": [
+    {
+      "id": "REAL-EXEC",
+      "elementRef": "engine-process",
+      "responsibilityRef": "R-EXEC",
+      "status": "proposed",
+      "rationale": "The process runs operation instances."
+    },
+    {
+      "id": "REAL-STATE",
+      "elementRef": "engine-process",
+      "responsibilityRef": "R-STATE",
+      "status": "proposed",
+      "rationale": "The process maintains state."
+    },
+    {
+      "id": "REAL-COMPUTE",
+      "elementRef": "engine-process",
+      "responsibilityRef": "R-COMPUTE",
+      "status": "proposed",
+      "rationale": "The process performs transformations."
+    }
+  ],
+  "relationships": [],
+  "operations": [],
+  "stateVariables": [],
+  "transitions": [],
+  "evidence": []
+}
