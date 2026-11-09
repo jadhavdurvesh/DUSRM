@@ -1,0 +1,180 @@
+{
+  "schemaVersion": "0.1-draft",
+  "dusrmVersion": "0.7-draft",
+  "descriptionId": "invalid-layer",
+  "title": "Standalone Task Application",
+  "summary": "Illustrative single-user local task application.",
+  "status": "proposed",
+  "profileRefs": [
+    {
+      "profileId": "DUSRM-PROFILE-SWAPP",
+      "version": "0.1-draft"
+    }
+  ],
+  "context": {
+    "systemOfInterest": {
+      "id": "task-app",
+      "name": "Task Application",
+      "purpose": "Organize a user's tasks",
+      "status": "hypothetical"
+    },
+    "purpose": "Describe the architecture of a local task application.",
+    "scope": "Single-user application running on one computer.",
+    "boundary": {
+      "inclusions": [
+        "application process",
+        "user interface",
+        "task state"
+      ],
+      "exclusions": [
+        "host operating system internals",
+        "external network services"
+      ]
+    },
+    "environment": [
+      {
+        "id": "user",
+        "name": "User",
+        "role": "external actor",
+        "status": "specified"
+      },
+      {
+        "id": "host-os",
+        "name": "Host operating system",
+        "role": "external platform",
+        "status": "assumed"
+      }
+    ],
+    "assumptions": [
+      "No network service is required."
+    ]
+  },
+  "elements": [
+    {
+      "id": "app-process",
+      "name": "Application process",
+      "kind": "software-component",
+      "status": "proposed"
+    },
+    {
+      "id": "task-ui",
+      "name": "Task interface",
+      "kind": "user-interface",
+      "status": "proposed"
+    },
+    {
+      "id": "task-state",
+      "name": "Task state store",
+      "kind": "information-component",
+      "status": "proposed"
+    }
+  ],
+  "responsibilities": [
+    {
+      "id": "R-EXEC",
+      "name": "Execute task operations",
+      "description": "Dispatch and execute task operations.",
+      "primaryLayer": "L9",
+      "status": "proposed"
+    },
+    {
+      "id": "R-STATE",
+      "name": "Maintain task state",
+      "description": "Represent the current state of tasks.",
+      "primaryLayer": "L4",
+      "status": "proposed"
+    },
+    {
+      "id": "R-UI",
+      "name": "Present user interaction",
+      "description": "Accept user actions and display task information.",
+      "primaryLayer": "L6",
+      "status": "proposed"
+    },
+    {
+      "id": "R-CAP",
+      "name": "Task management capability",
+      "description": "Provide create, edit and complete task capability.",
+      "primaryLayer": "L7",
+      "status": "proposed"
+    }
+  ],
+  "realizations": [
+    {
+      "id": "REAL-1",
+      "elementRef": "app-process",
+      "responsibilityRef": "R-EXEC",
+      "status": "proposed",
+      "rationale": "The process dispatches application operations."
+    },
+    {
+      "id": "REAL-2",
+      "elementRef": "app-process",
+      "responsibilityRef": "R-STATE",
+      "status": "proposed",
+      "rationale": "The process owns the in-process state store."
+    },
+    {
+      "id": "REAL-3",
+      "elementRef": "task-ui",
+      "responsibilityRef": "R-UI",
+      "status": "proposed",
+      "rationale": "The UI accepts actions and renders state."
+    },
+    {
+      "id": "REAL-4",
+      "elementRef": "task-ui",
+      "responsibilityRef": "R-CAP",
+      "status": "proposed",
+      "rationale": "The UI exposes task management to the user."
+    }
+  ],
+  "relationships": [
+    {
+      "id": "REL-1",
+      "type": "dependsOn",
+      "sourceRef": "task-ui",
+      "targetRef": "app-process",
+      "status": "proposed",
+      "rationale": "The interface dispatches operations to the application process."
+    }
+  ],
+  "operations": [
+    {
+      "id": "OP-COMPLETE",
+      "name": "CompleteTask",
+      "ownerRef": "app-process",
+      "purpose": "Mark an existing task complete.",
+      "preconditions": [
+        "Task exists."
+      ],
+      "postconditions": [
+        "Task state is completed."
+      ],
+      "status": "proposed"
+    }
+  ],
+  "stateVariables": [
+    {
+      "id": "STATE-TASK-STATUS",
+      "subjectRef": "task-state",
+      "name": "taskStatus",
+      "meaning": "Lifecycle status of a task.",
+      "valueType": "enum",
+      "status": "proposed"
+    }
+  ],
+  "transitions": [
+    {
+      "id": "TRANS-COMPLETE",
+      "subjectRef": "task-state",
+      "from": "active",
+      "to": "completed",
+      "trigger": "CompleteTask accepted",
+      "guard": "Task exists and editing is permitted",
+      "effect": "Set task status to completed",
+      "status": "proposed"
+    }
+  ],
+  "evidence": []
+}
