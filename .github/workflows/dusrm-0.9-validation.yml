@@ -1,0 +1,105 @@
+name: DUSRM 0.9 advanced model validation
+
+on:
+  push:
+    paths:
+      - ".github/workflows/dusrm-0.9-validation.yml"
+      - "schema/**"
+      - "conformance/fixtures/**"
+      - "profiles/registry.json"
+      - "scripts/**"
+      - "tests/**"
+      - "formal/tla/**"
+      - "requirements-dev.txt"
+  pull_request:
+    paths:
+      - ".github/workflows/dusrm-0.9-validation.yml"
+      - "schema/**"
+      - "conformance/fixtures/**"
+      - "profiles/registry.json"
+      - "scripts/**"
+      - "tests/**"
+      - "formal/tla/**"
+      - "requirements-dev.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  advanced-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@v7.1.0
+        with:
+          python-version: "3.13"
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Install validation dependencies
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Validate JSON Schema fixtures
+        run: python scripts/validate_schema_fixtures.py
+
+      - name: Run semantic validator tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Validate positive descriptions
+        run: |
+          python scripts/validate_semantics.py conformance/fixtures/valid-minimal.json
+          python scripts/validate_semantics.py conformance/fixtures/valid-multilayer-realization.json
+
+      - name: Reject semantic-negative descriptions
+        shell: bash
+        run: |
+          set -euo pipefail
+          for fixture in \
+            conformance/fixtures/invalid-duplicate-element-identifiers.json \
+            conformance/fixtures/invalid-dangling-reference.json
+          do
+            set +e
+            python scripts/validate_semantics.py "$fixture"
+            status=$?
+            set -e
+            if [ "$status" -ne 1 ]; then
+              echo "Expected semantic rejection (exit 1) for $fixture, got $status" >&2
+              exit 1
+            fi
+            echo "PASS semantic rejection: $fixture"
+          done
+
+      - name: Download TLA+ tools
+        working-directory: formal/tla
+        run: |
+          curl --fail --location --silent --show-error \
+            --output tla2tools.jar \
+            https://github.com/tlaplus/tlaplus/releases/download/v1.7.4/tla2tools.jar
+
+      - name: Model-check task completion
+        working-directory: formal/tla
+        run: |
+          java -cp tla2tools.jar tlc2.TLC -cleanup -config TaskCompletion.cfg TaskCompletion.tla
+
+      - name: Model-check distributed task arbitration
+        working-directory: formal/tla
+        run: |
+          java -cp tla2tools.jar tlc2.TLC -cleanup -config DistributedTaskArbitration.cfg DistributedTaskArbitration.tla
+
+      - name: Model-check FireBot emergency-stop precedence
+        working-directory: formal/tla
+        run: |
+          java -cp tla2tools.jar tlc2.TLC -cleanup -config FireBotEmergencyStop.cfg FireBotEmergencyStop.tla
+
+      - name: Model-check ANANTA WAL recovery
+        working-directory: formal/tla
+        run: |
+          java -cp tla2tools.jar tlc2.TLC -cleanup -config AnantaWalRecovery.cfg AnantaWalRecovery.tla
