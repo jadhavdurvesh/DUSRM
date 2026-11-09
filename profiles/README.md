@@ -6,22 +6,20 @@ A profile must not silently redefine core DUSRM concepts or make one DMJ technol
 
 ## Profiles in the 0.6 draft
 
-- [Standalone software application](standalone-application/PROFILE.md) — tests DUSRM on a small local application without networking or distributed infrastructure.
-- [Database engine — ANANTA](database-engine/ANANTA-PROFILE.md) — maps a native database engine using repository documentation and explicit maturity boundaries.
-- [Cyber-physical robotics — FireBot](cyber-physical-robotics/FIREBOT-PROFILE.md) — maps the integrated robot project while distinguishing simulation, plans, and physical implementation.
+- [Standalone software application](standalone-application/PROFILE.md)
+- [Database engine — ANANTA](database-engine/ANANTA-PROFILE.md)
+- [Cyber-physical robotics — FireBot](cyber-physical-robotics/FIREBOT-PROFILE.md)
+
+## Registry
+
+See [registry.json](registry.json). Each entry records its profile version, candidate core version, and compatibility assessment status. The existing profiles are currently marked `not-assessed`; a candidate core version is not an approval.
+
+## Compatibility
+
+See [Profile Compatibility Policy](COMPATIBILITY-POLICY.md) for profile identity, versioning, refinement, extension, composition, and migration rules.
 
 ## Profile requirements
 
-Each profile should declare:
-- profile identity and version;
-- compatible DUSRM core version;
-- domain scope and exclusions;
-- core concept refinements;
-- layer responsibility refinements;
-- operational and temporal rules;
-- safety/security/assurance concerns;
-- permitted omissions and applicability rules;
-- validation and evidence requirements;
-- mapping to other standards or technologies where useful.
+Each profile must declare identity/version, compatible core version, scope/exclusions, concept refinements, layer responsibility mappings, operational rules, evidence obligations, permitted omissions, and conformance requirements.
 
 A profile is a specialization of DUSRM, not a new API, protocol, programming language, or implementation requirement.
