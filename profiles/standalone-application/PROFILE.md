@@ -2,7 +2,9 @@
 
 **Profile ID:** DUSRM-PROFILE-SWAPP-0.1  
 **Status:** Illustrative profile; non-normative  
-**Based on:** DUSRM 0.5 core draft
+**Profile version:** 0.1-draft  
+**Core compatibility:** Candidate for DUSRM 0.7-draft; not yet assessed  
+**Original basis:** DUSRM 0.5 core draft
 
 ## 1. Purpose
 
