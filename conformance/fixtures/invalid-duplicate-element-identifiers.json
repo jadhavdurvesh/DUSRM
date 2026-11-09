@@ -16,7 +16,7 @@
       "id": "task-app",
       "name": "Task Application",
       "purpose": "Organize a user's tasks",
-      "status": "hypothetical"
+      "status": "proposed"
     },
     "purpose": "Describe the architecture of a local task application.",
     "scope": "Single-user application running on one computer.",
