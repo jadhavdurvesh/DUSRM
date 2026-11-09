@@ -2,16 +2,13 @@
 
 This directory contains external formal-methods model pilots. TLA+ is used as an analysis notation/tool, not as a replacement for DUSRM's ontology or operational semantics.
 
-## Pilot
+## Models
 
-- [Task completion TLA+ model](tla/TaskCompletion.tla)
-- [TLC configuration](tla/TaskCompletion.cfg)
-- [DUSRM-to-TLA+ mapping and assumptions](tla/MAPPING.md)
+- [Task completion](tla/TaskCompletion.tla) — authorized task-state transition.
+- [Distributed task arbitration](tla/DistributedTaskArbitration.tla) — local claims, partitions, and single-coordinator assignment.
+- [FireBot emergency stop](tla/FireBotEmergencyStop.tla) — emergency-stop and manual/autonomous command precedence.
+- [ANANTA WAL recovery](tla/AnantaWalRecovery.tla) — single-writer, WAL/commit ordering, crash and redo.
 
-## Validation
+See [DUSRM 0.9 model mappings](tla/DOMAIN-MODELS-0.9.md) for assumptions and traceability.
 
-The TLA+ model was checked in [DUSRM 0.8 CI run #1](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42653412176). TLC generated 4 states, found 2 distinct states, checked the configured invariants and temporal property, and reported no error.
-
-## Boundary
-
-The pilot is manually authored and traceable to one DUSRM example. There is no automatic translation from arbitrary DUSRM descriptions or natural-language guards into TLA+. A successful model-checking run applies only to the formal model and assumptions supplied.
+The models are manually authored finite abstractions. They do not prove real implementations safe or correct, and do not replace hazard analysis, database implementation tests, distributed protocol verification, or hardware-in-the-loop testing.
