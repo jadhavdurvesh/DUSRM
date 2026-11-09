@@ -19,7 +19,7 @@ The 0.7 draft introduces:
 - a small CI check for schema validity and fixture expectations;
 - a tooling-readiness plan and independent engineering review package.
 
-The CI check validates JSON Schema structure and fixture expectations only. It does not implement the semantic validator or establish profile compatibility, system conformance, safety, or correctness. The eight-layer model remains provisional.
+The structural JSON Schema and fixture checks passed in [GitHub Actions run #5](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42648618733). The CI check does not implement semantic reference validation or establish profile compatibility, system conformance, safety, or correctness. The eight-layer model remains provisional.
 
 See [DUSRM 0.7 status](specification/DUSRM-0.7/STATUS.md).
 
