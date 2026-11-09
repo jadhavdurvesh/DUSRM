@@ -2,29 +2,33 @@
 ## DMJ Universal Systems Reference Model
 
 **Status:** Research proposal — working draft  
-**Current specification:** 0.8-draft  
+**Current specification:** 0.9-draft  
 **Maturity:** Provisional reference framework; not normative or independently validated
 
 DUSRM is a proposed universal reference framework for describing, analyzing, designing, and evaluating computing and engineering systems. It is intended to provide a common conceptual foundation from which domain-specific reference models may be developed.
 
 DUSRM is a **reference model, not an implementation, API, protocol, runtime, operating system, modeling language, or mandatory software architecture**. It must remain implementation-neutral and useful independently of any particular vendor, programming language, platform, or DMJ technology.
 
-## Current milestone: DUSRM-0.8 — Semantic Validation and Formal-Methods Integration
+## Current milestone: DUSRM-0.9 — Advanced System Modeling and Verification
 
-The 0.8 draft extends the 0.7 machine-readable description proposal with:
-- a semantic validator for identifiers, realization links, references, state domains, evidence, and profile registry compatibility;
-- a command-line validation tool and unit-test suite;
-- a TLA+ task-completion model with an explicit DUSRM mapping and declared assumptions;
-- CI that runs schema checks, semantic tests, CLI negative cases, and TLC model checking.
+The 0.9 draft adds:
+- conservative participant-signature checks for selected relationship types in the semantic validator;
+- regression tests for valid and invalid relationship endpoints;
+- a distributed arbitration model for local claims, partitions and authoritative assignment;
+- a FireBot emergency-stop and manual/autonomous precedence model;
+- an ANANTA single-writer and WAL crash-recovery model;
+- DUSRM-to-TLA+ mappings, assumptions and limits;
+- CI that runs the schema, semantic suite and all four formal models.
 
-The complete [0.8 CI run #1](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42653412176) passed. Nine semantic tests passed, positive and negative CLI cases behaved as expected, and TLC checked the finite model with no error found. This is a bounded tooling result, not full DUSRM conformance, implementation verification, or system safety certification.
+The complete [0.9 CI run #5](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42657746055) passed. Twelve semantic tests passed and all four TLC models completed without errors. This is bounded model checking, not implementation verification or safety certification.
 
-See [DUSRM 0.8 status](specification/DUSRM-0.8/STATUS.md) and [validation results](validation/0.8-VALIDATION-RESULTS.md).
+See [DUSRM 0.9 status](specification/DUSRM-0.9/STATUS.md) and [validation results](validation/0.9-VALIDATION-RESULTS.md).
 
 ## Previous milestones
 
-- **0.7 — Conformance and tooling readiness:** description JSON Schema, profile compatibility policy, consistency checks, fixtures, review package. [Status](specification/DUSRM-0.7/STATUS.md)
-- **0.6 — Validation and domain profiles:** standalone application, ANANTA, and FireBot case studies, evidence register and validation method. [Status](specification/DUSRM-0.6/STATUS.md)
+- **0.8 — Semantic validation and formal-methods integration:** semantic validator, CLI, unit tests and a TLA+ task-completion pilot. [Status](specification/DUSRM-0.8/STATUS.md)
+- **0.7 — Conformance and tooling readiness:** description JSON Schema, profile compatibility policy, consistency checks, fixtures and review package. [Status](specification/DUSRM-0.7/STATUS.md)
+- **0.6 — Validation and domain profiles:** standalone application, ANANTA and FireBot case studies, evidence register and validation method. [Status](specification/DUSRM-0.6/STATUS.md)
 - **0.5 — Formalization:** formal metamodel, responsibility allocation, consistency rules, invariants and traceability. [Status](specification/DUSRM-0.5/STATUS.md)
 - **0.4 — Operational semantics:** operations, executions, states, transitions, events, time, concurrency, failure and recovery. [Status](specification/DUSRM-0.4/STATUS.md)
 - **0.3 — Structural architecture:** candidate hybrid structure, eight responsibility layers, relationship graph, cross-cutting concerns and viewpoints. [Status](specification/DUSRM-0.3/STATUS.md)
@@ -57,7 +61,8 @@ These technologies remain independently specified. DUSRM may map their roles to 
 - **M5 — Validation and profiles:** 0.6 working draft.
 - **M6 — Conformance and tooling readiness:** 0.7 proposal.
 - **M7 — Semantic validation and formal-methods pilot:** 0.8 draft.
-- **Next:** broaden semantic rule coverage, review domain-profile compatibility, and model cyber-physical safety/failure properties.
+- **M8 — Advanced system modeling and verification:** 0.9 draft.
+- **Next:** strengthen formal coverage, review domain-profile compatibility, and prepare the architecture for independent technical review.
 
 ## Repository map
 
