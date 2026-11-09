@@ -1,0 +1,667 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dusrm:schema:description:0.1-draft",
+  "title": "DUSRM System Description",
+  "description": "Provisional machine-readable interchange shape for a DUSRM 0.7 draft system description. Structural validation only; cross-reference and semantic checks are specified separately.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "dusrmVersion",
+    "descriptionId",
+    "title",
+    "status",
+    "profileRefs",
+    "context",
+    "elements",
+    "responsibilities",
+    "realizations",
+    "relationships",
+    "operations",
+    "stateVariables",
+    "transitions",
+    "evidence"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1-draft"
+    },
+    "dusrmVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "descriptionId": {
+      "$ref": "#/$defs/identifier"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/status"
+    },
+    "profileRefs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/profileRef"
+      }
+    },
+    "context": {
+      "$ref": "#/$defs/context"
+    },
+    "elements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/element"
+      }
+    },
+    "responsibilities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/responsibility"
+      }
+    },
+    "realizations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/realization"
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/relationship"
+      }
+    },
+    "operations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/operation"
+      }
+    },
+    "stateVariables": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/stateVariable"
+      }
+    },
+    "transitions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/transition"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/claim"
+      },
+      "default": []
+    },
+    "invariants": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/claim"
+      },
+      "default": []
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Profile- or tool-specific data. Each extension key should be namespaced and documented by its profile.",
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]*$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "specified",
+        "planned",
+        "implemented",
+        "simulated",
+        "observed",
+        "tested",
+        "verified",
+        "assumed",
+        "unknown",
+        "rejected",
+        "notApplicable"
+      ]
+    },
+    "profileRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profileId",
+        "version"
+      ],
+      "properties": {
+        "profileId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "compatibility": {
+          "type": "string"
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "systemOfInterest",
+        "purpose",
+        "scope",
+        "boundary",
+        "environment"
+      ],
+      "properties": {
+        "systemOfInterest": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "name",
+            "status"
+          ],
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/identifier"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "purpose": {
+              "type": "string"
+            },
+            "status": {
+              "$ref": "#/$defs/status"
+            }
+          }
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "boundary": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "inclusions",
+            "exclusions"
+          ],
+          "properties": {
+            "inclusions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "exclusions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "environment": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "name",
+              "role"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/identifier"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "role": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "$ref": "#/$defs/status"
+              }
+            }
+          }
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        }
+      }
+    },
+    "element": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "kind",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "external": {
+          "type": "boolean",
+          "default": false
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "default": []
+        }
+      }
+    },
+    "responsibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "description",
+        "primaryLayer",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "primaryLayer": {
+          "type": "string",
+          "enum": [
+            "L1",
+            "L2",
+            "L3",
+            "L4",
+            "L5",
+            "L6",
+            "L7",
+            "L8"
+          ]
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "parentResponsibilityRef": {
+          "$ref": "#/$defs/identifier"
+        }
+      }
+    },
+    "realization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "elementRef",
+        "responsibilityRef",
+        "status",
+        "rationale"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "elementRef": {
+          "$ref": "#/$defs/identifier"
+        },
+        "responsibilityRef": {
+          "$ref": "#/$defs/identifier"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "default": []
+        }
+      }
+    },
+    "relationship": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "sourceRef",
+        "targetRef",
+        "status",
+        "rationale"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "memberOf",
+            "decomposesInto",
+            "dependsOn",
+            "exposes",
+            "requires",
+            "interactsWith",
+            "allocates",
+            "performs",
+            "triggers",
+            "transitionsTo",
+            "observes",
+            "controls",
+            "constrainedBy",
+            "satisfies",
+            "realizes",
+            "derivedFrom",
+            "containedWithin"
+          ]
+        },
+        "sourceRef": {
+          "$ref": "#/$defs/identifier"
+        },
+        "targetRef": {
+          "$ref": "#/$defs/identifier"
+        },
+        "scopeRef": {
+          "$ref": "#/$defs/identifier"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "default": []
+        }
+      }
+    },
+    "operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "ownerRef",
+        "purpose",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ownerRef": {
+          "$ref": "#/$defs/identifier"
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "preconditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "postconditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "failureConditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        }
+      }
+    },
+    "stateVariable": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "subjectRef",
+        "name",
+        "meaning",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "subjectRef": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "meaning": {
+          "type": "string",
+          "minLength": 1
+        },
+        "valueType": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        }
+      }
+    },
+    "transition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "subjectRef",
+        "from",
+        "to",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "subjectRef": {
+          "$ref": "#/$defs/identifier"
+        },
+        "from": {
+          "type": "string",
+          "minLength": 1
+        },
+        "to": {
+          "type": "string",
+          "minLength": 1
+        },
+        "trigger": {
+          "type": "string"
+        },
+        "guard": {
+          "type": "string"
+        },
+        "effect": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "default": []
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "description",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "sourceDocument",
+            "sourceCode",
+            "testResult",
+            "toolOutput",
+            "measurement",
+            "observation",
+            "analysis",
+            "review",
+            "assumption"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceUri": {
+          "type": "string"
+        },
+        "revision": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "statement",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "scopeRef": {
+          "$ref": "#/$defs/identifier"
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "default": []
+        }
+      }
+    }
+  }
+}
