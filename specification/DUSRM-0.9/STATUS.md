@@ -11,7 +11,7 @@ Expand DUSRM's semantic validation and formal-methods pilots into distributed, c
 
 ## Included
 
-- Conservative relationship participant-signature checks in the semantic validator.
+- Conservative participant-signature checks for selected core relationship types, documented in [Relationship Signatures 0.9](../../formalization/RELATIONSHIP-SIGNATURES-0.9.md).
 - Regression tests for valid and invalid relationship endpoint combinations.
 - TLA+ model for distributed task arbitration under partition.
 - TLA+ model for FireBot emergency-stop precedence and manual/autonomous command arbitration.
