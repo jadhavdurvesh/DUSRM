@@ -1,24 +1,22 @@
 # Validation
 
-DUSRM must be evaluated against systems with different characteristics. Case studies should test whether the model can describe structure, behavior, state, resources, interfaces, constraints, failures, and lifecycle without forcing product-specific abstractions.
+This directory records how DUSRM descriptions are assessed and where the model needs refinement.
 
-## Current structural validation
+## DUSRM 0.6 — Validation and profiles
 
-See [DUSRM 0.3 Structural Validation Matrix](STRUCTURE-VALIDATION-MATRIX.md), which contains preliminary mappings for:
-- A small standalone application.
-- ANANTA, with unknown internal details explicitly marked.
-- FireBot, with planned capabilities distinguished from implemented and verified behavior.
+- [Validation method](0.6-METHOD.md)
+- [Evidence register](0.6-EVIDENCE-REGISTER.md)
+- [Case-study results](0.6-CASE-STUDY-RESULTS.md)
+- [Gaps and architecture decisions](0.6-GAPS-AND-DECISIONS.md)
+- [Reproducibility checklist](0.6-REPRODUCIBILITY-CHECKLIST.md)
+- [Consistency review for 0.5](DUSRM-0.5-CONSISTENCY-REVIEW.md)
 
-These mappings are exploratory and are not evidence of conformance or safety.
+## Case studies
 
-## General case-study method
+- [Standalone application mapping](../examples/standalone-application/DUSRM-0.6-MAPPING.md)
+- [ANANTA mapping](../examples/ananta/DUSRM-0.6-MAPPING.md)
+- [FireBot mapping](../examples/firebot/DUSRM-0.6-MAPPING.md)
 
-For each case study, record:
-- system of interest and boundary;
-- model mapping;
-- known, planned, inferred, unknown, and not-applicable claims;
-- unmapped concepts and ambiguities;
-- assumptions and evidence;
-- proposed changes to DUSRM.
+## Important limitation
 
-Do not infer unverified implementation details from project names or high-level descriptions.
+The 0.6 work is a repository-informed documentation exercise. ANANTA code/tests and FireBot simulation/tests were not executed as part of this DUSRM validation work. FireBot's physical hardware and live networking remain planned or unverified in the inspected sources. Do not describe these case studies as certification, safety validation, or proof of DUSRM universality.
