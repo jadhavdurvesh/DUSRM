@@ -1,7 +1,9 @@
 # DUSRM Profile — Database Engine (ANANTA)
 
 **Profile ID:** DUSRM-PROFILE-DBMS-0.1  
+**Profile version:** 0.1-draft  
 **Status:** Repository-informed mapping; non-normative  
+**Core compatibility:** Candidate for DUSRM 0.7-draft; not yet assessed  
 **SOI:** ANANTA native database engine and embedded data platform  
 **Primary source:** https://github.com/jadhavdurvesh/Ananta
 
