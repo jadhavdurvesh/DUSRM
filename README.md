@@ -2,29 +2,28 @@
 ## DMJ Universal Systems Reference Model
 
 **Status:** Research proposal — working draft  
-**Current specification:** 0.7-draft  
+**Current specification:** 0.8-draft  
 **Maturity:** Provisional reference framework; not normative or independently validated
 
 DUSRM is a proposed universal reference framework for describing, analyzing, designing, and evaluating computing and engineering systems. It is intended to provide a common conceptual foundation from which domain-specific reference models may be developed.
 
 DUSRM is a **reference model, not an implementation, API, protocol, runtime, operating system, modeling language, or mandatory software architecture**. It must remain implementation-neutral and useful independently of any particular vendor, programming language, platform, or DMJ technology.
 
-## Current milestone: DUSRM-0.7 — Conformance and Tooling Readiness
+## Current milestone: DUSRM-0.8 — Semantic Validation and Formal-Methods Integration
 
-The 0.7 draft introduces:
-- a provisional JSON Schema Draft 2020-12 shape for system descriptions;
-- profile compatibility policy and a provisional profile registry;
-- a consistency-check catalogue separating schema, semantic, profile, evidence, and human-review checks;
-- positive and negative conformance fixtures;
-- a small CI check for schema validity and fixture expectations;
-- a tooling-readiness plan and independent engineering review package.
+The 0.8 draft extends the 0.7 machine-readable description proposal with:
+- a semantic validator for identifiers, realization links, references, state domains, evidence, and profile registry compatibility;
+- a command-line validation tool and unit-test suite;
+- a TLA+ task-completion model with an explicit DUSRM mapping and declared assumptions;
+- CI that runs schema checks, semantic tests, CLI negative cases, and TLC model checking.
 
-The structural JSON Schema and fixture checks passed in [GitHub Actions run #5](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42648618733). The CI check does not implement semantic reference validation or establish profile compatibility, system conformance, safety, or correctness. The eight-layer model remains provisional.
+The complete [0.8 CI run #1](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42653412176) passed. Nine semantic tests passed, positive and negative CLI cases behaved as expected, and TLC checked the finite model with no error found. This is a bounded tooling result, not full DUSRM conformance, implementation verification, or system safety certification.
 
-See [DUSRM 0.7 status](specification/DUSRM-0.7/STATUS.md).
+See [DUSRM 0.8 status](specification/DUSRM-0.8/STATUS.md) and [validation results](validation/0.8-VALIDATION-RESULTS.md).
 
 ## Previous milestones
 
+- **0.7 — Conformance and tooling readiness:** description JSON Schema, profile compatibility policy, consistency checks, fixtures, review package. [Status](specification/DUSRM-0.7/STATUS.md)
 - **0.6 — Validation and domain profiles:** standalone application, ANANTA, and FireBot case studies, evidence register and validation method. [Status](specification/DUSRM-0.6/STATUS.md)
 - **0.5 — Formalization:** formal metamodel, responsibility allocation, consistency rules, invariants and traceability. [Status](specification/DUSRM-0.5/STATUS.md)
 - **0.4 — Operational semantics:** operations, executions, states, transitions, events, time, concurrency, failure and recovery. [Status](specification/DUSRM-0.4/STATUS.md)
@@ -57,13 +56,16 @@ These technologies remain independently specified. DUSRM may map their roles to 
 - **M4 — Formalization:** 0.5 working draft.
 - **M5 — Validation and profiles:** 0.6 working draft.
 - **M6 — Conformance and tooling readiness:** 0.7 proposal.
-- **Next:** independent review, semantic-validator prototype, and resolution of core model gaps.
+- **M7 — Semantic validation and formal-methods pilot:** 0.8 draft.
+- **Next:** broaden semantic rule coverage, review domain-profile compatibility, and model cyber-physical safety/failure properties.
 
 ## Repository map
 
 - `specification/` — versioned reference-model documents
 - `schema/` — machine-readable description schema proposal
-- `scripts/` — schema/fixture validation scripts
+- `scripts/` — schema and semantic validation tools
+- `tests/` — validator regression tests
+- `formal/` — external formal-methods pilots and mappings
 - `formalization/` — metamodel, allocation rules, invariants, proof obligations
 - `semantics/` — operational, temporal, concurrency, and failure semantics
 - `profiles/` — domain profiles and compatibility policy
@@ -79,4 +81,4 @@ These technologies remain independently specified. DUSRM may map their roles to 
 
 This repository is an open research draft. Proposed dimensions, layer definitions, schema, and formal rules are not normative. Changes should include rationale, prior-art consideration, affected concepts, and validation implications. See [CONTRIBUTING.md](CONTRIBUTING.md) and [GOVERNANCE.md](GOVERNANCE.md).
 
-No claim of formal standardization, external adoption, machine-checked verification, or independent validation is made.
+No claim of formal standardization, external adoption, complete semantic validation, or independent validation is made.
