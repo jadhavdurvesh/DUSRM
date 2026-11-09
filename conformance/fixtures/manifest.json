@@ -1,0 +1,56 @@
+{
+  "suiteId": "DUSRM-CONFORMANCE-FIXTURES-0.1-draft",
+  "dusrmVersion": "0.7-draft",
+  "schemaVersion": "0.1-draft",
+  "purpose": "Illustrative fixtures for structural schema and semantic conformance checks.",
+  "executionStatus": "not-run",
+  "fixtures": [
+    {
+      "id": "FX-POS-001",
+      "path": "valid-minimal.json",
+      "expected": "schema-pass",
+      "reason": "Minimal structurally valid DUSRM description."
+    },
+    {
+      "id": "FX-POS-002",
+      "path": "valid-multilayer-realization.json",
+      "expected": "schema-pass-and-semantic-pass",
+      "reason": "One component realizes responsibilities in multiple layers."
+    },
+    {
+      "id": "FX-NEG-001",
+      "path": "invalid-missing-boundary.json",
+      "expected": "schema-fail",
+      "reason": "Required context boundary is absent."
+    },
+    {
+      "id": "FX-NEG-002",
+      "path": "invalid-layer.json",
+      "expected": "schema-fail",
+      "reason": "Responsibility refers to a non-existent core layer."
+    },
+    {
+      "id": "FX-NEG-003",
+      "path": "invalid-duplicate-element-identifiers.json",
+      "expected": "semantic-fail",
+      "reason": "Semantic checker must detect duplicate IDs across the elements collection."
+    },
+    {
+      "id": "FX-NEG-004",
+      "path": "invalid-dangling-reference.json",
+      "expected": "semantic-fail",
+      "reason": "A realization points to an element that is not declared."
+    },
+    {
+      "id": "FX-NEG-005",
+      "path": "invalid-status-upgrade.json",
+      "expected": "schema-fail",
+      "reason": "Status value is outside the allowed DUSRM vocabulary."
+    }
+  ],
+  "notes": [
+    "Fixtures are authored but not run against a JSON Schema validator.",
+    "Semantic-fail fixtures may pass structural schema validation and must be rejected by a future semantic checker.",
+    "Fixture creation is not a conformance or certification result."
+  ]
+}
