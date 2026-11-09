@@ -2,6 +2,11 @@
 
 This directory records how DUSRM descriptions are assessed and where the model needs refinement.
 
+## DUSRM 0.9 — Advanced system-model validation
+
+- [0.9 validation results](0.9-VALIDATION-RESULTS.md)
+- [Formal model review checklist](0.9-FORMAL-MODEL-REVIEW.md)
+
 ## DUSRM 0.8 — Semantic and formal-methods validation
 
 - [Semantic validation method](0.8-SEMANTIC-VALIDATION.md)
@@ -16,12 +21,6 @@ This directory records how DUSRM descriptions are assessed and where the model n
 - [Reproducibility checklist](0.6-REPRODUCIBILITY-CHECKLIST.md)
 - [Consistency review for 0.5](DUSRM-0.5-CONSISTENCY-REVIEW.md)
 
-## Case studies
-
-- [Standalone application mapping](../examples/standalone-application/DUSRM-0.6-MAPPING.md)
-- [ANANTA mapping](../examples/ananta/DUSRM-0.6-MAPPING.md)
-- [FireBot mapping](../examples/firebot/DUSRM-0.6-MAPPING.md)
-
 ## Important limitation
 
-The 0.6 system case studies remain repository-informed documentation exercises. The 0.8 CI validates selected description semantics and a small formal behavior model; it does not execute ANANTA or FireBot application code, validate physical hardware, certify safety, or prove DUSRM universality.
+The 0.9 formal models are bounded abstractions. Their successful TLC results apply only to the modeled state spaces and assumptions; they do not verify real hardware, database durability, distributed consensus, or full DUSRM conformance.
