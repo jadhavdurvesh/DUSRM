@@ -1,5 +1,5 @@
 ---------------- MODULE AnantaWalRecovery ----------------
-EXTENDS FiniteSets
+EXTENDS FiniteSets, Naturals
 
 CONSTANTS Writers
 ASSUME Writers # {}
