@@ -130,7 +130,8 @@ TypeOK ==
     /\ recoveryNeeded \in BOOLEAN
 
 SingleWriter ==
-    Cardinality(writerOwners) <= 1
+    writerOwners = {}
+    \/ \E writer \in Writers : writerOwners = {writer}
 
 CommitRequiresDurableWal ==
     commitDurable => walDurable
