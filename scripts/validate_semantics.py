@@ -165,6 +165,31 @@ def validate_semantics(
                     "Responsibility has no realizing element; record this as planned, not applicable, or an explicit architecture gap.",
                 )
 
+    # Core relationship signatures are intentionally conservative. Types without
+    # a core signature are surfaced as warnings rather than guessed.
+    element_ids = set(element_by_id)
+    environment_ids = {
+        item.get("id") for item in environment if isinstance(item.get("id"), str)
+    }
+    soi_ids = {soi_id} if isinstance(soi_id, str) else set()
+    participant_kinds = {
+        **{identifier: "element" for identifier in element_ids},
+        **{identifier: "environment" for identifier in environment_ids},
+        **{identifier: "system" for identifier in soi_ids},
+    }
+    relationship_signatures: dict[str, tuple[set[str], set[str]]] = {
+        "decomposesInto": ({"element"}, {"element"}),
+        "memberOf": ({"element"}, {"element", "system"}),
+        "containedWithin": ({"element"}, {"element", "system"}),
+        "dependsOn": ({"element"}, {"element", "environment", "system"}),
+        "interactsWith": ({"element", "environment", "system"}, {"element", "environment", "system"}),
+        "observes": ({"element"}, {"element", "environment"}),
+        "controls": ({"element"}, {"element"}),
+        "allocates": ({"element"}, {"element"}),
+        "requires": ({"element"}, {"element", "environment", "system"}),
+        "exposes": ({"element"}, {"element", "environment"}),
+    }
+
     # Relationship endpoints may be model elements, external environment
     # participants, or the SOI itself. No implicit layer-order dependency is inferred.
     for index, relationship in enumerate(relationships):
@@ -182,6 +207,28 @@ def validate_semantics(
                 scope_ref, set(participant_ids), "DUSRM-M-007",
                 f"relationships[{index}].scopeRef", "Relationship scope",
             )
+        relationship_type = relationship.get("type")
+        signature = relationship_signatures.get(relationship_type)
+        if signature:
+            source_kind = participant_kinds.get(relationship.get("sourceRef"))
+            target_kind = participant_kinds.get(relationship.get("targetRef"))
+            allowed_sources, allowed_targets = signature
+            if source_kind is not None and source_kind not in allowed_sources:
+                add(
+                    "DUSRM-M-006", "error", f"relationships[{index}].sourceRef",
+                    f"Relationship type '{relationship_type}' does not allow source kind '{source_kind}'.",
+                )
+            if target_kind is not None and target_kind not in allowed_targets:
+                add(
+                    "DUSRM-M-006", "error", f"relationships[{index}].targetRef",
+                    f"Relationship type '{relationship_type}' does not allow target kind '{target_kind}'.",
+                )
+        else:
+            add(
+                "DUSRM-M-016", "warning", f"relationships[{index}].type",
+                f"Core participant signature for relationship type '{relationship_type}' is not defined yet; a profile or future core revision must define it.",
+            )
+
         if relationship.get("status") in PROMOTED_STATUSES:
             endpoints = [
                 element_by_id.get(relationship.get("sourceRef")),
