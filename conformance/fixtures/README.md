@@ -17,7 +17,7 @@
 
 The GitHub Actions workflow `.github/workflows/dusrm-schema-validation.yml` runs `scripts/validate_schema_fixtures.py` on relevant pushes and pull requests.
 
-The script checks schema syntax and structure and confirms the expected structural acceptance/rejection behavior. The duplicate-ID and dangling-reference fixtures deliberately pass JSON Schema because those conditions require semantic checks.
+The script checks schema syntax and structure and confirms the expected structural acceptance/rejection behavior. GitHub Actions run [#5](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42648618733) passed these checks on 2026-11-09. The duplicate-ID and dangling-reference fixtures deliberately pass JSON Schema because those conditions require semantic checks.
 
 ## Important note
 
