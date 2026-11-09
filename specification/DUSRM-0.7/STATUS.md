@@ -20,9 +20,9 @@ Prepare DUSRM for independent technical review and future tooling by defining a 
 
 ## Important status limitations
 
-- The JSON Schema is a proposal and has not yet been run through an independent JSON Schema implementation.
-- The semantic checker does not exist.
-- The conformance fixtures have not been executed.
+- A GitHub Actions check has been added to run the JSON Schema and fixture script using the Python `jsonschema` implementation; the workflow result must be inspected before claiming a pass.
+- The semantic checker does not exist; cross-reference and profile-compatibility checks remain future work.
+- The schema fixture suite is configured in CI; semantic-only negative fixtures remain pending a semantic validator.
 - Profile compatibility has not been externally reviewed.
 - No independent reviewer has yet assessed the model.
 - No system is certified or declared formally conformant.
