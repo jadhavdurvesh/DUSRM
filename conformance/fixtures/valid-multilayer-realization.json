@@ -5,18 +5,13 @@
   "title": "Multi-layer Component Example",
   "summary": "Shows one software component realizing responsibilities in multiple layers.",
   "status": "proposed",
-  "profileRefs": [
-    {
-      "profileId": "DUSRM-PROFILE-SWAPP",
-      "version": "0.1-draft"
-    }
-  ],
+  "profileRefs": [],
   "context": {
     "systemOfInterest": {
       "id": "task-app",
       "name": "Task Application",
       "purpose": "Organize a user's tasks",
-      "status": "hypothetical"
+      "status": "proposed"
     },
     "purpose": "Describe the architecture of a local task application.",
     "scope": "Single-user application running on one computer.",
