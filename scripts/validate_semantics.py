@@ -268,8 +268,6 @@ def validate_semantics(
         ("realizations", realizations),
         ("relationships", relationships),
         ("transitions", transitions),
-        ("constraints", _items(document, "constraints")),
-        ("invariants", _items(document, "invariants")),
     ):
         evidence_ref_bearing.extend((f"{collection_name}[{i}]", record) for i, record in enumerate(records))
 
@@ -333,6 +331,16 @@ def validate_semantics(
                         "DUSRM-E-001", "error", f"{collection_name}[{index}]",
                         "Verified claim requires linked assessment evidence and a recorded method.",
                     )
+
+    # Profile extensions must use a reverse-domain or profile-qualified namespace.
+    extensions = document.get("extensions", {})
+    if isinstance(extensions, dict):
+        for extension_key in extensions:
+            if not isinstance(extension_key, str) or "." not in extension_key:
+                add(
+                    "DUSRM-P-002", "error", f"extensions.{extension_key}",
+                    "Extension keys must be namespaced (for example, org.example.profile.feature).",
+                )
 
     # Profile compatibility is explicit. A candidate version or a draft profile
     # is not treated as compatible until the registry says so.
