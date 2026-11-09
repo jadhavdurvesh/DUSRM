@@ -19,6 +19,23 @@ Expand DUSRM's semantic validation and formal-methods pilots into distributed, c
 - Mapping documents stating assumptions and explicitly excluding unsupported guarantees.
 - CI execution of schema, semantic tests, CLI examples, and all formal models.
 
+## Validation result
+
+The 0.9 workflow [run #5](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42657746055) passed on 2026-11-09:
+- JSON Schema fixture checks passed.
+- 12 semantic validator tests passed.
+- Two positive semantic CLI descriptions were accepted with no findings.
+- Two semantic-negative CLI descriptions were rejected as expected.
+- All four TLC models completed without errors.
+
+TLC state-space results:
+- TaskCompletion: 4 generated / 2 distinct states.
+- DistributedTaskArbitration: 5,953 generated / 1,152 distinct states.
+- FireBotEmergencyStop: 13 generated / 6 distinct states.
+- AnantaWalRecovery: 41 generated / 17 distinct states.
+
+See [0.9 validation results](../../validation/0.9-VALIDATION-RESULTS.md).
+
 ## Modeling boundaries
 
 The distributed model assumes one abstract coordinator and does not prove consensus or Byzantine safety. The FireBot model is a logical controller abstraction, not an electrical safety design. The ANANTA model abstracts durable WAL/commit records and does not prove filesystem or device-level durability.
