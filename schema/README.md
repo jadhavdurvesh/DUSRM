@@ -12,9 +12,9 @@ The schema validates document shape and basic field types. It does not establish
 
 ## Files
 
-- Description schema: dusrm-description-0.1.schema.json
-- Valid minimal example: conformance/fixtures/valid-minimal.json
-- Valid multi-layer realization example: conformance/fixtures/valid-multilayer-realization.json
+- [Description schema](dusrm-description-0.1.schema.json)
+- [Valid minimal example](../conformance/fixtures/valid-minimal.json)
+- [Valid multi-layer realization example](../conformance/fixtures/valid-multilayer-realization.json)
 
 ## Compatibility and status
 
@@ -23,10 +23,10 @@ The schema validates document shape and basic field types. It does not establish
 - DUSRM model version: 0.7-draft.
 - Breaking schema changes require a new schema version and migration notes.
 - Additive fields may still require a schema revision if consumers use strict validation.
-- The schema has not yet been run through an independent JSON Schema implementation.
+- A GitHub Actions workflow now checks the schema and fixture expectations with `jsonschema`.
 
 ## Validation boundary
 
-Structural JSON Schema validation is only the first stage. Cross-reference, uniqueness, profile compatibility, relationship signatures, layer allocation, evidence status, and proof-obligation checks are defined in the conformance catalogue.
+Structural JSON Schema validation is only the first stage. Cross-reference, uniqueness, profile compatibility, relationship signatures, layer allocation, evidence status, and proof-obligation checks are defined in the conformance catalogue and remain outside the current script.
 
 The schema does not define a wire protocol, API, runtime, database format, or mandatory implementation technology.
