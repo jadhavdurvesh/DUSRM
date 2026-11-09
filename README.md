@@ -2,21 +2,36 @@
 ## DMJ Universal Systems Reference Model
 
 **Status:** Research proposal — working draft  
-**Current specification:** 0.2-draft  
+**Current specification:** 0.3-draft  
 **Maturity:** Conceptual; not yet validated or normative
 
 DUSRM is a proposed universal reference framework for describing, analyzing, designing, and evaluating computing and engineering systems. It is intended to provide a common conceptual foundation from which domain-specific reference models may be developed.
 
 DUSRM is a **reference model, not an implementation, API, protocol, runtime, operating system, modeling language, or mandatory software architecture**. It must remain implementation-neutral and useful independently of any particular vendor, programming language, platform, or DMJ technology.
 
-## Current milestone: DUSRM-0.2 — Foundational Ontology
+## Current milestone: DUSRM-0.3 — Structural Architecture
 
-The 0.2 working draft introduces:
+The 0.3 working draft compares strict layering, multiple viewpoints, graph/ontology, hierarchical decomposition, and hybrid approaches. Its current recommendation is a hybrid reference structure with:
+- a system context frame;
+- eight responsibility layers;
+- a typed relationship graph;
+- cross-cutting concerns;
+- multiple viewpoints.
+
+The proposed layers are: Physical & Infrastructure Foundation; Resource & Abstraction; Execution & Control; Information & State; Computation & Transformation; Interaction & Coordination; Capabilities & Services; Application & Mission Outcomes.
+
+These are candidate responsibility groupings, not finalized normative layers. They do not map one-to-one to software modules, devices, teams, APIs, protocols, or deployment units.
+
+See [DUSRM 0.3 status](specification/DUSRM-0.3/STATUS.md).
+
+## Previous milestone: DUSRM-0.2 — Foundational Ontology
+
+The 0.2 working draft introduced:
 - A separation between the reference-model vocabulary, the system of interest, and the description representing that system.
 - A first system ontology and controlled glossary.
 - A proposed catalogue of typed relationships.
 - An informal notation for discussion and examples.
-- A prior-art scope review covering OSI, ISO/IEC/IEEE 15288, ISO/IEC/IEEE 42010, and OMG SysML v2.
+- A prior-art scope review.
 
 See [DUSRM 0.2 status](specification/DUSRM-0.2/STATUS.md).
 
@@ -35,28 +50,13 @@ DUSRM does not:
 - Replace OSI, TCP/IP, programming language runtimes, operating-system architectures, or domain-specific standards.
 - Specify a new API, wire protocol, serialization format, database engine, or transport.
 - Replace system life-cycle process standards, architecture-description standards, or general-purpose systems modeling languages.
-- Require every system to use the same number of layers.
+- Require every implementation to contain eight deployed modules or eight physical components.
 - Prescribe a particular implementation technology.
 - Claim novelty merely by renaming established concepts.
 
 ## Current conceptual dimensions
 
-The following are **research dimensions**, not finalized layers or a normative ordering:
-
-| ID | Dimension | Research scope |
-|---|---|---|
-| D01 | Existence and Identity | What entities exist, how they are identified, and what makes a system distinguishable |
-| D02 | Structure and Composition | How entities are organized, composed, and bounded |
-| D03 | State and Change | State representation, ownership, transitions, and observability |
-| D04 | Computation | Operations, transformations, dependencies, and computational meaning |
-| D05 | Execution | Progress, scheduling, concurrency, interruption, and termination |
-| D06 | Resources and Capabilities | Resource requirements, allocation, ownership, contention, and release |
-| D07 | Interaction | Interfaces, exchanges, dependencies, and effects across boundaries |
-| D08 | Coordination | Cooperation among components and independent systems |
-| D09 | Governance and Assurance | Authority, constraints, invariants, policy, verification, and safety obligations |
-| D10 | Evolution and Lifecycle | Initialization, configuration, adaptation, recovery, upgrade, and retirement |
-
-These dimensions remain hypotheses. Research must determine whether they are orthogonal, hierarchical, cross-cutting, or best represented through another structure. Do not present them as OSI-like layers until this is justified.
+The ten dimensions introduced in 0.1 remain research concepts. They are not automatically equivalent to the eight candidate layers. Their mapping must be documented and reviewed before the ontology or architecture is stabilized.
 
 ## Relationship to DMJ technologies
 
@@ -66,10 +66,10 @@ These technologies remain independently specified. DUSRM may map their roles to 
 
 ## Development roadmap
 
-- **M0 — Research and prior art:** survey established systems theories, reference models, systems engineering frameworks, formal methods, and domain standards.
-- **M1 — Ontology:** refine definitions, entity types, relationships, boundaries, and assumptions. Current work is draft 0.2.
-- **M2 — Structural model:** evaluate candidate structures (layered, dimensional, graph, or hybrid) and justify the choice.
-- **M3 — Semantics:** define state, operation, transition, interaction, time, and failure semantics.
+- **M0 — Research and prior art:** initial survey recorded; further research remains open.
+- **M1 — Ontology:** DUSRM 0.2 working draft.
+- **M2 — Structural model:** DUSRM 0.3 candidate hybrid structure; validation ongoing.
+- **M3 — Semantics:** define state, operation, transition, interaction, time, concurrency, and failure semantics.
 - **M4 — Formalization:** define invariants, constraints, notation, and traceability.
 - **M5 — Validation:** apply the model to independent case studies, including ANANTA and FireBot, and revise based on gaps.
 - **M6 — Conformance and publication:** publish stable specifications, examples, review records, and conformance guidance.
