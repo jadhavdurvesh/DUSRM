@@ -3,7 +3,7 @@
   "dusrmVersion": "0.7-draft",
   "schemaVersion": "0.1-draft",
   "purpose": "Illustrative fixtures for structural schema and semantic conformance checks.",
-  "executionStatus": "not-run",
+  "executionStatus": "schema-validation-pending",
   "fixtures": [
     {
       "id": "FX-POS-001",
@@ -49,8 +49,9 @@
     }
   ],
   "notes": [
-    "Fixtures are authored but not run against a JSON Schema validator.",
-    "Semantic-fail fixtures may pass structural schema validation and must be rejected by a future semantic checker.",
-    "Fixture creation is not a conformance or certification result."
-  ]
+    "Schema and fixture checks are specified in scripts/validate_schema_fixtures.py and the GitHub Actions workflow.",
+    "Semantic-only negative fixtures are expected to pass JSON Schema and are reserved for a future semantic validator.",
+    "No conformance or certification claim follows from fixture creation or schema validation."
+  ],
+  "semanticValidationStatus": "not-implemented"
 }
