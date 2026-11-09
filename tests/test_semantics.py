@@ -82,6 +82,46 @@ class SemanticValidatorTests(unittest.TestCase):
         document["extensions"] = {"unqualified": {"feature": True}}
         self.assertIn("DUSRM-P-002", self.codes(document))
 
+    def test_interacts_with_allows_external_environment_participant(self):
+        document = load_fixture("valid-minimal.json")
+        document["relationships"].append({
+            "id": "REL-USER",
+            "type": "interactsWith",
+            "sourceRef": "task-ui",
+            "targetRef": "user",
+            "status": "proposed",
+            "rationale": "The task interface interacts with the external user."
+        })
+        self.assertNotIn("DUSRM-M-006", self.codes(document))
+        self.assertNotIn("DUSRM-M-002", self.codes(document))
+
+    def test_controls_rejects_environment_as_target(self):
+        document = load_fixture("valid-minimal.json")
+        document["relationships"].append({
+            "id": "REL-INVALID-CONTROL",
+            "type": "controls",
+            "sourceRef": "task-ui",
+            "targetRef": "user",
+            "status": "proposed",
+            "rationale": "This invalid example treats the external user as a controlled element."
+        })
+        self.assertIn("DUSRM-M-006", self.codes(document))
+
+    def test_unsupported_relationship_signature_is_warning(self):
+        document = load_fixture("valid-minimal.json")
+        document["relationships"].append({
+            "id": "REL-UNSPECIFIED",
+            "type": "performs",
+            "sourceRef": "app-process",
+            "targetRef": "task-ui",
+            "status": "proposed",
+            "rationale": "The current core draft has not assigned a participant signature to performs."
+        })
+        findings = validate_semantics(document, REGISTRY)
+        self.assertIn("DUSRM-M-016", {f.code for f in findings})
+        self.assertEqual([f for f in findings if f.code == "DUSRM-M-016"][0].severity, "warning")
+
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
