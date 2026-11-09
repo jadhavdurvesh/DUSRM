@@ -1,0 +1,32 @@
+{
+  "registryVersion": "0.1-draft",
+  "coreVersion": "0.7-draft",
+  "status": "provisional",
+  "profiles": [
+    {
+      "profileId": "DUSRM-PROFILE-SWAPP-0.1",
+      "profileVersion": "0.1-draft",
+      "status": "draft",
+      "candidateCoreVersion": "0.7-draft",
+      "compatibilityStatus": "not-assessed"
+    },
+    {
+      "profileId": "DUSRM-PROFILE-DBMS-0.1",
+      "profileVersion": "0.1-draft",
+      "status": "draft",
+      "candidateCoreVersion": "0.7-draft",
+      "compatibilityStatus": "not-assessed"
+    },
+    {
+      "profileId": "DUSRM-PROFILE-CPS-ROBOT-0.1",
+      "profileVersion": "0.1-draft",
+      "status": "draft",
+      "candidateCoreVersion": "0.7-draft",
+      "compatibilityStatus": "not-assessed"
+    }
+  ],
+  "notes": [
+    "Candidate core version is not a compatibility approval.",
+    "Profiles must be reviewed against the core before a description can claim profile conformance."
+  ]
+}
