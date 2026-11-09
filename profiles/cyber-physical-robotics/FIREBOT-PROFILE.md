@@ -1,7 +1,9 @@
 # DUSRM Profile — Cyber-Physical Robotics (FireBot)
 
 **Profile ID:** DUSRM-PROFILE-CPS-ROBOT-0.1  
+**Profile version:** 0.1-draft  
 **Status:** Repository-informed mapping; non-normative  
+**Core compatibility:** Candidate for DUSRM 0.7-draft; not yet assessed  
 **SOI:** FireBot integrated firefighting and human-rescue robot system  
 **Primary source:** https://github.com/jadhavdurvesh/firebot-core
 
