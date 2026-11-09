@@ -1,8 +1,12 @@
-# TLA+ Pilot — Task Completion
+# TLA+ Formal-Methods Pilots
 
-Files:
-- `TaskCompletion.tla` — finite state-transition specification.
-- `TaskCompletion.cfg` — TLC invariants and temporal property.
-- `MAPPING.md` — traceability to DUSRM concepts and assumptions.
+## Models
 
-The CI workflow downloads TLA+ tools v1.7.4 and runs TLC. The tool is not vendored in the repository.
+- [TaskCompletion](TaskCompletion.tla)
+- [DistributedTaskArbitration](DistributedTaskArbitration.tla)
+- [FireBotEmergencyStop](FireBotEmergencyStop.tla)
+- [AnantaWalRecovery](AnantaWalRecovery.tla)
+
+Each model has a dedicated TLC configuration file. See [domain-model mapping](DOMAIN-MODELS-0.9.md) for DUSRM traceability, assumptions and limitations.
+
+All models are finite abstractions. Model-checking results do not establish implementation correctness or system safety.
