@@ -69,7 +69,9 @@ TypeOK ==
     /\ coordinatorAvailable \in BOOLEAN
 
 AtMostOneAuthoritativeOwner ==
-    \A task \in Tasks : Cardinality(AssignedOwners(task)) <= 1
+    \A task \in Tasks :
+        AssignedOwners(task) = {}
+        \/ \E owner \in Robots : AssignedOwners(task) = {owner}
 
 AcceptedAssignmentHasKnownOwner ==
     \A pair \in assignments : pair[1] \in Robots /\ pair[2] \in Tasks
