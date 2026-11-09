@@ -21,7 +21,7 @@ Expand DUSRM's semantic validation and formal-methods pilots into distributed, c
 
 ## Validation result
 
-The 0.9 workflow [run #5](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42657746055) passed on 2026-11-09:
+The 0.9 workflow [run #6](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42657987718) passed on 2026-11-09:
 - JSON Schema fixture checks passed.
 - 12 semantic validator tests passed.
 - Two positive semantic CLI descriptions were accepted with no findings.
