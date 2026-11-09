@@ -5,18 +5,13 @@
   "title": "Standalone Task Application",
   "summary": "Illustrative single-user local task application.",
   "status": "proposed",
-  "profileRefs": [
-    {
-      "profileId": "DUSRM-PROFILE-SWAPP",
-      "version": "0.1-draft"
-    }
-  ],
+  "profileRefs": [],
   "context": {
     "systemOfInterest": {
       "id": "task-app",
       "name": "Task Application",
       "purpose": "Organize a user's tasks",
-      "status": "hypothetical"
+      "status": "proposed"
     },
     "purpose": "Describe the architecture of a local task application.",
     "scope": "Single-user application running on one computer.",
@@ -161,7 +156,11 @@
       "name": "taskStatus",
       "meaning": "Lifecycle status of a task.",
       "valueType": "enum",
-      "status": "proposed"
+      "status": "proposed",
+      "allowedValues": [
+        "active",
+        "completed"
+      ]
     }
   ],
   "transitions": [
