@@ -14,18 +14,20 @@ Boundary: application executable, UI, task logic, and in-process state. Host OS,
 
 | ID | Responsibility | Primary layer | Example realization |
 |---|---|---|---|
-| R-01 | Display and input presentation | L7 | Task-list UI capability |
-| R-02 | User task-management workflow | L8 | Create/complete task outcome |
-| R-03 | Validate task operation | L5 | Task rules |
-| R-04 | Update task state | L4 | Task state store |
-| R-05 | Dispatch UI events and operation execution | L3 | Application event loop |
-| R-06 | Expose internal UI/model interface | L6 | In-process interface |
+| R-01 | User interaction through the application interface | L6 | UI events, input and presentation boundary |
+| R-02 | Task-management capability | L7 | Create, edit, complete, delete and search tasks |
+| R-03 | User task-organization outcome | L8 | Help the user organize and track tasks |
+| R-04 | Validate task operation and derive task results | L5 | Task rules, filtering and derived counts |
+| R-05 | Maintain task information and state | L4 | Task identity, fields and completion state |
+| R-06 | Dispatch and execute application operations | L3 | Application event loop and operation lifecycle |
 | R-07 | Manage local memory and file resource use | L2 | Host/application resource management |
 | R-08 | Use host display, CPU, filesystem and storage | L1 | External host platform |
 
 ## 3. Element realization
 
-The same application process may realize R-03, R-04, R-05, and R-06. DUSRM records those responsibilities separately rather than assigning the process to a single layer.
+The same application process may realize responsibilities in L3, L4, L5, and L6. DUSRM records those responsibilities separately rather than assigning the process to a single layer.
+
+The user is an external actor in this SOI boundary. The host OS and physical computer are external infrastructure elements. They may still appear in the environment and deployment viewpoints and may be linked to application responsibilities by explicit relationships.
 
 ## 4. Operation and state
 
@@ -62,9 +64,9 @@ Result:
 
 ## 6. Cross-layer relations
 
-- L8 outcome depends on L7 task-management capability.
-- L7 capability interacts through L6 UI/internal interfaces.
-- L6 requests trigger L3 execution.
+- L8 outcome is supported by the L7 task-management capability.
+- L7 capability is accessed through L6 UI interaction.
+- L6 interaction triggers L3 execution.
 - L3 execution invokes L5 task validation/computation.
 - L5 operation reads and changes L4 task state.
 - L3/L4 activities consume L2 resources.
