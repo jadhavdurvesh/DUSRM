@@ -1,6 +1,8 @@
 # DUSRM Formalization
 
-This directory contains the 0.5 formalization draft.
+This directory contains formalization material from the 0.5 draft and later refinements.
+
+## Core formalization
 
 - [Formal metamodel](../specification/DUSRM-0.5/FORMAL-METAMODEL.md)
 - [Responsibility allocation and consistency rules](ALLOCATION-AND-CONSISTENCY-RULES.md)
@@ -10,4 +12,8 @@ This directory contains the 0.5 formalization draft.
 - [Domain profile template](DOMAIN-PROFILE-TEMPLATE.md)
 - [Consistency review](../validation/DUSRM-0.5-CONSISTENCY-REVIEW.md)
 
-All rules remain drafts. They are not yet a machine-checked metamodel or normative conformance standard.
+## DUSRM 0.9 refinement
+
+- [Core relationship participant signatures](RELATIONSHIP-SIGNATURES-0.9.md)
+
+All rules remain drafts. They are not a normative conformance standard or a complete machine-checked metamodel.
