@@ -584,6 +584,9 @@
             "$ref": "#/$defs/identifier"
           },
           "default": []
+        },
+        "stateVariableRef": {
+          "$ref": "#/$defs/identifier"
         }
       }
     },
