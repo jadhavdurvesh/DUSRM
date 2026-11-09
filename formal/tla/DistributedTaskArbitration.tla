@@ -1,5 +1,5 @@
 ---------------- MODULE DistributedTaskArbitration ----------------
-EXTENDS FiniteSets
+EXTENDS FiniteSets, Naturals
 
 CONSTANTS Robots, Tasks
 ASSUME /\ Robots # {}
