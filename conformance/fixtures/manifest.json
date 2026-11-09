@@ -3,7 +3,7 @@
   "dusrmVersion": "0.7-draft",
   "schemaVersion": "0.1-draft",
   "purpose": "Illustrative fixtures for structural schema and semantic conformance checks.",
-  "executionStatus": "schema-validation-pending",
+  "executionStatus": "schema-validation-passed",
   "fixtures": [
     {
       "id": "FX-POS-001",
@@ -14,7 +14,7 @@
     {
       "id": "FX-POS-002",
       "path": "valid-multilayer-realization.json",
-      "expected": "schema-pass-and-semantic-pass",
+      "expected": "schema-pass",
       "reason": "One component realizes responsibilities in multiple layers."
     },
     {
@@ -32,13 +32,13 @@
     {
       "id": "FX-NEG-003",
       "path": "invalid-duplicate-element-identifiers.json",
-      "expected": "semantic-fail",
+      "expected": "schema-pass; semantic-failure-pending",
       "reason": "Semantic checker must detect duplicate IDs across the elements collection."
     },
     {
       "id": "FX-NEG-004",
       "path": "invalid-dangling-reference.json",
-      "expected": "semantic-fail",
+      "expected": "schema-pass; semantic-failure-pending",
       "reason": "A realization points to an element that is not declared."
     },
     {
@@ -49,9 +49,19 @@
     }
   ],
   "notes": [
-    "Schema and fixture checks are specified in scripts/validate_schema_fixtures.py and the GitHub Actions workflow.",
-    "Semantic-only negative fixtures are expected to pass JSON Schema and are reserved for a future semantic validator.",
-    "No conformance or certification claim follows from fixture creation or schema validation."
+    "Schema and fixture structural checks passed in GitHub Actions run #5.",
+    "Duplicate-ID and dangling-reference fixtures deliberately pass JSON Schema and are reserved for a future semantic validator.",
+    "No full conformance, safety, or certification claim follows from this structural schema run."
   ],
-  "semanticValidationStatus": "not-implemented"
+  "semanticValidationStatus": "not-implemented",
+  "lastSchemaRun": {
+    "provider": "GitHub Actions",
+    "workflow": "DUSRM schema validation",
+    "runNumber": 5,
+    "runId": 42648618733,
+    "conclusion": "success",
+    "headSha": "eff08762883736bc32861eb6d545a82d09153778",
+    "url": "https://github.com/jadhavdurvesh/DUSRM/actions/runs/42648618733",
+    "date": "2026-11-09"
+  }
 }
