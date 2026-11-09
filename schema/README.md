@@ -23,7 +23,7 @@ The schema validates document shape and basic field types. It does not establish
 - DUSRM model version: 0.7-draft.
 - Breaking schema changes require a new schema version and migration notes.
 - Additive fields may still require a schema revision if consumers use strict validation.
-- A GitHub Actions workflow now checks the schema and fixture expectations with `jsonschema`.
+- GitHub Actions run [#5](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42648618733) passed the schema and structural fixture checks with `jsonschema` 4.26.0 on 2026-11-09.
 
 ## Validation boundary
 
