@@ -2,36 +2,37 @@
 ## DMJ Universal Systems Reference Model
 
 **Status:** Research proposal — working draft  
-**Current specification:** 0.3-draft  
+**Current specification:** 0.4-draft  
 **Maturity:** Conceptual; not yet validated or normative
 
 DUSRM is a proposed universal reference framework for describing, analyzing, designing, and evaluating computing and engineering systems. It is intended to provide a common conceptual foundation from which domain-specific reference models may be developed.
 
 DUSRM is a **reference model, not an implementation, API, protocol, runtime, operating system, modeling language, or mandatory software architecture**. It must remain implementation-neutral and useful independently of any particular vendor, programming language, platform, or DMJ technology.
 
-## Current milestone: DUSRM-0.3 — Structural Architecture
+## Current milestone: DUSRM-0.4 — Operational Semantics
 
-The 0.3 working draft compares strict layering, multiple viewpoints, graph/ontology, hierarchical decomposition, and hybrid approaches. Its current recommendation is a hybrid reference structure with:
-- a system context frame;
-- eight responsibility layers;
-- a typed relationship graph;
-- cross-cutting concerns;
-- multiple viewpoints.
+The 0.4 working draft defines how a system's behavior can be described over time. It introduces:
+- operation specifications and execution occurrences;
+- abstract execution lifecycle states;
+- configurations and a transition-system kernel;
+- safety and progress properties;
+- event occurrence, observation, processing time, and clock domains;
+- concurrency, causality, synchronization, and partial failure;
+- failure, degradation, and recovery semantics;
+- cross-layer operational rules and feedback;
+- exploratory operational mappings for ANANTA and FireBot.
 
-The proposed layers are: Physical & Infrastructure Foundation; Resource & Abstraction; Execution & Control; Information & State; Computation & Transformation; Interaction & Coordination; Capabilities & Services; Application & Mission Outcomes.
+See [DUSRM 0.4 status](specification/DUSRM-0.4/STATUS.md).
 
-These are candidate responsibility groupings, not finalized normative layers. They do not map one-to-one to software modules, devices, teams, APIs, protocols, or deployment units.
+## Previous milestone: DUSRM-0.3 — Structural Architecture
+
+The 0.3 draft compares strict layering, multiple viewpoints, graph/ontology, hierarchy, and hybrid approaches. Its current candidate is a hybrid structure with a context frame, eight responsibility layers, a typed relationship graph, cross-cutting concerns, and viewpoints.
 
 See [DUSRM 0.3 status](specification/DUSRM-0.3/STATUS.md).
 
 ## Previous milestone: DUSRM-0.2 — Foundational Ontology
 
-The 0.2 working draft introduced:
-- A separation between the reference-model vocabulary, the system of interest, and the description representing that system.
-- A first system ontology and controlled glossary.
-- A proposed catalogue of typed relationships.
-- An informal notation for discussion and examples.
-- A prior-art scope review.
+The 0.2 draft introduced a distinction between the reference-model vocabulary, the system of interest, and the description representing that system; a first ontology, relationship catalogue, glossary, and informal notation.
 
 See [DUSRM 0.2 status](specification/DUSRM-0.2/STATUS.md).
 
@@ -69,14 +70,15 @@ These technologies remain independently specified. DUSRM may map their roles to 
 - **M0 — Research and prior art:** initial survey recorded; further research remains open.
 - **M1 — Ontology:** DUSRM 0.2 working draft.
 - **M2 — Structural model:** DUSRM 0.3 candidate hybrid structure; validation ongoing.
-- **M3 — Semantics:** define state, operation, transition, interaction, time, concurrency, and failure semantics.
-- **M4 — Formalization:** define invariants, constraints, notation, and traceability.
+- **M3 — Operational semantics:** DUSRM 0.4 working draft.
+- **M4 — Formalization:** refine semantics, invariants, constraints, proof obligations, and traceability.
 - **M5 — Validation:** apply the model to independent case studies, including ANANTA and FireBot, and revise based on gaps.
 - **M6 — Conformance and publication:** publish stable specifications, examples, review records, and conformance guidance.
 
 ## Repository map
 
 - `specification/` — versioned normative and informative documents
+- `semantics/` — operational, temporal, concurrency, and failure semantics
 - `terminology/` — controlled vocabulary and definitions
 - `ontology/` — entities and relationships
 - `architecture/` — candidate structures and diagrams
