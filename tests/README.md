@@ -1,6 +1,6 @@
 # DUSRM Tests
 
-- `test_semantics.py` — semantic validator unit and regression tests.
+- `test_semantics.py` — semantic validator unit and regression tests, including relationship signatures.
 - `../scripts/validate_schema_fixtures.py` — JSON Schema and structural fixture expectations.
 
 Run:
@@ -10,4 +10,4 @@ python scripts/validate_schema_fixtures.py
 python -m unittest discover -s tests -v
 ```
 
-The CI workflow additionally runs the CLI against expected semantic-negative fixtures and TLC against the formal task-completion model.
+The DUSRM 0.8 and 0.9 workflows additionally run CLI checks and TLA+ models through TLC.
