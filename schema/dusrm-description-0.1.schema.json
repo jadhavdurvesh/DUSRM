@@ -531,6 +531,13 @@
         },
         "status": {
           "$ref": "#/$defs/status"
+        },
+        "allowedValues": {
+          "type": "array",
+          "description": "Optional finite value domain. A semantic checker may use this to validate transition endpoints.",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
