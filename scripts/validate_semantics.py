@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""DUSRM semantic consistency validator (0.8 draft).
+"""DUSRM semantic consistency validator (0.9 draft).
 
 The validator checks selected cross-reference, allocation, transition,
 profile-registry, and evidence rules. It is not a safety certifier and does
