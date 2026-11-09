@@ -2,37 +2,41 @@
 ## DMJ Universal Systems Reference Model
 
 **Status:** Research proposal — working draft  
-**Current specification:** 0.4-draft  
+**Current specification:** 0.5-draft  
 **Maturity:** Conceptual; not yet validated or normative
 
 DUSRM is a proposed universal reference framework for describing, analyzing, designing, and evaluating computing and engineering systems. It is intended to provide a common conceptual foundation from which domain-specific reference models may be developed.
 
 DUSRM is a **reference model, not an implementation, API, protocol, runtime, operating system, modeling language, or mandatory software architecture**. It must remain implementation-neutral and useful independently of any particular vendor, programming language, platform, or DMJ technology.
 
-## Current milestone: DUSRM-0.4 — Operational Semantics
+## Current milestone: DUSRM-0.5 — Formalization
 
-The 0.4 working draft defines how a system's behavior can be described over time. It introduces:
-- operation specifications and execution occurrences;
-- abstract execution lifecycle states;
-- configurations and a transition-system kernel;
-- safety and progress properties;
-- event occurrence, observation, processing time, and clock domains;
-- concurrency, causality, synchronization, and partial failure;
-- failure, degradation, and recovery semantics;
-- cross-layer operational rules and feedback;
-- exploratory operational mappings for ANANTA and FireBot.
+The 0.5 working draft introduces:
+- a compact formal metamodel linking elements, responsibilities, layers, relationships, states, operations, executions, configurations, transitions, and claims;
+- responsibility-based layer allocation, allowing one element to realize responsibilities across multiple layers;
+- structural well-formedness and consistency rules;
+- invariant and proof-obligation templates;
+- traceability and staged conformance foundations;
+- a reusable domain-profile template;
+- a consistency review of ambiguities found in previous drafts.
+
+See [DUSRM 0.5 status](specification/DUSRM-0.5/STATUS.md).
+
+## Previous milestone: DUSRM-0.4 — Operational Semantics
+
+The 0.4 working draft defines how a system's behavior can be described over time, including operation specifications, execution occurrences, state transitions, time, concurrency, failure, recovery, and cross-layer behavior.
 
 See [DUSRM 0.4 status](specification/DUSRM-0.4/STATUS.md).
 
 ## Previous milestone: DUSRM-0.3 — Structural Architecture
 
-The 0.3 draft compares strict layering, multiple viewpoints, graph/ontology, hierarchy, and hybrid approaches. Its current candidate is a hybrid structure with a context frame, eight responsibility layers, a typed relationship graph, cross-cutting concerns, and viewpoints.
+The 0.3 draft proposes a hybrid structure with a context frame, eight responsibility layers, a typed relationship graph, cross-cutting concerns, and multiple viewpoints.
 
 See [DUSRM 0.3 status](specification/DUSRM-0.3/STATUS.md).
 
 ## Previous milestone: DUSRM-0.2 — Foundational Ontology
 
-The 0.2 draft introduced a distinction between the reference-model vocabulary, the system of interest, and the description representing that system; a first ontology, relationship catalogue, glossary, and informal notation.
+The 0.2 draft introduced the separation between reference-model vocabulary, system of interest, and system description, plus a first ontology, relationship catalogue, glossary, and informal notation.
 
 See [DUSRM 0.2 status](specification/DUSRM-0.2/STATUS.md).
 
@@ -55,9 +59,15 @@ DUSRM does not:
 - Prescribe a particular implementation technology.
 - Claim novelty merely by renaming established concepts.
 
-## Current conceptual dimensions
+## Core architecture principles
 
-The ten dimensions introduced in 0.1 remain research concepts. They are not automatically equivalent to the eight candidate layers. Their mapping must be documented and reviewed before the ontology or architecture is stabilized.
+- Responsibilities, not whole components, are assigned to the eight core layers.
+- Elements may realize responsibilities in multiple layers.
+- Cross-layer relationships are explicit and do not imply a fixed execution pipeline.
+- Cross-cutting concerns apply across relevant layers, elements, and relationships.
+- Operations are distinct from execution occurrences.
+- A system description is distinct from the system of interest.
+- Formal claims require assumptions, scope, method, and evidence.
 
 ## Relationship to DMJ technologies
 
@@ -67,28 +77,28 @@ These technologies remain independently specified. DUSRM may map their roles to 
 
 ## Development roadmap
 
-- **M0 — Research and prior art:** initial survey recorded; further research remains open.
+- **M0 — Research and prior art:** initial scope survey recorded; further research remains open.
 - **M1 — Ontology:** DUSRM 0.2 working draft.
-- **M2 — Structural model:** DUSRM 0.3 candidate hybrid structure; validation ongoing.
+- **M2 — Structural model:** DUSRM 0.3 candidate hybrid structure.
 - **M3 — Operational semantics:** DUSRM 0.4 working draft.
-- **M4 — Formalization:** refine semantics, invariants, constraints, proof obligations, and traceability.
-- **M5 — Validation:** apply the model to independent case studies, including ANANTA and FireBot, and revise based on gaps.
+- **M4 — Formalization:** DUSRM 0.5 working draft.
+- **M5 — Validation and profiles:** apply DUSRM to independently evidenced systems, including ANANTA and FireBot, and revise based on gaps.
 - **M6 — Conformance and publication:** publish stable specifications, examples, review records, and conformance guidance.
 
 ## Repository map
 
-- `specification/` — versioned normative and informative documents
+- `specification/` — versioned reference-model documents
+- `formalization/` — metamodel, allocation rules, invariants, and proof obligations
 - `semantics/` — operational, temporal, concurrency, and failure semantics
-- `terminology/` — controlled vocabulary and definitions
 - `ontology/` — entities and relationships
-- `architecture/` — candidate structures and diagrams
-- `research/` — prior-art reviews, papers, and rationale
+- `architecture/` — structural candidates and layer definitions
+- `research/` — prior-art reviews and rationale
 - `validation/` — case studies and model evaluation
-- `conformance/` — conformance criteria and tests
-- `examples/` — illustrative mappings to real systems
+- `conformance/` — conformance criteria and assessments
+- `examples/` — illustrative system descriptions and profiles
 
 ## Document status and contribution
 
-This repository is an open research draft. Proposed dimensions and definitions are not normative. Changes should include rationale, prior-art consideration, affected concepts, and validation implications. See [CONTRIBUTING.md](CONTRIBUTING.md) and [GOVERNANCE.md](GOVERNANCE.md).
+This repository is an open research draft. Proposed dimensions, layer definitions, and formal rules are not normative. Changes should include rationale, prior-art consideration, affected concepts, and validation implications. See [CONTRIBUTING.md](CONTRIBUTING.md) and [GOVERNANCE.md](GOVERNANCE.md).
 
-No claim of formal standardization, external adoption, or validation is made.
+No claim of formal standardization, external adoption, machine-checked verification, or independent validation is made.
