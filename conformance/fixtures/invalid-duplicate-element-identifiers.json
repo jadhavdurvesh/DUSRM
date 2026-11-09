@@ -5,12 +5,7 @@
   "title": "Standalone Task Application",
   "summary": "Illustrative single-user local task application.",
   "status": "proposed",
-  "profileRefs": [
-    {
-      "profileId": "DUSRM-PROFILE-SWAPP",
-      "version": "0.1-draft"
-    }
-  ],
+  "profileRefs": [],
   "context": {
     "systemOfInterest": {
       "id": "task-app",
