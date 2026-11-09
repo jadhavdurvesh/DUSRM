@@ -16,7 +16,18 @@ Extend DUSRM beyond structural JSON validation by implementing selected semantic
 - CLI for validating an individual DUSRM JSON description.
 - TLA+ task-completion pilot with explicit DUSRM mapping and assumptions.
 - CI workflow for schema checks, semantic tests, CLI negative tests, and TLC model checking.
-- Documentation of validator and formal-methods boundaries.
+- Recorded validation output and explicit limits.
+
+## Validation result
+
+The 0.8 workflow [run #1](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42653412176) passed on 2026-11-09:
+- JSON Schema fixture checks passed.
+- 9 semantic unit tests passed.
+- Two positive CLI descriptions were accepted with no findings.
+- Duplicate-ID and dangling-realization CLI fixtures were rejected.
+- TLC model checking completed with 4 states generated, 2 distinct states, and no error found.
+
+See [0.8 validation results](../../validation/0.8-VALIDATION-RESULTS.md).
 
 ## What semantic validation means here
 
