@@ -20,7 +20,7 @@ The 0.9 draft adds:
 - DUSRM-to-TLA+ mappings, assumptions and limits;
 - CI that runs the schema, semantic suite and all four formal models.
 
-The complete [0.9 CI run #5](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42657746055) passed. Twelve semantic tests passed and all four TLC models completed without errors. This is bounded model checking, not implementation verification or safety certification.
+The complete [0.9 CI run #6](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42657987718) passed. Twelve semantic tests passed and all four TLC models completed without errors. This is bounded model checking, not implementation verification or safety certification.
 
 See [DUSRM 0.9 status](specification/DUSRM-0.9/STATUS.md) and [validation results](validation/0.9-VALIDATION-RESULTS.md).
 
