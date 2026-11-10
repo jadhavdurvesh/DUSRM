@@ -161,6 +161,43 @@ class Migration02Tests(unittest.TestCase):
         self.assertTrue(result["report"]["warningCount"] > 0)
         self.assertEqual(list(Draft202012Validator(SCHEMA_02, format_checker=FormatChecker()).iter_errors(output)), [])
 
+    def test_external_legacy_element_moves_to_environment(self):
+        source = json.loads((ROOT / "conformance/fixtures/valid-minimal.json").read_text())
+        source["elements"].append({
+            "id": "external-clock",
+            "name": "External Clock",
+            "kind": "service",
+            "status": "proposed",
+            "external": True,
+        })
+        source["relationships"].append({
+            "id": "REL-EXTERNAL-CLOCK",
+            "type": "dependsOn",
+            "sourceRef": "app-process",
+            "targetRef": "external-clock",
+            "status": "proposed",
+            "rationale": "The application depends on an external clock service.",
+        })
+        result = Migration(source).run()
+        output = result["description"]
+        self.assertNotIn("external-clock", {item["id"] for item in output["elements"]})
+        self.assertIn("external-clock", {item["id"] for item in output["context"]["environment"]})
+        relation = next(x for x in output["relationships"] if x["id"] == "REL-EXTERNAL-CLOCK")
+        self.assertEqual(relation["target"], {
+            "kind": "environmentParticipant", "id": "external-clock"
+        })
+        self.assertEqual(list(Draft202012Validator(
+            SCHEMA_02, format_checker=FormatChecker()
+        ).iter_errors(output)), [])
+
+    def test_legacy_verified_status_is_not_promoted(self):
+        source = json.loads((ROOT / "conformance/fixtures/valid-minimal.json").read_text())
+        source["elements"][0]["status"] = "verified"
+        result = Migration(source).run()
+        migrated = next(x for x in result["description"]["elements"] if x["id"] == "app-process")
+        self.assertEqual(migrated["realizationState"], "unknown")
+        self.assertTrue(any("verified" in item["message"] for item in result["report"]["warnings"]))
+
     def test_ambiguous_performs_endpoint_is_reported_not_guessed(self):
         source = json.loads((ROOT / "conformance/fixtures/valid-minimal.json").read_text())
         source["relationships"].append({
