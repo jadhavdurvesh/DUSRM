@@ -43,6 +43,7 @@ RELATIONSHIP_KINDS = {
 COLLECTIONS = {
     "element": "elements",
     "responsibility": "responsibilities",
+    "realization": "realizations",
     "property": "properties",
     "specification": "specifications",
     "operation": "operations",
@@ -157,6 +158,7 @@ class Migration:
                 self.register(item.get("id"), "element", f"elements[{i}].id")
         for kind, collection in (
             ("responsibility", "responsibilities"),
+            ("realization", "realizations"),
             ("property", "properties"),
             ("specification", "specifications"),
             ("operation", "operations"),
