@@ -385,10 +385,15 @@ def validate_semantics(
             if not _same_ref(source_variable, target_variable):
                 add("DUSRM-02-M-019", "error", path,
                     "Transition source and target states must belong to the same state variable.")
-            variable = states.get(source_state.get("id"), {}).get("stateVariableRef", {})
-            variable_record = state_variables.get(variable.get("id")) if isinstance(variable, dict) else None
+            variable_ref = source_state.get("stateVariableRef")
+            variable_record = (
+                state_variables.get(variable_ref.get("id"))
+                if isinstance(variable_ref, dict)
+                else None
+            )
+            transition_subject_ref = item.get("subjectRef")
             if variable_record and subject and not _same_ref(
-                {"kind": "element" if subject is not None and subject.get("id") in records["element"] else subject.get("kind"), "id": subject.get("id")},
+                transition_subject_ref,
                 variable_record.get("subjectRef"),
             ):
                 add("DUSRM-02-M-019", "warning", f"{path}.subjectRef",
@@ -500,6 +505,27 @@ def validate_semantics(
     for i, item in enumerate(_list(document, "evidence")):
         for j, ref in enumerate(item.get("scopeRefs", [])):
             resolve_ref(ref, f"evidence[{i}].scopeRefs[{j}]")
+
+    for i, item in enumerate(_list(document, "evidence")):
+        expected_methods = {
+            "testResult": {"test"},
+            "measurement": {"measurement"},
+            "observation": {"observation"},
+            "sourceDocument": {"sourceInspection", "audit", "other"},
+            "sourceCode": {"sourceInspection", "staticAnalysis", "audit", "other"},
+            "simulation": {"simulation"},
+            "formalResult": {"modelChecking", "mathematicalProof"},
+            "review": {"designReview", "audit"},
+            "assumption": {"other", "designReview"},
+            "analysis": {"staticAnalysis", "mathematicalProof", "other"},
+            "toolOutput": {"staticAnalysis", "test", "measurement", "modelChecking", "other"},
+        }
+        kind, method = item.get("kind"), item.get("method")
+        if kind in expected_methods and method not in expected_methods[kind]:
+            add(
+                "DUSRM-02-E-003", "warning", f"evidence[{i}].method",
+                f"Evidence kind '{kind}' is paired with method '{method}'; review whether the method describes how the evidence was produced.",
+            )
 
     # Evidence assessment: an assessment result is not self-authenticating.
     for collection in ("relationships", "invariants", "assertions"):
