@@ -42,7 +42,7 @@ DUSRM 1.0 must not be declared stable solely because WP1 and WP2 documentation e
 
 ### WP3 — Typed Metamodel and Schema 0.2 Design
 
-**Status:** Draft artifacts created; automated validation and independent review pending.
+**Status:** Structural CI passed; independent review and semantic validation pending.
 
 - [Status](M3-STATUS.md)
 - [Schema design](M3-SCHEMA-DESIGN.md)
