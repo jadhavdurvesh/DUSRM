@@ -84,11 +84,11 @@ During migration:
 - retain the original schema 0.1 file;
 - validate the original with schema 0.1 and its legacy validator;
 - validate the new file with schema 0.2 structural validation;
-- run a future schema 0.2 semantic validator when available;
+- run `scripts/validate_semantics_0_2.py` on the converted schema 0.2 description;
 - compare the migration report and preserve all unresolved findings.
 
 A schema 0.2 structural pass does not imply semantic conformance or source-to-target equivalence.
 
 ## 7. Status
 
-This document is migration guidance only. No general-purpose schema 0.1 to 0.2 migration utility is included in WP3.
+This document remains the migration rationale. WP4 implements the conservative CLI at `scripts/migrate_schema_0_1_to_0_2.py`; see [WP4 migration tooling](M4-MIGRATION-TOOLING.md) for commands, exit behavior and report semantics.
