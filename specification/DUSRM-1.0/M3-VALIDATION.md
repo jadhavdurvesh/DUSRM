@@ -40,7 +40,17 @@ A structural pass does not establish:
 
 These are reserved for a future semantic validator and human review.
 
-## 5. Recorded result
+## 5. Legacy-version compatibility check
+
+The existing schema 0.1 and the 0.8/0.9 validation workflows were re-run on 2026-11-10 after the WP3 schema 0.2 additions:
+
+- [Schema 0.1 workflow](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42749841293) — success, commit `8fbe438b03316e3951bc36d733aab928b95ccd80`.
+- [DUSRM 0.8 semantic/formal workflow](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42749841332) — success, same commit.
+- [DUSRM 0.9 advanced validation workflow](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42749841354) — success, same commit.
+
+The historical schema 0.1 file remains at blob SHA `0d9ed1b7224a20bb3d4d771c247210de9411a4ee`. The schema 0.1 fixture validator remains at `e6f0a098d90d9e75ff22d2a1298532fa298981ff`, and the 0.9 semantic validator remains at `6a1bd2849232d131a4be8726e523574dec29e834`. These file hashes confirm that the existing implementation files were not rewritten by WP3.
+
+## 6. Recorded result
 
 **Review status:** Not independently reviewed.
 
