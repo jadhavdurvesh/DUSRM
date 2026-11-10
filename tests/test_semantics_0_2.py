@@ -152,6 +152,29 @@ class SemanticValidator02Tests(unittest.TestCase):
         self.assertIn("DUSRM-02-P-001", codes(findings))
 
 
+    def test_realization_record_is_a_resolvable_typed_reference(self):
+        doc = fixture("valid-sand-os-architecture.json")
+        doc["assertions"].append({
+            "id": "ASSERT-REALIZATION-REF",
+            "statement": "The architecture description can refer to a Realization record.",
+            "category": "design",
+            "subjectRefs": [{"kind": "realization", "id": "REAL-BOOT"}],
+            "assessmentResult": "notAssessed",
+            "evidenceRefs": []
+        })
+        self.assertEqual(list(Draft202012Validator(
+            SCHEMA_02, format_checker=FormatChecker()
+        ).iter_errors(doc)), [])
+        findings = validate_semantics(doc, REGISTRY)
+        self.assertFalse([item for item in findings if item.severity == "error"])
+
+    def test_realization_ids_participate_in_global_uniqueness(self):
+        doc = fixture("valid-sand-os-architecture.json")
+        doc["realizations"][0]["id"] = "kernel"
+        findings = validate_semantics(doc, REGISTRY)
+        self.assertIn("DUSRM-02-M-001", codes(findings))
+
+
 class Migration02Tests(unittest.TestCase):
     def test_minimal_01_description_becomes_review_draft(self):
         source = json.loads((ROOT / "conformance/fixtures/valid-minimal.json").read_text())
