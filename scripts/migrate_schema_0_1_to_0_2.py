@@ -155,7 +155,8 @@ class Migration:
                 self.register(item.get("id"), "environmentParticipant", f"context.environment[{i}].id")
         for i, item in enumerate(src.get("elements", [])):
             if isinstance(item, dict):
-                self.register(item.get("id"), "element", f"elements[{i}].id")
+                kind = "environmentParticipant" if item.get("external") is True else "element"
+                self.register(item.get("id"), kind, f"elements[{i}].id")
         for kind, collection in (
             ("responsibility", "responsibilities"),
             ("realization", "realizations"),
@@ -243,6 +244,18 @@ class Migration:
         src = self.source
         for i, item in enumerate(src.get("elements", [])):
             path = f"elements[{i}]"
+            if item.get("external") is True:
+                self.output["context"]["environment"].append({
+                    "id": item["id"],
+                    "name": item.get("name", item["id"]),
+                    "category": "other",
+                    "kind": item.get("kind", "legacy-external-element"),
+                    "roles": ["migrated-external-participant"],
+                    "description": item.get("description", "Moved from external=true legacy element; category/roles require review."),
+                    "evidenceRefs": item.get("evidenceRefs", []),
+                })
+                self.warn(path, "Legacy external=true element was moved to context.environment; review any incoming realizations.")
+                continue
             self.output["elements"].append({
                 "id": item["id"],
                 "name": item.get("name", item["id"]),
@@ -263,13 +276,17 @@ class Migration:
                 "description": item.get("description", "Legacy responsibility description missing."),
                 "primaryLayer": item.get("primaryLayer"),
                 "realizationState": self.realization_state(item.get("status"), f"{path}.status"),
-                "evidenceRefs": [],
+                "evidenceRefs": item.get("evidenceRefs", []),
             }
             if item.get("parentResponsibilityRef"):
                 entry["parentResponsibilityRef"] = item["parentResponsibilityRef"]
             self.output["responsibilities"].append(entry)
         for i, item in enumerate(src.get("realizations", [])):
             path = f"realizations[{i}]"
+            if self.id_kind.get(item.get("elementRef")) != "element":
+                self.block(path, "Realization points to an external or unresolved element; it cannot be represented as an internal element-to-responsibility allocation.")
+                self.dropped.append({"path": path, "message": "Realization omitted pending boundary review."})
+                continue
             self.output["realizations"].append({
                 "id": item["id"],
                 "elementRef": item.get("elementRef"),
@@ -485,7 +502,7 @@ class Migration:
             for i, item in enumerate(self.source.get(old_collection, [])):
                 path = f"{old_collection}[{i}]"
                 raw_scope = item.get("scopeRef")
-                scope = self.typed_ref(raw_scope, set(COLLECTIONS) | {"system", "environmentParticipant"}, f"{path}.scopeRef") if raw_scope else None
+                scope = self.typed_ref(raw_scope, set(COLLECTIONS) | {"system", "environmentParticipant", "boundary"}, f"{path}.scopeRef") if raw_scope else None
                 if scope is None:
                     self.dropped.append({"path": path, "message": "Claim omitted because schema 0.1 did not provide an unambiguous typed subject scope."})
                     self.warn(path, "Provide at least one explicit typed subject reference before migrating this claim.")
