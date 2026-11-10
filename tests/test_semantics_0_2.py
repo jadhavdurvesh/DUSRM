@@ -114,6 +114,16 @@ class SemanticValidator02Tests(unittest.TestCase):
     def test_passing_assessment_requires_supporting_evidence(self):
         doc = fixture("valid-sand-os-architecture.json")
         doc["invariants"][0]["assessmentResult"] = "pass"
+        doc["evidence"].append({
+            "id": "EV-NON-SUPPORTING",
+            "kind": "assumption",
+            "method": "other",
+            "context": "other",
+            "relation": "inconclusive",
+            "description": "An intentionally non-supporting evidence record for regression testing.",
+            "limitations": ["Does not support the invariant."]
+        })
+        doc["invariants"][0]["evidenceRefs"] = ["EV-NON-SUPPORTING"]
         findings = validate_semantics(doc, REGISTRY)
         self.assertIn("DUSRM-02-E-002", codes(findings))
 
