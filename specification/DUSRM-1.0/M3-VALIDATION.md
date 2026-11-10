@@ -1,7 +1,7 @@
 # DUSRM 1.0 Preparation — WP3 Schema 0.2 Validation Report
 
 **Work package:** WP3 — Typed Metamodel and Schema 0.2 Design  
-**Status:** Automated validation pending/recorded by CI; non-normative
+**Status:** Automated structural validation passed; non-normative
 
 ## 1. Validation scope
 
@@ -40,6 +40,17 @@ A structural pass does not establish:
 
 These are reserved for a future semantic validator and human review.
 
-## 5. Result recording
+## 5. Recorded result
 
-The CI run URL, run identifier, commit SHA, result and date must be entered here after the workflow completes. Do not record success based on a queued or in-progress run.
+<badge>Not independently reviewed</badge>
+
+- Workflow: DUSRM 1.0 preparation — Schema 0.2 draft validation
+- Run: [#3](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42749757789)
+- Run ID: `42749757789`
+- Commit checked: `13c01c22bba38ac989e893671fdc9187585ce2f2`
+- Date: 2026-11-10
+- Job: Validate typed schema and fixtures
+- Conclusion: **success**
+- Result: Draft 2020-12 schema accepted; both positive fixtures passed; both negative fixtures were rejected as expected.
+
+The current `main` branch subsequently received documentation-only updates to WP2 handoff status; the schema, fixtures, validator script and workflow were unchanged after the successful run.
