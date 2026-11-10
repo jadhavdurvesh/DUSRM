@@ -17,7 +17,7 @@ The command performs these stages:
 1. Parse the description and selected schema.
 2. Validate the schema against JSON Schema Draft 2020-12.
 3. Validate the description structurally, including declared formats.
-4. Build typed object indexes for the SOI, boundary, environment participants and model collections.
+4. Build typed object indexes for the SOI, boundary, environment participants and all model collections, including Realization allocations.
 5. Check global identifier uniqueness.
 6. Resolve typed references and participant references.
 7. Check responsibility realizations and layer applicability.
@@ -33,8 +33,10 @@ The command performs these stages:
 
 | Code | Severity | Meaning |
 |---|---|---|
-| DUSRM-02-M-001 | Error | Duplicate identifier across system, boundary, environment, or model-record collections |
+| DUSRM-02-M-000 | Error | Description root is not an object |
+| DUSRM-02-M-001 | Error | Duplicate identifier across system, boundary, environment, or model-record collections, including Realization records |
 | DUSRM-02-M-002 | Error | Typed reference does not resolve |
+| DUSRM-02-M-003 | Error | Typed reference kind is not permitted at the relationship or field endpoint |
 | DUSRM-02-M-003 | Error | Typed reference kind is not permitted at this location |
 | DUSRM-02-M-010 | Error | Evidence reference does not resolve |
 | DUSRM-02-M-012 | Error | Duplicate element-to-responsibility realization pair |
@@ -50,6 +52,7 @@ The command performs these stages:
 | DUSRM-02-M-022 | Error/Warning | Allocation interval, quantity, or resource unit is inconsistent |
 | DUSRM-02-E-001 | Error | Assessed relationship/invariant/assertion has no linked evidence |
 | DUSRM-02-E-002 | Warning | Passing assessment has no evidence explicitly marked as supporting it |
+| DUSRM-02-E-003 | Warning | Evidence kind and declared producing method appear inconsistent |
 | DUSRM-02-P-001 | Error/Warning | Profile is absent/version-mismatched or compatibility is not explicitly approved |
 
 An error blocks a clean semantic result. Warnings remain visible and do not alone change the CLI exit status to failure. The report is not a conformance certificate.
@@ -80,7 +83,8 @@ Exit codes:
 ## 5. Current checks and limitations
 
 The validator currently checks:
-- global identifier uniqueness across all records;
+- global identifier uniqueness across all records, including Realization allocations;
+- typed references to Realization records where the target kind is explicitly declared;
 - typed-reference resolution against declared collections;
 - relationship endpoint kinds and participant references;
 - duplicate realization pairs and selected maturity conflicts;
