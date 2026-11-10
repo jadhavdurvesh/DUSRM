@@ -44,6 +44,7 @@ COLLECTIONS = {
     "element": "elements",
     "responsibility": "responsibilities",
     "realization": "realizations",
+    "relationship": "relationships",
     "property": "properties",
     "specification": "specifications",
     "operation": "operations",
@@ -160,6 +161,7 @@ class Migration:
         for kind, collection in (
             ("responsibility", "responsibilities"),
             ("realization", "realizations"),
+            ("relationship", "relationships"),
             ("property", "properties"),
             ("specification", "specifications"),
             ("operation", "operations"),
