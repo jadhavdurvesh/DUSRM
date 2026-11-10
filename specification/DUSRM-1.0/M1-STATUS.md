@@ -44,6 +44,6 @@ WP1 is complete as an internal documentation package. It is not accepted as a fi
 
 ## Next work package
 
-**WP2 — Foundational Ontology and Relationship Consolidation**
+**WP2 — Foundational Ontology and Relationship Consolidation: documentation complete.** See [WP2 status](M2-STATUS.md).
 
-Review entity kinds, responsibility semantics, relationship signatures, evidence/status vocabulary, and compatibility with the layer charter and DUSRM tooling.
+The next work package is **WP3 — Typed Metamodel and Schema 0.2 Design**, subject to review of WP1 and WP2.
