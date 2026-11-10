@@ -3,7 +3,7 @@
 
 **Status:** Research proposal — working draft  
 **Current specification:** 0.9-draft  
-**1.0 preparation:** WP1 — Layer Definitions and Boundaries (draft complete; review pending)  
+**1.0 preparation:** WP1 and WP2 documentation complete; independent review and schema work pending  
 **Maturity:** Provisional reference framework; not normative or independently validated
 
 DUSRM is a proposed universal reference framework for describing, analyzing, designing, and evaluating computing and engineering systems. It is intended to provide a common conceptual foundation from which domain-specific reference models may be developed.
@@ -27,7 +27,7 @@ See [DUSRM 0.9 status](specification/DUSRM-0.9/STATUS.md) and [validation result
 
 ## DUSRM 1.0 preparation
 
-The 1.0 preparation work is tracked separately from the 0.9 draft. WP1 tightens the eight responsibility-layer definitions, establishes boundary tests, and distinguishes internal responsibilities from external dependencies. The work package is documentation-complete but remains non-normative pending independent review. See [WP1 status](specification/DUSRM-1.0/M1-STATUS.md), [layer charter](specification/DUSRM-1.0/M1-LAYER-CHARTER.md), and [boundary matrix](specification/DUSRM-1.0/M1-LAYER-BOUNDARIES.md).
+The 1.0 preparation work is tracked separately from the 0.9 draft. WP1 tightens the eight responsibility-layer definitions and boundary tests. WP2 consolidates the ontology, relationship semantics, and evidence/status model, while documenting gaps in the current schema and validator. Both are documentation-complete but remain non-normative pending independent review. See [WP1 status](specification/DUSRM-1.0/M1-STATUS.md), [WP2 status](specification/DUSRM-1.0/M2-STATUS.md), and the [DUSRM 1.0 preparation index](specification/DUSRM-1.0/README.md).
 
 ## Previous milestones
 
@@ -68,7 +68,8 @@ These technologies remain independently specified. DUSRM may map their roles to 
 - **M7 — Semantic validation and formal-methods pilot:** 0.8 draft.
 - **M8 — Advanced system modeling and verification:** 0.9 draft.
 - **DUSRM 1.0 preparation — WP1:** layer definitions and boundaries (documentation complete; independent review pending). [Status](specification/DUSRM-1.0/M1-STATUS.md)
-- **Next work package:** WP2 — foundational ontology and relationship consolidation.
+- **DUSRM 1.0 preparation — WP2:** foundational ontology, relationship semantics, and evidence/status model (documentation complete; independent review and schema work pending). [Status](specification/DUSRM-1.0/M2-STATUS.md)
+- **Next work package:** WP3 — typed metamodel and schema 0.2 design.
 
 ## Repository map
 
