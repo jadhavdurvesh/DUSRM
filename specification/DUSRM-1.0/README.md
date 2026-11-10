@@ -32,10 +32,23 @@ This directory contains versioned work packages for preparing a proposed 1.0 cor
 
 ## Proposed next work package
 
-**WP3 — Typed Metamodel and Schema 0.2 Design**
+**WP4 — Schema 0.2 Semantic Validator and Migration Tooling**
 
-WP3 is expected to design typed references, first-class behavioral and contract records, orthogonal status fields, schema fixtures, and a loss-aware migration from schema 0.1. It must be separately versioned and validated before new 1.0 conformance claims are made.
+WP4 will add cross-reference resolution, global identifier checks, relationship scope checks, evidence-reference checks, profile behavior and migration reporting. Schema 0.1 behavior must remain preserved.
 
 ## Release gate
 
 DUSRM 1.0 must not be declared stable solely because WP1 and WP2 documentation exists. The core ontology, relationship semantics, metamodel, schema, conformance checks, domain profiles, and independent review findings must be reconciled and approved through the repository's governance process.
+
+### WP3 — Typed Metamodel and Schema 0.2 Design
+
+**Status:** Draft artifacts created; automated validation and independent review pending.
+
+- [Status](M3-STATUS.md)
+- [Schema design](M3-SCHEMA-DESIGN.md)
+- [Migration guidance](M3-MIGRATION-0.1-TO-0.2.md)
+- [Proposed decisions](M3-DECISIONS.md)
+- [Validation report](M3-VALIDATION.md)
+- [Schema 0.2](../../schema/dusrm-description-0.2.schema.json)
+- [SAND OS architecture fixture](../../schema/fixtures/0.2/valid-sand-os-architecture.json)
+
