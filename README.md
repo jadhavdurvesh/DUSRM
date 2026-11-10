@@ -34,7 +34,7 @@ The 1.0 preparation work is tracked separately from the 0.9 draft:
 - **WP3 — Typed Metamodel and Schema 0.2:** separately versioned JSON Schema, typed relationship endpoints, SAND OS architecture fixture, migration guidance. [Status](specification/DUSRM-1.0/M3-STATUS.md)
 - **WP4 — Semantic Validator and Migration Tooling:** typed reference resolution, global ID checks, semantic consistency checks, loss-aware 0.1→0.2 migrator. [Status](specification/DUSRM-1.0/M4-STATUS.md)
 
-The final WP4 [schema 0.2 semantic/migration CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42872255944) passed on 2026-11-10. Eighteen regression tests passed; the minimal and SAND OS examples produced zero semantic findings; the migration exercise passed. The [0.8](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42872255992) and [0.9](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42872255964) compatibility workflows also passed at the same commit.
+The final WP4 [schema 0.2 semantic/migration CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42872607370) passed on 2026-11-10. All 22 regression tests passed; the minimal and SAND OS examples produced no semantic errors or warnings; and the migration exercise passed. The [0.8](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42872607390) and [0.9](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42872607415) compatibility workflows also passed at the same commit.
 
 These are internal automated results, not independent peer review or a stable 1.0 release. See the [DUSRM 1.0 preparation index](specification/DUSRM-1.0/README.md).
 
