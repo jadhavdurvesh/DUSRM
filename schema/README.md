@@ -40,6 +40,8 @@ The schema does not define a wire protocol, API, runtime, database format, or ma
 - [Dedicated validation script](../scripts/validate_schema_0_2_fixtures.py)
 - [Dedicated GitHub Actions workflow](../.github/workflows/dusrm-1.0-schema-validation.yml)
 
+Schema 0.2 structural CI [run #3](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42749757789) passed on 2026-11-10: schema meta-validation passed, both positive fixtures were accepted, and both negative fixtures were rejected as expected.
+
 Schema 0.2 is a breaking, separately identified Draft 2020-12 proposal (`urn:dusrm:schema:description:0.2-draft`). It adds typed references, first-class ontology collections, orthogonal status dimensions and relationship endpoint-kind constraints. It does not replace schema 0.1 and is not yet a stable interchange contract.
 
 The schema 0.2 validator checks structure and endpoint kinds. It does not resolve identifiers across collections, assess evidence adequacy, or establish conformance. See the WP3 validation report for the exact boundary.
