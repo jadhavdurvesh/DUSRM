@@ -1,7 +1,7 @@
 # DUSRM 1.0 Preparation — WP3 Status
 
 **Work package:** WP3 — Typed Metamodel and Schema 0.2 Design  
-**Status:** Structural CI passed; independent review and semantic validation pending  
+**Status:** WP3 internally complete; structural CI passed; independent review and semantic validation pending  
 **Date:** 2026-11-10  
 **Schema:** 0.2-draft
 
@@ -37,7 +37,7 @@ Translate the WP2 ontology into an independently versioned machine-readable sche
 
 ## Automated validation
 
-The dedicated workflow [run #3](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42749757789) passed on 2026-11-10 at commit `13c01c22bba38ac989e893671fdc9187585ce2f2`. The schema meta-validation and fixture job completed successfully: both positive fixtures were accepted and both negative fixtures were rejected as expected. This does not validate cross-collection semantic references.
+The final dedicated workflow [run #4](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42749920371) passed on 2026-11-10 at commit `f4be7c3c8edc6a8bc16e21490a6a0558ea44815a`. The schema meta-validation and fixture job completed successfully: both positive fixtures were accepted and both negative fixtures were rejected as expected. This run includes the final SAND OS fixture refinement. It does not validate cross-collection semantic references.
 
 ## Important limits
 
@@ -51,7 +51,7 @@ The dedicated workflow [run #3](https://github.com/jadhavdurvesh/DUSRM/actions/r
 
 ## Exit criteria
 
-WP3 can be considered internally complete when the dedicated CI workflow passes all positive and negative fixtures, schema 0.1 remains unaffected, and review findings are documented. Acceptance still requires independent review of the ontology, schema and migration behavior.
+WP3 is internally complete: the dedicated CI workflow passes all positive and negative fixtures, schema 0.1 and the prior 0.8/0.9 validation workflows remain unaffected, and migration/review limits are documented. Formal acceptance still requires independent review of the ontology, schema and migration behavior.
 
 ## Next work package
 
