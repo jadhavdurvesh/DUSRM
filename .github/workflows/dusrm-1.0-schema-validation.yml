@@ -52,7 +52,7 @@ jobs:
           python scripts/validate_semantics_0_2.py schema/fixtures/0.2/valid-minimal.json
           python scripts/validate_semantics_0_2.py schema/fixtures/0.2/valid-sand-os-architecture.json
       - name: Run schema 0.2 semantic and migration regression tests
-        run: python -m unittest tests.test_semantics_0_2 -v
+        run: python -m unittest discover -s tests -p 'test_semantics_0_2.py' -v
       - name: Exercise loss-aware migration
         shell: bash
         run: |
