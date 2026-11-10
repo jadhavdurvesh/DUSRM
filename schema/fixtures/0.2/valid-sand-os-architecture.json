@@ -266,7 +266,7 @@
       "name": "Provide an independent operating system",
       "description": "Build a general-purpose operating system with its own boot chain, kernel, drivers, storage, userland and native graphical environment.",
       "primaryLayer": "L8",
-      "realizationState": "inProgress",
+      "realizationState": "planned",
       "evidenceRefs": [
         "EV-SAND-ROADMAP"
       ]
