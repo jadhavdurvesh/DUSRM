@@ -3,6 +3,7 @@
 
 **Status:** Research proposal — working draft  
 **Current specification:** 0.9-draft  
+**1.0 preparation:** WP1 — Layer Definitions and Boundaries (draft complete; review pending)  
 **Maturity:** Provisional reference framework; not normative or independently validated
 
 DUSRM is a proposed universal reference framework for describing, analyzing, designing, and evaluating computing and engineering systems. It is intended to provide a common conceptual foundation from which domain-specific reference models may be developed.
@@ -23,6 +24,10 @@ The 0.9 draft adds:
 The complete [0.9 CI run #6](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42657987718) passed. Twelve semantic tests passed and all four TLC models completed without errors. This is bounded model checking, not implementation verification or safety certification.
 
 See [DUSRM 0.9 status](specification/DUSRM-0.9/STATUS.md) and [validation results](validation/0.9-VALIDATION-RESULTS.md).
+
+## DUSRM 1.0 preparation
+
+The 1.0 preparation work is tracked separately from the 0.9 draft. WP1 tightens the eight responsibility-layer definitions, establishes boundary tests, and distinguishes internal responsibilities from external dependencies. The work package is documentation-complete but remains non-normative pending independent review. See [WP1 status](specification/DUSRM-1.0/M1-STATUS.md), [layer charter](specification/DUSRM-1.0/M1-LAYER-CHARTER.md), and [boundary matrix](specification/DUSRM-1.0/M1-LAYER-BOUNDARIES.md).
 
 ## Previous milestones
 
@@ -62,7 +67,8 @@ These technologies remain independently specified. DUSRM may map their roles to 
 - **M6 — Conformance and tooling readiness:** 0.7 proposal.
 - **M7 — Semantic validation and formal-methods pilot:** 0.8 draft.
 - **M8 — Advanced system modeling and verification:** 0.9 draft.
-- **Next:** strengthen formal coverage, review domain-profile compatibility, and prepare the architecture for independent technical review.
+- **DUSRM 1.0 preparation — WP1:** layer definitions and boundaries (documentation complete; independent review pending). [Status](specification/DUSRM-1.0/M1-STATUS.md)
+- **Next work package:** WP2 — foundational ontology and relationship consolidation.
 
 ## Repository map
 
