@@ -28,7 +28,7 @@ Schema 0.1 uses the 0.x status vocabulary and untyped relationship endpoint IDs.
 - [WP4 migration tooling guide](../specification/DUSRM-1.0/M4-MIGRATION-TOOLING.md)
 - [Dedicated CI workflow](../.github/workflows/dusrm-1.0-schema-validation.yml)
 
-Schema 0.2 structural, semantic and migration CI [run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42872255944) passed on 2026-11-10. The workflow validated both positive fixtures, rejected both structural negatives, passed 18 regression tests, semantically validated the minimal and SAND OS fixtures without findings, and exercised a 0.1→0.2 review-draft migration.
+Schema 0.2 structural, semantic and migration CI [final run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42872607370) passed on 2026-11-10. The workflow validated both positive fixtures, rejected both structural negatives, passed 22 regression tests, semantically validated the minimal and SAND OS fixtures without findings, and exercised a 0.1→0.2 review-draft migration. The legacy 0.8 and 0.9 workflows also passed at the same tested commit.
 
 ## Validation boundaries
 
