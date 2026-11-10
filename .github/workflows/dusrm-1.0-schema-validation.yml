@@ -1,4 +1,4 @@
-name: DUSRM 1.0 preparation — Schema 0.2 draft validation
+name: DUSRM 1.0 preparation — Schema 0.2 and semantic validation
 
 on:
   push:
@@ -8,6 +8,11 @@ on:
       - "schema/dusrm-description-0.2.schema.json"
       - "schema/fixtures/0.2/**"
       - "scripts/validate_schema_0_2_fixtures.py"
+      - "scripts/validate_semantics_0_2.py"
+      - "scripts/migrate_schema_0_1_to_0_2.py"
+      - "tests/test_semantics_0_2.py"
+      - "conformance/fixtures/**"
+      - "profiles/registry.json"
       - "requirements-dev.txt"
   pull_request:
     paths:
@@ -15,6 +20,11 @@ on:
       - "schema/dusrm-description-0.2.schema.json"
       - "schema/fixtures/0.2/**"
       - "scripts/validate_schema_0_2_fixtures.py"
+      - "scripts/validate_semantics_0_2.py"
+      - "scripts/migrate_schema_0_1_to_0_2.py"
+      - "tests/test_semantics_0_2.py"
+      - "conformance/fixtures/**"
+      - "profiles/registry.json"
       - "requirements-dev.txt"
   workflow_dispatch:
 
@@ -23,7 +33,7 @@ permissions:
 
 jobs:
   schema-0-2:
-    name: Validate typed schema and fixtures
+    name: Validate schema, semantics and migration
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -33,7 +43,30 @@ jobs:
         uses: actions/setup-python@v7.1.0
         with:
           python-version: "3.13"
-      - name: Install schema validation dependency
+      - name: Install validation dependency
         run: python -m pip install -r requirements-dev.txt
-      - name: Validate schema and 0.2 fixtures
+      - name: Validate schema and structural fixtures
         run: python scripts/validate_schema_0_2_fixtures.py
+      - name: Run semantic validation on positive fixtures
+        run: |
+          python scripts/validate_semantics_0_2.py schema/fixtures/0.2/valid-minimal.json
+          python scripts/validate_semantics_0_2.py schema/fixtures/0.2/valid-sand-os-architecture.json
+      - name: Run schema 0.2 semantic and migration regression tests
+        run: python -m unittest tests.test_semantics_0_2 -v
+      - name: Exercise loss-aware migration
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build
+          set +e
+          python scripts/migrate_schema_0_1_to_0_2.py \
+            conformance/fixtures/valid-minimal.json \
+            --output build/migrated-0.2.json \
+            --report build/migration-report.json \
+            --allow-incomplete
+          migration_status=$?
+          set -e
+          test "$migration_status" -eq 2
+          test -s build/migrated-0.2.json
+          test -s build/migration-report.json
+          python scripts/validate_semantics_0_2.py build/migrated-0.2.json
