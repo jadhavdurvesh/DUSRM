@@ -27,7 +27,7 @@ See [DUSRM 0.9 status](specification/DUSRM-0.9/STATUS.md) and [validation result
 
 ## DUSRM 1.0 preparation
 
-The 1.0 preparation work is tracked separately from the 0.9 draft. WP1 tightens the eight responsibility-layer definitions and boundary tests. WP2 consolidates the ontology, relationship semantics, and evidence/status model. WP3 introduces a separately versioned schema 0.2 draft, typed architecture fixtures including SAND OS, and a dedicated structural validation workflow. Its final CI run #4 passed the schema and all four positive/negative fixture expectations; the legacy 0.1, 0.8 and 0.9 workflows also passed. Independent review and semantic validation remain outstanding. See [WP1 status](specification/DUSRM-1.0/M1-STATUS.md), [WP2 status](specification/DUSRM-1.0/M2-STATUS.md), [WP3 status](specification/DUSRM-1.0/M3-STATUS.md), and the [DUSRM 1.0 preparation index](specification/DUSRM-1.0/README.md).
+The 1.0 preparation work is tracked separately from the 0.9 draft. WP1 tightens the eight responsibility-layer definitions and boundary tests. WP2 consolidates the ontology, relationship semantics, and evidence/status model. WP3 introduces a separately versioned schema 0.2 draft, typed architecture fixtures including SAND OS, and a dedicated structural validation workflow. Its final [CI run #4](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42749920371) passed the schema and all four positive/negative fixture expectations; the legacy 0.1, 0.8 and 0.9 workflows also passed. Independent review and semantic validation remain outstanding. See [WP1 status](specification/DUSRM-1.0/M1-STATUS.md), [WP2 status](specification/DUSRM-1.0/M2-STATUS.md), [WP3 status](specification/DUSRM-1.0/M3-STATUS.md), and the [DUSRM 1.0 preparation index](specification/DUSRM-1.0/README.md).
 
 ## Previous milestones
 
@@ -68,8 +68,8 @@ These technologies remain independently specified. DUSRM may map their roles to 
 - **M7 — Semantic validation and formal-methods pilot:** 0.8 draft.
 - **M8 — Advanced system modeling and verification:** 0.9 draft.
 - **DUSRM 1.0 preparation — WP1:** layer definitions and boundaries (documentation complete; independent review pending). [Status](specification/DUSRM-1.0/M1-STATUS.md)
-- **DUSRM 1.0 preparation — WP2:** foundational ontology, relationship semantics, and evidence/status model (documentation complete; independent review and schema work pending). [Status](specification/DUSRM-1.0/M2-STATUS.md)
-- **DUSRM 1.0 preparation — WP3:** typed metamodel and schema 0.2 draft (automated validation pending). [Status](specification/DUSRM-1.0/M3-STATUS.md)
+- **DUSRM 1.0 preparation — WP2:** foundational ontology, relationship semantics, and evidence/status model (documentation complete; independent review pending). [Status](specification/DUSRM-1.0/M2-STATUS.md)
+- **DUSRM 1.0 preparation — WP3:** typed metamodel and schema 0.2 draft (structural CI passed; semantic validation and independent review pending). [Status](specification/DUSRM-1.0/M3-STATUS.md)
 - **Next work package:** WP4 — schema 0.2 semantic validator and migration tooling.
 
 ## Repository map
