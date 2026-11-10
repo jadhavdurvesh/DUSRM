@@ -352,16 +352,6 @@
       "evidenceRefs": [
         "EV-SAND-ARCH"
       ]
-    },
-    {
-      "id": "REAL-KERNEL-PURPOSE",
-      "elementRef": "kernel",
-      "responsibilityRef": "R-OS-PURPOSE",
-      "realizationState": "inProgress",
-      "rationale": "The kernel is a central element of the independent OS project, not the whole finished product.",
-      "evidenceRefs": [
-        "EV-SAND-ARCH"
-      ]
     }
   ],
   "layerApplicability": [
