@@ -1,0 +1,36 @@
+{
+  "suiteId": "DUSRM-SCHEMA-0.2-FIXTURES",
+  "schemaId": "urn:dusrm:schema:description:0.2-draft",
+  "schemaVersion": "0.2-draft",
+  "purpose": "Structural and typed-relationship endpoint fixtures for the DUSRM 1.0 preparation schema 0.2 draft.",
+  "fixtures": [
+    {
+      "id": "WP3-POS-001",
+      "path": "valid-minimal.json",
+      "expected": "schema-pass",
+      "reason": "Minimal typed system description with all mandatory collection envelopes."
+    },
+    {
+      "id": "WP3-POS-002",
+      "path": "valid-sand-os-architecture.json",
+      "expected": "schema-pass",
+      "reason": "Populated SAND OS architecture pilot; exercises all 17 relationship endpoint signatures."
+    },
+    {
+      "id": "WP3-NEG-001",
+      "path": "invalid-wrong-typed-endpoint.json",
+      "expected": "schema-fail",
+      "reason": "A performs relationship incorrectly uses an Element instead of an Execution as its source."
+    },
+    {
+      "id": "WP3-NEG-002",
+      "path": "invalid-legacy-status-field.json",
+      "expected": "schema-fail",
+      "reason": "Legacy overloaded top-level status is not allowed in schema 0.2; descriptionState is required."
+    }
+  ],
+  "limitations": [
+    "The fixtures exercise JSON Schema structure and endpoint-kind constraints only.",
+    "Identifier resolution, cross-collection references, evidence adequacy, layer semantics and conformance are not validated by this fixture runner."
+  ]
+}
