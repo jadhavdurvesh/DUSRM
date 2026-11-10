@@ -828,14 +828,14 @@
       "interfaceKind": "logical",
       "participantRoles": [
         {
-          "role": "requester",
+          "role": "caller",
           "participantRef": {
             "kind": "element",
             "id": "user-process"
           }
         },
         {
-          "role": "provider",
+          "role": "dispatcher",
           "participantRef": {
             "kind": "element",
             "id": "syscall-gateway"
