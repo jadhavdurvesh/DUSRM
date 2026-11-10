@@ -37,9 +37,9 @@ Implement cross-reference resolution, global identifier checks, relationship and
 
 ## Automated validation
 
-The dedicated [WP4 CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42872255944) passed on 2026-11-10. Eighteen schema 0.2 regression tests passed, the positive semantic fixtures had zero findings, and the migration CLI exercise passed.
+The final [WP4 CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42872607370) passed on 2026-11-10 at commit `de5d750596821a88c02871bdf6cfdfb1bb930979`. All 22 schema 0.2 regression tests passed; both positive semantic fixtures completed without findings; and the migration CLI smoke test passed.
 
-The [0.8](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42872255992) and [0.9](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42872255964) compatibility workflows also passed on the same commit.
+The [0.8](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42872607390) and [0.9](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42872607415) compatibility workflows also passed on the same commit.
 
 ## Important limits
 
