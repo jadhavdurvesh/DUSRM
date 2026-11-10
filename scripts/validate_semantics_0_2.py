@@ -46,6 +46,13 @@ COLLECTIONS = {
     "evidence": "evidence",
 }
 PARTICIPANT_KINDS = {"system", "element", "environmentParticipant"}
+ALL_ID_COLLECTIONS = (
+    "elements", "responsibilities", "realizations", "properties", "specifications",
+    "relationships", "operations", "executions", "events", "stateVariables", "states",
+    "transitions", "interfaces", "interactions", "resources", "allocations",
+    "capabilities", "services", "requirements", "constraints", "invariants",
+    "assertions", "decisions", "evidence",
+)
 CORE_LAYERS = {f"L{i}" for i in range(1, 9)}
 
 RELATIONSHIP_SIGNATURES = {
@@ -152,7 +159,7 @@ def validate_semantics(
         ("boundary", [boundary] if boundary else []),
         ("environmentParticipant", environment),
     ]
-    object_groups.extend((collection, _list(document, collection)) for collection in COLLECTIONS.values())
+    object_groups.extend((collection, _list(document, collection)) for collection in ALL_ID_COLLECTIONS)
     for group, items in object_groups:
         for index, item in enumerate(items):
             if not isinstance(item, dict):
@@ -212,6 +219,10 @@ def validate_semantics(
                     f"Evidence reference '{identifier}' does not resolve.",
                 )
 
+    # Validate evidence references on layer applicability, which has no object ID.
+    for i, item in enumerate(_list(document, "layerApplicability")):
+        check_evidence_refs(item, f"layerApplicability[{i}]")
+
     # Validate evidence references on the SOI and environment as well as collection records.
     check_evidence_refs(soi, "context.systemOfInterest")
     for i, item in enumerate(environment):
@@ -219,7 +230,7 @@ def validate_semantics(
             check_evidence_refs(item, f"context.environment[{i}]")
 
     # Check all typed references at their declared locations.
-    for collection, items in ((name, _list(document, name)) for name in COLLECTIONS.values()):
+    for collection, items in ((name, _list(document, name)) for name in ALL_ID_COLLECTIONS):
         for index, item in enumerate(items):
             if not isinstance(item, dict):
                 continue
