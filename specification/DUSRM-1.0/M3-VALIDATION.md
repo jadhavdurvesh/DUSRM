@@ -1,7 +1,7 @@
 # DUSRM 1.0 Preparation — WP3 Schema 0.2 Validation Report
 
 **Work package:** WP3 — Typed Metamodel and Schema 0.2 Design  
-**Status:** Automated structural validation passed; non-normative
+**Status:** Final automated structural validation passed; non-normative
 
 ## 1. Validation scope
 
@@ -55,12 +55,13 @@ The historical schema 0.1 file remains at blob SHA `0d9ed1b7224a20bb3d4d771c2472
 **Review status:** Not independently reviewed.
 
 - Workflow: DUSRM 1.0 preparation — Schema 0.2 draft validation
-- Run: [#3](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42749757789)
-- Run ID: `42749757789`
-- Commit checked: `13c01c22bba38ac989e893671fdc9187585ce2f2`
+- Final run: [#4](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42749920371)
+- Run ID: `42749920371`
+- Commit checked: `f4be7c3c8edc6a8bc16e21490a6a0558ea44815a`
+- Earlier baseline run: [#3](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42749757789) also passed before the final SAND OS fixture refinement.
 - Date: 2026-11-10
 - Job: Validate typed schema and fixtures
 - Conclusion: **success**
 - Result: Draft 2020-12 schema accepted; both positive fixtures passed; both negative fixtures were rejected as expected.
 
-The current `main` branch subsequently received documentation-only updates to WP2 handoff status; the schema, fixtures, validator script and workflow were unchanged after the successful run.
+The current `main` branch subsequently received documentation-only updates; the schema, fixture suite, validator script and workflow are unchanged after the final successful run.
