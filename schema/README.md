@@ -1,4 +1,4 @@
-# DUSRM Machine-Readable Description Schema
+# DUSRM Machine-Readable Description Schemas
 
 **Status:** Proposal; non-normative  
 **Schema ID:** urn:dusrm:schema:description:0.1-draft  
@@ -30,3 +30,16 @@ The schema validates document shape and basic field types. It does not establish
 Structural JSON Schema validation is only the first stage. Cross-reference, uniqueness, profile compatibility, relationship signatures, layer allocation, evidence status, and proof-obligation checks are defined in the conformance catalogue and remain outside the current script.
 
 The schema does not define a wire protocol, API, runtime, database format, or mandatory implementation technology.
+
+## Schema 0.2 — DUSRM 1.0 preparation
+
+- [Schema 0.2 draft](dusrm-description-0.2.schema.json)
+- [WP3 design](../specification/DUSRM-1.0/M3-SCHEMA-DESIGN.md)
+- [0.1 to 0.2 migration guide](../specification/DUSRM-1.0/M3-MIGRATION-0.1-TO-0.2.md)
+- [Schema 0.2 fixtures](fixtures/0.2/README.md)
+- [Dedicated validation script](../scripts/validate_schema_0_2_fixtures.py)
+- [Dedicated GitHub Actions workflow](../.github/workflows/dusrm-1.0-schema-validation.yml)
+
+Schema 0.2 is a breaking, separately identified Draft 2020-12 proposal (`urn:dusrm:schema:description:0.2-draft`). It adds typed references, first-class ontology collections, orthogonal status dimensions and relationship endpoint-kind constraints. It does not replace schema 0.1 and is not yet a stable interchange contract.
+
+The schema 0.2 validator checks structure and endpoint kinds. It does not resolve identifiers across collections, assess evidence adequacy, or establish conformance. See the WP3 validation report for the exact boundary.
