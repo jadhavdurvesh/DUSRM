@@ -1,0 +1,39 @@
+name: DUSRM 1.0 preparation — Schema 0.2 draft validation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/dusrm-1.0-schema-validation.yml"
+      - "schema/dusrm-description-0.2.schema.json"
+      - "schema/fixtures/0.2/**"
+      - "scripts/validate_schema_0_2_fixtures.py"
+      - "requirements-dev.txt"
+  pull_request:
+    paths:
+      - ".github/workflows/dusrm-1.0-schema-validation.yml"
+      - "schema/dusrm-description-0.2.schema.json"
+      - "schema/fixtures/0.2/**"
+      - "scripts/validate_schema_0_2_fixtures.py"
+      - "requirements-dev.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  schema-0-2:
+    name: Validate typed schema and fixtures
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7.0.1
+      - name: Set up Python
+        uses: actions/setup-python@v7.1.0
+        with:
+          python-version: "3.13"
+      - name: Install schema validation dependency
+        run: python -m pip install -r requirements-dev.txt
+      - name: Validate schema and 0.2 fixtures
+        run: python scripts/validate_schema_0_2_fixtures.py
