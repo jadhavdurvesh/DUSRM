@@ -3,7 +3,7 @@
 
 **Status:** Research proposal — working draft  
 **Current specification:** 0.9-draft  
-**1.0 preparation:** WP1 and WP2 documentation complete; WP3 schema 0.2 structural CI passed; independent review pending  
+**1.0 preparation:** WP1–WP4 implemented as draft work packages; automated validation passed; independent review pending  
 **Maturity:** Provisional reference framework; not normative or independently validated
 
 DUSRM is a proposed universal reference framework for describing, analyzing, designing, and evaluating computing and engineering systems. It is intended to provide a common conceptual foundation from which domain-specific reference models may be developed.
@@ -27,7 +27,16 @@ See [DUSRM 0.9 status](specification/DUSRM-0.9/STATUS.md) and [validation result
 
 ## DUSRM 1.0 preparation
 
-The 1.0 preparation work is tracked separately from the 0.9 draft. WP1 tightens the eight responsibility-layer definitions and boundary tests. WP2 consolidates the ontology, relationship semantics, and evidence/status model. WP3 introduces a separately versioned schema 0.2 draft, typed architecture fixtures including SAND OS, and a dedicated structural validation workflow. Its final [CI run #4](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42749920371) passed the schema and all four positive/negative fixture expectations; the legacy 0.1, 0.8 and 0.9 workflows also passed. Independent review and semantic validation remain outstanding. See [WP1 status](specification/DUSRM-1.0/M1-STATUS.md), [WP2 status](specification/DUSRM-1.0/M2-STATUS.md), [WP3 status](specification/DUSRM-1.0/M3-STATUS.md), and the [DUSRM 1.0 preparation index](specification/DUSRM-1.0/README.md).
+The 1.0 preparation work is tracked separately from the 0.9 draft:
+
+- **WP1 — Layer Definitions and Boundaries:** eight responsibility-layer definitions, boundary tests, external dependency treatment. [Status](specification/DUSRM-1.0/M1-STATUS.md)
+- **WP2 — Foundational Ontology and Relationship Consolidation:** core model objects, relationship semantics, orthogonal evidence/status model. [Status](specification/DUSRM-1.0/M2-STATUS.md)
+- **WP3 — Typed Metamodel and Schema 0.2:** separately versioned JSON Schema, typed relationship endpoints, SAND OS architecture fixture, migration guidance. [Status](specification/DUSRM-1.0/M3-STATUS.md)
+- **WP4 — Semantic Validator and Migration Tooling:** typed reference resolution, global ID checks, semantic consistency checks, loss-aware 0.1→0.2 migrator. [Status](specification/DUSRM-1.0/M4-STATUS.md)
+
+The final WP4 [schema 0.2 semantic/migration CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42872255944) passed on 2026-11-10. Eighteen regression tests passed; the minimal and SAND OS examples produced zero semantic findings; the migration exercise passed. The [0.8](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42872255992) and [0.9](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42872255964) compatibility workflows also passed at the same commit.
+
+These are internal automated results, not independent peer review or a stable 1.0 release. See the [DUSRM 1.0 preparation index](specification/DUSRM-1.0/README.md).
 
 ## Previous milestones
 
@@ -67,17 +76,18 @@ These technologies remain independently specified. DUSRM may map their roles to 
 - **M6 — Conformance and tooling readiness:** 0.7 proposal.
 - **M7 — Semantic validation and formal-methods pilot:** 0.8 draft.
 - **M8 — Advanced system modeling and verification:** 0.9 draft.
-- **DUSRM 1.0 preparation — WP1:** layer definitions and boundaries (documentation complete; independent review pending). [Status](specification/DUSRM-1.0/M1-STATUS.md)
-- **DUSRM 1.0 preparation — WP2:** foundational ontology, relationship semantics, and evidence/status model (documentation complete; independent review pending). [Status](specification/DUSRM-1.0/M2-STATUS.md)
-- **DUSRM 1.0 preparation — WP3:** typed metamodel and schema 0.2 draft (structural CI passed; semantic validation and independent review pending). [Status](specification/DUSRM-1.0/M3-STATUS.md)
-- **Next work package:** WP4 — schema 0.2 semantic validator and migration tooling.
+- **DUSRM 1.0 preparation — WP1:** layer definitions and boundaries. [Status](specification/DUSRM-1.0/M1-STATUS.md)
+- **DUSRM 1.0 preparation — WP2:** ontology and relationship consolidation. [Status](specification/DUSRM-1.0/M2-STATUS.md)
+- **DUSRM 1.0 preparation — WP3:** typed metamodel and schema 0.2. [Status](specification/DUSRM-1.0/M3-STATUS.md)
+- **DUSRM 1.0 preparation — WP4:** semantic validator and migration tooling. [Status](specification/DUSRM-1.0/M4-STATUS.md)
+- **Next work package:** WP5 — domain profile reconciliation and independent review preparation.
 
 ## Repository map
 
 - `specification/` — versioned reference-model documents
-- `schema/` — machine-readable description schema proposal
-- `scripts/` — schema and semantic validation tools
-- `tests/` — validator regression tests
+- `schema/` — machine-readable description schemas and fixtures
+- `scripts/` — schema, semantic validation and migration tools
+- `tests/` — validator and migration regression tests
 - `formal/` — external formal-methods pilots and mappings
 - `formalization/` — metamodel, allocation rules, invariants, proof obligations
 - `semantics/` — operational, temporal, concurrency, and failure semantics
