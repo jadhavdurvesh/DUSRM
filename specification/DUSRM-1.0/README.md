@@ -6,9 +6,7 @@
 
 This directory contains versioned work packages for preparing a proposed 1.0 core. It does not supersede the historical 0.x documents or imply that independent review has been completed.
 
-## Work packages
-
-### WP1 — Layer Definitions and Boundaries
+## WP1 — Layer Definitions and Boundaries
 
 **Status:** Documentation complete; independent review pending.
 
@@ -18,9 +16,9 @@ This directory contains versioned work packages for preparing a proposed 1.0 cor
 - [Proposed decisions](M1-DECISIONS.md)
 - [Internal validation](M1-VALIDATION.md)
 
-### WP2 — Foundational Ontology and Relationship Consolidation
+## WP2 — Foundational Ontology and Relationship Consolidation
 
-**Status:** Documentation complete; independent review and schema work pending.
+**Status:** Documentation complete; independent review pending.
 
 - [Status](M2-STATUS.md)
 - [Consolidated core ontology](M2-ONTOLOGY-CORE.md)
@@ -30,19 +28,9 @@ This directory contains versioned work packages for preparing a proposed 1.0 cor
 - [Proposed decisions](M2-DECISIONS.md)
 - [Internal validation](M2-VALIDATION.md)
 
-## Proposed next work package
+## WP3 — Typed Metamodel and Schema 0.2 Design
 
-**WP4 — Schema 0.2 Semantic Validator and Migration Tooling**
-
-WP4 will add cross-reference resolution, global identifier checks, relationship scope checks, evidence-reference checks, profile behavior and migration reporting. Schema 0.1 behavior must remain preserved.
-
-## Release gate
-
-DUSRM 1.0 must not be declared stable solely because WP1 and WP2 documentation exists. The core ontology, relationship semantics, metamodel, schema, conformance checks, domain profiles, and independent review findings must be reconciled and approved through the repository's governance process.
-
-### WP3 — Typed Metamodel and Schema 0.2 Design
-
-**Status:** Structural CI passed; independent review and semantic validation pending.
+**Status:** Internally complete; structural CI passed; independent review pending.
 
 - [Status](M3-STATUS.md)
 - [Schema design](M3-SCHEMA-DESIGN.md)
@@ -52,3 +40,26 @@ DUSRM 1.0 must not be declared stable solely because WP1 and WP2 documentation e
 - [Schema 0.2](../../schema/dusrm-description-0.2.schema.json)
 - [SAND OS architecture fixture](../../schema/fixtures/0.2/valid-sand-os-architecture.json)
 
+## WP4 — Schema 0.2 Semantic Validator and Migration Tooling
+
+**Status:** Implemented draft; CI passed; independent review pending.
+
+- [Status](M4-STATUS.md)
+- [Semantic validator design and usage](M4-SEMANTIC-VALIDATOR.md)
+- [Migration tooling and CLI](M4-MIGRATION-TOOLING.md)
+- [Proposed decisions](M4-DECISIONS.md)
+- [Automated validation report](M4-VALIDATION.md)
+- [Semantic validator implementation](../../scripts/validate_semantics_0_2.py)
+- [Migration utility](../../scripts/migrate_schema_0_1_to_0_2.py)
+- [Regression tests](../../tests/test_semantics_0_2.py)
+- [WP4 CI workflow](../../.github/workflows/dusrm-1.0-schema-validation.yml)
+
+## Proposed next work package
+
+**WP5 — Domain Profile Reconciliation and Independent Review Preparation**
+
+Reconcile the standalone application, ANANTA and FireBot profiles against the 1.0 ontology/schema; identify profile-specific typed concepts and compatibility; build review cases; and prepare an independent reviewer package with objections, expected behaviors, and change-control records.
+
+## Release gate
+
+DUSRM 1.0 must not be declared stable solely because WP1–WP4 artifacts and CI exist. The core ontology, relationship semantics, metamodel, schema, semantic rules, migration behavior, conformance checks, domain profiles, and independent review findings must be reconciled and approved through the repository's governance process.
