@@ -42,7 +42,7 @@ These are reserved for a future semantic validator and human review.
 
 ## 5. Recorded result
 
-<badge>Not independently reviewed</badge>
+**Review status:** Not independently reviewed.
 
 - Workflow: DUSRM 1.0 preparation — Schema 0.2 draft validation
 - Run: [#3](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42749757789)
