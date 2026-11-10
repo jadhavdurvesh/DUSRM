@@ -1,0 +1,1136 @@
+{
+  "schemaVersion": "0.2-draft",
+  "dusrmVersion": "1.0-preparation-WP3",
+  "descriptionId": "sand-os-architecture-0-2",
+  "title": "SAND OS — Typed DUSRM Architecture Pilot",
+  "summary": "An early architecture description of the independent SAND OS project. Current kernel capabilities and future roadmap items are deliberately distinguished.",
+  "descriptionState": "draft",
+  "profileRefs": [],
+  "context": {
+    "systemOfInterest": {
+      "id": "sand-os",
+      "name": "SAND OS",
+      "category": "computational",
+      "kind": "operating-system",
+      "description": "Independent general-purpose operating-system research project with an authored BIOS boot chain and 32-bit x86 kernel prototype.",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    "purpose": "Describe SAND OS architecture and track responsibilities, subsystem relationships, contracts, resources and maturity without prescribing implementation details beyond the current project.",
+    "scope": "SAND-authored boot chain and kernel subsystems currently in the repository; future drivers, filesystem, userland and graphical desktop are included as planned architecture only.",
+    "abstractionLevel": "system architecture and subsystem responsibility",
+    "boundary": {
+      "id": "SAND-BOUNDARY",
+      "inclusions": [
+        "SAND-authored boot stages",
+        "kernel core",
+        "x86 architecture support",
+        "memory management",
+        "scheduler and synchronization prototype",
+        "process-management proof of concept",
+        "system-call proof of concept"
+      ],
+      "exclusions": [
+        "QEMU as a test host",
+        "host compiler and assembler",
+        "physical PC firmware and hardware internals",
+        "future userland and graphical desktop until implemented"
+      ],
+      "notes": "Legacy BIOS and x86 hardware are external platform dependencies in the current boot path."
+    },
+    "environment": [
+      {
+        "id": "x86-platform",
+        "name": "Legacy BIOS x86 platform",
+        "category": "physical",
+        "kind": "computer-platform",
+        "roles": [
+          "execution-host",
+          "firmware-provider"
+        ],
+        "description": "External target platform for current legacy-BIOS boot bring-up.",
+        "evidenceRefs": [
+          "EV-SAND-ARCH"
+        ]
+      },
+      {
+        "id": "qemu-host",
+        "name": "QEMU development environment",
+        "category": "computational",
+        "kind": "external-emulator",
+        "roles": [
+          "test-environment"
+        ],
+        "description": "External development/test environment; not part of the SAND OS runtime.",
+        "evidenceRefs": [
+          "EV-SAND-ARCH"
+        ]
+      }
+    ],
+    "assumptions": [
+      "The repository architecture document is a source description, not proof of physical hardware support.",
+      "Features described as future roadmap items remain planned until implementation and test evidence exist."
+    ]
+  },
+  "elements": [
+    {
+      "id": "boot-chain",
+      "name": "SAND boot chain",
+      "category": "computational",
+      "kind": "bootloader",
+      "roles": [
+        "platform-entry",
+        "kernel-loader"
+      ],
+      "description": "SAND-authored BIOS boot sector and second-stage loader.",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "kernel",
+      "name": "SAND kernel",
+      "category": "computational",
+      "kind": "kernel",
+      "roles": [
+        "system-core"
+      ],
+      "description": "32-bit freestanding kernel prototype.",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "memory-manager",
+      "name": "Memory manager",
+      "category": "computational",
+      "kind": "kernel-subsystem",
+      "roles": [
+        "physical-frame-allocation",
+        "paging",
+        "heap"
+      ],
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "scheduler",
+      "name": "Kernel scheduler",
+      "category": "computational",
+      "kind": "kernel-subsystem",
+      "roles": [
+        "thread-scheduling",
+        "execution-arbitration"
+      ],
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "process-manager",
+      "name": "Process manager",
+      "category": "computational",
+      "kind": "kernel-subsystem",
+      "roles": [
+        "process-lifecycle",
+        "address-space-management"
+      ],
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "syscall-gateway",
+      "name": "System-call gateway",
+      "category": "computational",
+      "kind": "kernel-interface",
+      "roles": [
+        "user-kernel-boundary",
+        "syscall-dispatch"
+      ],
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "user-process",
+      "name": "Test user process",
+      "category": "computational",
+      "kind": "user-process",
+      "roles": [
+        "ring3-test-subject"
+      ],
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "desktop-stack",
+      "name": "Native graphical desktop",
+      "category": "computational",
+      "kind": "planned-subsystem",
+      "roles": [
+        "graphics",
+        "windowing",
+        "desktop-shell"
+      ],
+      "realizationState": "planned",
+      "evidenceRefs": [
+        "EV-SAND-ROADMAP"
+      ]
+    }
+  ],
+  "responsibilities": [
+    {
+      "id": "R-BOOT",
+      "name": "Load and transfer control to kernel",
+      "description": "Perform the boot-stage progression and transfer execution into the kernel.",
+      "primaryLayer": "L3",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "R-MEMORY",
+      "name": "Manage memory resources",
+      "description": "Discover and manage the memory capacity exposed to the kernel.",
+      "primaryLayer": "L2",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "R-EXEC",
+      "name": "Control execution lifecycle",
+      "description": "Create, schedule, block, wake and terminate modeled kernel execution contexts and processes.",
+      "primaryLayer": "L3",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "R-STATE",
+      "name": "Maintain process and kernel state",
+      "description": "Represent process, thread, address-space and resource-allocation state.",
+      "primaryLayer": "L4",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "R-SCHED-ALGO",
+      "name": "Select runnable execution",
+      "description": "Apply the scheduler selection rule to choose a runnable execution context.",
+      "primaryLayer": "L5",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "R-INTERFACE",
+      "name": "Expose controlled kernel interaction",
+      "description": "Provide the user-to-kernel system-call interaction contract.",
+      "primaryLayer": "L6",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "R-PROCESS-CAP",
+      "name": "Provide process execution capability",
+      "description": "Offer process creation, address-space activation, termination and destruction capabilities within current prototype limits.",
+      "primaryLayer": "L7",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "R-OS-PURPOSE",
+      "name": "Provide an independent operating system",
+      "description": "Build a general-purpose operating system with its own boot chain, kernel, drivers, storage, userland and native graphical environment.",
+      "primaryLayer": "L8",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "EV-SAND-ROADMAP"
+      ]
+    }
+  ],
+  "realizations": [
+    {
+      "id": "REAL-BOOT",
+      "elementRef": "boot-chain",
+      "responsibilityRef": "R-BOOT",
+      "realizationState": "inProgress",
+      "rationale": "The boot sector and second stage implement the current SAND boot progression.",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "REAL-KERNEL-MEM",
+      "elementRef": "memory-manager",
+      "responsibilityRef": "R-MEMORY",
+      "realizationState": "inProgress",
+      "rationale": "The memory manager contains early frame allocation, paging and heap mechanisms.",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "REAL-KERNEL-EXEC",
+      "elementRef": "kernel",
+      "responsibilityRef": "R-EXEC",
+      "realizationState": "inProgress",
+      "rationale": "The kernel hosts and controls the current execution subsystems.",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "REAL-SCHED",
+      "elementRef": "scheduler",
+      "responsibilityRef": "R-SCHED-ALGO",
+      "realizationState": "inProgress",
+      "rationale": "The scheduler applies the current runnable-thread selection rule.",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "REAL-PROC-EXEC",
+      "elementRef": "process-manager",
+      "responsibilityRef": "R-EXEC",
+      "realizationState": "inProgress",
+      "rationale": "The process manager implements a bounded process lifecycle prototype.",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "REAL-PROC-STATE",
+      "elementRef": "process-manager",
+      "responsibilityRef": "R-STATE",
+      "realizationState": "inProgress",
+      "rationale": "Process descriptors and address-space records represent process state.",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "REAL-SYSCALL",
+      "elementRef": "syscall-gateway",
+      "responsibilityRef": "R-INTERFACE",
+      "realizationState": "inProgress",
+      "rationale": "The gateway exposes the current limited ring-3 system-call entry.",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "REAL-PROCESS-CAP",
+      "elementRef": "process-manager",
+      "responsibilityRef": "R-PROCESS-CAP",
+      "realizationState": "inProgress",
+      "rationale": "The process manager provides the current prototype process operations.",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "REAL-KERNEL-PURPOSE",
+      "elementRef": "kernel",
+      "responsibilityRef": "R-OS-PURPOSE",
+      "realizationState": "inProgress",
+      "rationale": "The kernel is a central element of the independent OS project, not the whole finished product.",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    }
+  ],
+  "layerApplicability": [
+    {
+      "layer": "L1",
+      "applicability": "externalDependency",
+      "rationale": "The current target relies on external x86 hardware and legacy BIOS."
+    },
+    {
+      "layer": "L2",
+      "applicability": "internal",
+      "rationale": "Kernel memory and resource management are in the modeled scope."
+    },
+    {
+      "layer": "L3",
+      "applicability": "internal",
+      "rationale": "Boot progression, thread scheduling and process lifecycle are modeled."
+    },
+    {
+      "layer": "L4",
+      "applicability": "internal",
+      "rationale": "Kernel and process state are represented."
+    },
+    {
+      "layer": "L5",
+      "applicability": "internal",
+      "rationale": "Scheduler and kernel decision computations are modeled."
+    },
+    {
+      "layer": "L6",
+      "applicability": "internal",
+      "rationale": "The limited system-call boundary and kernel interfaces are modeled."
+    },
+    {
+      "layer": "L7",
+      "applicability": "internal",
+      "rationale": "Current process-management capability is within scope; future user services remain planned."
+    },
+    {
+      "layer": "L8",
+      "applicability": "internal",
+      "rationale": "The intended independent operating-system outcome is explicit."
+    }
+  ],
+  "properties": [
+    {
+      "id": "PROP-THREAD-LIMIT",
+      "subjectRef": {
+        "kind": "element",
+        "id": "scheduler"
+      },
+      "name": "threadDescriptorLimit",
+      "valueType": "integer",
+      "meaning": "Current prototype maximum number of statically allocated kernel-thread descriptors.",
+      "unit": "threads",
+      "value": 4
+    }
+  ],
+  "specifications": [
+    {
+      "id": "SPEC-SAND-ARCH",
+      "name": "SAND OS architecture description",
+      "kind": "designDefinition",
+      "status": "published",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/docs/ARCHITECTURE.md",
+      "revision": "tree 52680aa7170ea25b1eba129c5917a29bb0c69947",
+      "description": "Repository architecture document inspected for this illustrative mapping."
+    },
+    {
+      "id": "SPEC-SAND-ROADMAP",
+      "name": "SAND OS engineering roadmap",
+      "kind": "designDefinition",
+      "status": "published",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/docs/ROADMAP.md",
+      "revision": "tree 52680aa7170ea25b1eba129c5917a29bb0c69947"
+    }
+  ],
+  "relationships": [
+    {
+      "id": "REL-MEMBER-KERNEL",
+      "type": "memberOf",
+      "source": {
+        "kind": "element",
+        "id": "kernel"
+      },
+      "target": {
+        "kind": "system",
+        "id": "sand-os"
+      },
+      "rationale": "The kernel is an internal constituent of SAND OS.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "REL-DECOMPOSES",
+      "type": "decomposesInto",
+      "source": {
+        "kind": "system",
+        "id": "sand-os"
+      },
+      "target": {
+        "kind": "element",
+        "id": "kernel"
+      },
+      "rationale": "The system description identifies the kernel as one constituent.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "REL-CONTAINED",
+      "type": "containedWithin",
+      "source": {
+        "kind": "element",
+        "id": "process-manager"
+      },
+      "target": {
+        "kind": "boundary",
+        "id": "SAND-BOUNDARY"
+      },
+      "rationale": "The process manager is inside the declared SAND OS boundary.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "REL-DEPENDS",
+      "type": "dependsOn",
+      "source": {
+        "kind": "element",
+        "id": "boot-chain"
+      },
+      "target": {
+        "kind": "environmentParticipant",
+        "id": "x86-platform"
+      },
+      "rationale": "The current boot path depends on legacy BIOS and x86 platform services.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "REL-EXPOSES",
+      "type": "exposes",
+      "source": {
+        "kind": "element",
+        "id": "syscall-gateway"
+      },
+      "target": {
+        "kind": "interface",
+        "id": "SYSCALL-IF"
+      },
+      "rationale": "The gateway exposes the current limited system-call interface.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "REL-REQUIRES",
+      "type": "requires",
+      "source": {
+        "kind": "element",
+        "id": "user-process"
+      },
+      "target": {
+        "kind": "capability",
+        "id": "CAP-PROCESS"
+      },
+      "rationale": "The test user process depends on process execution capability.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "REL-INTERACTS",
+      "type": "interactsWith",
+      "source": {
+        "kind": "element",
+        "id": "user-process"
+      },
+      "target": {
+        "kind": "element",
+        "id": "syscall-gateway"
+      },
+      "rationale": "The test process invokes the kernel through the system-call boundary.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "REL-ALLOCATES",
+      "type": "allocates",
+      "source": {
+        "kind": "element",
+        "id": "memory-manager"
+      },
+      "target": {
+        "kind": "resource",
+        "id": "RES-KERNEL-MEM"
+      },
+      "rationale": "The memory manager allocates bounded kernel memory capacity.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "REL-PERFORMS",
+      "type": "performs",
+      "source": {
+        "kind": "execution",
+        "id": "EXEC-BOOT-TEST"
+      },
+      "target": {
+        "kind": "operation",
+        "id": "OP-BOOT"
+      },
+      "rationale": "The illustrative queued execution refers to the boot operation specification.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "REL-TRIGGERS",
+      "type": "triggers",
+      "source": {
+        "kind": "event",
+        "id": "EV-BOOT-REQUEST"
+      },
+      "target": {
+        "kind": "transition",
+        "id": "TRANS-PROC-READY"
+      },
+      "rationale": "The boot request event enables the declared illustrative process-state transition.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "REL-TRANSITIONS",
+      "type": "transitionsTo",
+      "source": {
+        "kind": "state",
+        "id": "STATE-PROC-NEW"
+      },
+      "target": {
+        "kind": "state",
+        "id": "STATE-PROC-READY"
+      },
+      "rationale": "The state model defines the possible change from new to ready.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "REL-OBSERVES",
+      "type": "observes",
+      "source": {
+        "kind": "element",
+        "id": "kernel"
+      },
+      "target": {
+        "kind": "state",
+        "id": "STATE-PROC-READY"
+      },
+      "rationale": "The kernel may observe the modeled process state.",
+      "designDisposition": "proposed",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "REL-CONTROLS",
+      "type": "controls",
+      "source": {
+        "kind": "element",
+        "id": "scheduler"
+      },
+      "target": {
+        "kind": "execution",
+        "id": "EXEC-BOOT-TEST"
+      },
+      "rationale": "The scheduler controls admission/progression of the illustrative execution.",
+      "designDisposition": "proposed",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "REL-CONSTRAINED",
+      "type": "constrainedBy",
+      "source": {
+        "kind": "element",
+        "id": "memory-manager"
+      },
+      "target": {
+        "kind": "constraint",
+        "id": "CON-MEM-LIMIT"
+      },
+      "rationale": "The memory manager is subject to the declared bounded-memory constraint.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "REL-SATISFIES",
+      "type": "satisfies",
+      "source": {
+        "kind": "responsibility",
+        "id": "R-PROCESS-CAP"
+      },
+      "target": {
+        "kind": "requirement",
+        "id": "REQ-PROCESS-ISOLATION"
+      },
+      "rationale": "The responsibility is intended to address the process-isolation requirement; satisfaction has not been assessed.",
+      "designDisposition": "proposed",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "REL-DERIVED",
+      "type": "derivedFrom",
+      "source": {
+        "kind": "requirement",
+        "id": "REQ-PROCESS-ISOLATION"
+      },
+      "target": {
+        "kind": "evidence",
+        "id": "EV-SAND-ARCH"
+      },
+      "rationale": "The requirement is traced to the project architecture and roadmap context.",
+      "designDisposition": "proposed",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "REL-IMPLEMENTS",
+      "type": "implements",
+      "source": {
+        "kind": "element",
+        "id": "syscall-gateway"
+      },
+      "target": {
+        "kind": "specification",
+        "id": "SPEC-SAND-ARCH"
+      },
+      "rationale": "The gateway is described by the project's architecture specification; this is not a conformance claim.",
+      "designDisposition": "proposed",
+      "assessmentResult": "notAssessed"
+    }
+  ],
+  "operations": [
+    {
+      "id": "OP-BOOT",
+      "name": "BootKernel",
+      "ownerRef": {
+        "kind": "element",
+        "id": "boot-chain"
+      },
+      "purpose": "Load the kernel payload and transfer control to the kernel entry point.",
+      "designDisposition": "accepted",
+      "realizationState": "inProgress",
+      "preconditions": [
+        "Target platform provides the assumed legacy BIOS services."
+      ],
+      "postconditions": [
+        "Control is transferred to kernel entry."
+      ],
+      "failureConditions": [
+        "Disk read failure",
+        "Invalid or oversized kernel payload"
+      ],
+      "inputRefs": [],
+      "outputRefs": [],
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    },
+    {
+      "id": "OP-SCHEDULE",
+      "name": "ScheduleRunnableThread",
+      "ownerRef": {
+        "kind": "element",
+        "id": "scheduler"
+      },
+      "purpose": "Select a runnable kernel thread according to the scheduler policy.",
+      "designDisposition": "accepted",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    }
+  ],
+  "executions": [
+    {
+      "id": "EXEC-BOOT-TEST",
+      "operationRef": {
+        "kind": "operation",
+        "id": "OP-BOOT"
+      },
+      "subjectRef": {
+        "kind": "element",
+        "id": "boot-chain"
+      },
+      "executionState": "queued",
+      "context": "Illustrative execution instance only; not evidence that a new boot test was run."
+    }
+  ],
+  "events": [
+    {
+      "id": "EV-BOOT-REQUEST",
+      "name": "Boot request",
+      "eventKind": "generated",
+      "sourceRef": {
+        "kind": "element",
+        "id": "boot-chain"
+      },
+      "description": "Abstract event used in the example state/transition model."
+    }
+  ],
+  "stateVariables": [
+    {
+      "id": "SV-PROC-STATE",
+      "subjectRef": {
+        "kind": "element",
+        "id": "process-manager"
+      },
+      "name": "processState",
+      "meaning": "Lifecycle state of a modeled SAND process.",
+      "valueType": "enumeration",
+      "allowedValues": [
+        "new",
+        "ready",
+        "running",
+        "terminated"
+      ],
+      "authority": "kernel-process-manager"
+    }
+  ],
+  "states": [
+    {
+      "id": "STATE-PROC-NEW",
+      "stateVariableRef": {
+        "kind": "stateVariable",
+        "id": "SV-PROC-STATE"
+      },
+      "value": "new",
+      "meaning": "Process descriptor has been created but is not ready to run."
+    },
+    {
+      "id": "STATE-PROC-READY",
+      "stateVariableRef": {
+        "kind": "stateVariable",
+        "id": "SV-PROC-STATE"
+      },
+      "value": "ready",
+      "meaning": "Process is eligible for scheduling."
+    }
+  ],
+  "transitions": [
+    {
+      "id": "TRANS-PROC-READY",
+      "subjectRef": {
+        "kind": "element",
+        "id": "process-manager"
+      },
+      "fromStateRef": {
+        "kind": "state",
+        "id": "STATE-PROC-NEW"
+      },
+      "toStateRef": {
+        "kind": "state",
+        "id": "STATE-PROC-READY"
+      },
+      "triggerEventRefs": [
+        {
+          "kind": "event",
+          "id": "EV-BOOT-REQUEST"
+        }
+      ],
+      "guard": "Process construction and address-space setup succeeded.",
+      "effect": "Mark process ready for scheduling.",
+      "designDisposition": "proposed",
+      "realizationState": "inProgress"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "SYSCALL-IF",
+      "name": "SAND system-call boundary",
+      "interfaceKind": "logical",
+      "participantRoles": [
+        {
+          "role": "caller",
+          "participantRef": {
+            "kind": "element",
+            "id": "user-process"
+          }
+        },
+        {
+          "role": "dispatcher",
+          "participantRef": {
+            "kind": "element",
+            "id": "syscall-gateway"
+          }
+        }
+      ],
+      "contractSpecificationRef": {
+        "kind": "specification",
+        "id": "SPEC-SAND-ARCH"
+      },
+      "operationRefs": [
+        {
+          "kind": "operation",
+          "id": "OP-SCHEDULE"
+        }
+      ],
+      "designDisposition": "proposed",
+      "description": "Current ring-3 interrupt-gate proof-of-concept; not a stable general-purpose ABI."
+    }
+  ],
+  "interactions": [
+    {
+      "id": "INTERACT-SYSCALL",
+      "name": "User-to-kernel system call",
+      "interactionKind": "requestResponse",
+      "participantRoles": [
+        {
+          "role": "requester",
+          "participantRef": {
+            "kind": "element",
+            "id": "user-process"
+          }
+        },
+        {
+          "role": "provider",
+          "participantRef": {
+            "kind": "element",
+            "id": "syscall-gateway"
+          }
+        }
+      ],
+      "direction": "directed",
+      "interfaceRef": {
+        "kind": "interface",
+        "id": "SYSCALL-IF"
+      },
+      "exchangedItems": [
+        "system-call number",
+        "arguments",
+        "return value"
+      ],
+      "designDisposition": "proposed",
+      "failureBehavior": [
+        "Unknown syscall",
+        "Invalid caller state"
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "id": "RES-KERNEL-MEM",
+      "name": "Managed physical-frame capacity",
+      "resourceKind": "capacity",
+      "ownerRef": {
+        "kind": "element",
+        "id": "memory-manager"
+      },
+      "unit": "frames",
+      "capacity": {
+        "value": 4096,
+        "unit": "frames"
+      },
+      "description": "Illustrative capacity record; actual allocator bounds are documented separately.",
+      "realizationState": "inProgress"
+    }
+  ],
+  "allocations": [
+    {
+      "id": "ALLOC-KERNEL-MEM",
+      "allocatorRef": {
+        "kind": "element",
+        "id": "memory-manager"
+      },
+      "resourceRef": {
+        "kind": "resource",
+        "id": "RES-KERNEL-MEM"
+      },
+      "recipientRef": {
+        "kind": "element",
+        "id": "kernel"
+      },
+      "quantity": 4096,
+      "unit": "frames",
+      "policy": "Illustrative reservation; not a statement of current usable physical memory.",
+      "designDisposition": "proposed",
+      "realizationState": "planned"
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "CAP-PROCESS",
+      "name": "Process execution capability",
+      "description": "Create, activate, terminate and destroy isolated process address spaces within prototype limits.",
+      "providerRef": {
+        "kind": "element",
+        "id": "process-manager"
+      },
+      "operationRefs": [],
+      "preconditions": [
+        "Kernel initialized",
+        "Process table capacity available"
+      ],
+      "limitations": [
+        "No general ELF loader",
+        "No process scheduler integration",
+        "No full user pointer validation"
+      ],
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    }
+  ],
+  "services": [
+    {
+      "id": "SERVICE-SYSCALL",
+      "name": "System-call entry service",
+      "description": "Limited user-to-kernel syscall dispatch proof of concept.",
+      "providerRef": {
+        "kind": "element",
+        "id": "syscall-gateway"
+      },
+      "capabilityRef": {
+        "kind": "capability",
+        "id": "CAP-PROCESS"
+      },
+      "interfaceRef": {
+        "kind": "interface",
+        "id": "SYSCALL-IF"
+      },
+      "consumerRefs": [
+        {
+          "kind": "element",
+          "id": "user-process"
+        }
+      ],
+      "qualityConstraints": [
+        "Not a stable or general-purpose ABI."
+      ],
+      "realizationState": "inProgress"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "REQ-PROCESS-ISOLATION",
+      "statement": "User processes should execute with independently managed address spaces.",
+      "sourceRef": {
+        "kind": "specification",
+        "id": "SPEC-SAND-ARCH"
+      },
+      "priority": "high",
+      "acceptanceCriteria": [
+        "Distinct user address spaces are created and activated independently."
+      ],
+      "designDisposition": "accepted",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    }
+  ],
+  "constraints": [
+    {
+      "id": "CON-MEM-LIMIT",
+      "statement": "The current prototype uses bounded memory-management structures and must not be described as a production virtual-memory subsystem.",
+      "category": "resource",
+      "subjectRefs": [
+        {
+          "kind": "element",
+          "id": "memory-manager"
+        }
+      ],
+      "applicability": "internal",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    }
+  ],
+  "invariants": [
+    {
+      "id": "INV-ONE-PRIMARY-LAYER",
+      "statement": "Every core responsibility has exactly one primary layer.",
+      "subjectRefs": [
+        {
+          "kind": "system",
+          "id": "sand-os"
+        }
+      ],
+      "assessmentResult": "notAssessed",
+      "assumptions": [
+        "The responsibility collection is complete for the selected architecture scope."
+      ],
+      "method": "Human model review only; not machine checked in this fixture."
+    }
+  ],
+  "assertions": [
+    {
+      "id": "ASSERT-M5-POC",
+      "statement": "SAND OS repository documentation reports independent process address-space prototypes.",
+      "category": "implementation",
+      "subjectRefs": [
+        {
+          "kind": "element",
+          "id": "process-manager"
+        }
+      ],
+      "realizationState": "inProgress",
+      "assessmentResult": "notAssessed",
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "DEC-QEMU-EXTERNAL",
+      "title": "QEMU remains an external test environment",
+      "statement": "QEMU is used for development/testing and is not included in the SAND OS runtime.",
+      "disposition": "accepted",
+      "rationale": "Preserves the project's independent runtime objective.",
+      "subjectRefs": [
+        {
+          "kind": "system",
+          "id": "sand-os"
+        },
+        {
+          "kind": "environmentParticipant",
+          "id": "qemu-host"
+        }
+      ],
+      "evidenceRefs": [
+        "EV-SAND-ARCH"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-SAND-ARCH",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "supports",
+      "description": "SAND OS architecture document inspected to establish current boot, memory, scheduler, system-call and process-model status.",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/docs/ARCHITECTURE.md",
+      "revision": "tree 52680aa7170ea25b1eba129c5917a29bb0c69947",
+      "scopeRefs": [
+        {
+          "kind": "system",
+          "id": "sand-os"
+        }
+      ],
+      "producedBy": "Repository documentation",
+      "limitations": [
+        "Repository documentation is not independent test evidence or physical hardware verification."
+      ]
+    },
+    {
+      "id": "EV-SAND-ROADMAP",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "qualifies",
+      "description": "SAND OS roadmap inspected to distinguish future drivers, userland and graphical desktop items from completed implementation.",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/docs/ROADMAP.md",
+      "revision": "tree 52680aa7170ea25b1eba129c5917a29bb0c69947",
+      "scopeRefs": [
+        {
+          "kind": "system",
+          "id": "sand-os"
+        }
+      ],
+      "producedBy": "Repository documentation",
+      "limitations": [
+        "Roadmap entries are intended future work, not implementation proof."
+      ]
+    }
+  ],
+  "status": "implemented"
+}
