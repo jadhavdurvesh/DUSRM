@@ -1,7 +1,7 @@
 # DUSRM 1.0 Preparation — WP3 Status
 
 **Work package:** WP3 — Typed Metamodel and Schema 0.2 Design  
-**Status:** Draft artifacts created; automated validation and independent review pending  
+**Status:** Structural CI passed; independent review and semantic validation pending  
 **Date:** 2026-11-10  
 **Schema:** 0.2-draft
 
@@ -34,6 +34,10 @@ Translate the WP2 ontology into an independently versioned machine-readable sche
 - evidence method, context and relation fields;
 - typed relationship endpoint constraints for 17 core relationships;
 - separate design disposition, realization state, applicability and assessment result fields.
+
+## Automated validation
+
+The dedicated workflow [run #3](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42749757789) passed on 2026-11-10 at commit `13c01c22bba38ac989e893671fdc9187585ce2f2`. The schema meta-validation and fixture job completed successfully: both positive fixtures were accepted and both negative fixtures were rejected as expected. This does not validate cross-collection semantic references.
 
 ## Important limits
 
