@@ -50,8 +50,9 @@ The command performs these stages:
 | DUSRM-02-M-020 | Error | Interface/interaction participant roles are duplicated or inconsistent |
 | DUSRM-02-M-021 | Error | Responsibility parent hierarchy is self-referential or cyclic |
 | DUSRM-02-M-022 | Error/Warning | Allocation interval, quantity, or resource unit is inconsistent |
-| DUSRM-02-E-001 | Error | Assessed relationship/invariant/assertion has no linked evidence |
+| DUSRM-02-E-001 | Error | Implemented realization conflicts with element maturity, or assessed relationship/invariant/assertion has no linked evidence |
 | DUSRM-02-E-002 | Warning | Passing assessment has no evidence explicitly marked as supporting it |
+| DUSRM-02-E-003 | Warning | Evidence kind and evidence-producing method appear inconsistent |
 | DUSRM-02-E-003 | Warning | Evidence kind and declared producing method appear inconsistent |
 | DUSRM-02-P-001 | Error/Warning | Profile is absent/version-mismatched or compatibility is not explicitly approved |
 
