@@ -2265,6 +2265,9 @@
           },
           "minItems": 0,
           "default": []
+        },
+        "realizationState": {
+          "$ref": "#/$defs/realizationState"
         }
       },
       "allOf": [
