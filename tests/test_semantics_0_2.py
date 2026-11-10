@@ -59,6 +59,24 @@ class SemanticValidator02Tests(unittest.TestCase):
         findings = validate_semantics(doc, REGISTRY)
         self.assertIn("DUSRM-02-M-003", codes(findings))
 
+    def test_duplicate_relationship_identifier_is_rejected(self):
+        doc = fixture("valid-sand-os-architecture.json")
+        doc["relationships"][0]["id"] = "kernel"
+        findings = validate_semantics(doc, REGISTRY)
+        self.assertIn("DUSRM-02-M-001", codes(findings))
+
+    def test_dangling_realization_evidence_reference_is_rejected(self):
+        doc = fixture("valid-sand-os-architecture.json")
+        doc["realizations"][0]["evidenceRefs"] = ["EV-MISSING"]
+        findings = validate_semantics(doc, REGISTRY)
+        self.assertIn("DUSRM-02-M-010", codes(findings))
+
+    def test_dangling_layer_applicability_evidence_reference_is_rejected(self):
+        doc = fixture("valid-sand-os-architecture.json")
+        doc["layerApplicability"][0]["evidenceRefs"] = ["EV-MISSING"]
+        findings = validate_semantics(doc, REGISTRY)
+        self.assertIn("DUSRM-02-M-010", codes(findings))
+
     def test_duplicate_realization_pair_is_rejected(self):
         doc = fixture("valid-sand-os-architecture.json")
         duplicate = copy.deepcopy(doc["realizations"][0])
