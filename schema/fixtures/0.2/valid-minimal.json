@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "0.2-draft",
+  "dusrmVersion": "1.0-preparation-WP3",
+  "descriptionId": "minimal-0-2",
+  "title": "Minimal Typed DUSRM Description",
+  "descriptionState": "draft",
+  "profileRefs": [],
+  "context": {
+    "systemOfInterest": {
+      "id": "minimal-soi",
+      "name": "Minimal System",
+      "category": "computational",
+      "kind": "abstract-system",
+      "realizationState": "unknown"
+    },
+    "purpose": "Demonstrate the minimum typed description envelope.",
+    "scope": "System boundary only.",
+    "abstractionLevel": "conceptual",
+    "boundary": {
+      "id": "minimal-boundary",
+      "inclusions": [
+        "system of interest"
+      ],
+      "exclusions": [
+        "external context details"
+      ]
+    },
+    "environment": []
+  },
+  "elements": [],
+  "responsibilities": [],
+  "realizations": [],
+  "layerApplicability": [],
+  "properties": [],
+  "specifications": [],
+  "relationships": [],
+  "operations": [],
+  "executions": [],
+  "events": [],
+  "stateVariables": [],
+  "states": [],
+  "transitions": [],
+  "interfaces": [],
+  "interactions": [],
+  "resources": [],
+  "allocations": [],
+  "capabilities": [],
+  "services": [],
+  "requirements": [],
+  "constraints": [],
+  "invariants": [],
+  "assertions": [],
+  "decisions": [],
+  "evidence": []
+}
