@@ -24,6 +24,7 @@ DEFAULT_REGISTRY = ROOT / "profiles" / "registry.json"
 COLLECTIONS = {
     "element": "elements",
     "responsibility": "responsibilities",
+    "realization": "realizations",
     "property": "properties",
     "specification": "specifications",
     "operation": "operations",
