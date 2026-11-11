@@ -108,7 +108,7 @@ DUSRM 1.0 must not be declared stable solely because WP1–WP5 artifacts and CI 
 - [Proposed SAND CI adoption](M7-SAND-CI-ADOPTION.md)
 - [Independent review checklist](M7-REVIEW-CHECKLIST.md)
 
-The [portable-kit CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031057224) passed 4/4 bundle-integrity checks and all 13 kit tests. The SAND OS model covered 16/16 required OS domains, mapped all eight DUSRM layers, produced zero semantic errors and retained one expected not-assessed compatibility warning.
+The [portable-kit CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031919228) passed 4/4 bundle-integrity checks and all 14 kit tests. The SAND OS model covered 16/16 required OS domains, mapped all eight DUSRM layers, produced zero semantic errors and retained one expected not-assessed compatibility warning.
 
 The SAND OS repository remains unchanged. Its proposed host-side CI adoption requires separate explicit approval.
 
@@ -122,3 +122,14 @@ The SAND OS repository remains unchanged. Its proposed host-side CI adoption req
 - [SAND OS DUSRM change-review template](../../adoption/sand-os/CHANGE-REVIEW-TEMPLATE.md)
 
 WP8 proposes DUSRM as SAND's primary project-level responsibility architecture, replacing inconsistent top-level layer diagrams. SAND-specific technical contracts such as Veyra, SAPP and SANDFS remain authoritative for their implementation details. No SAND OS repository changes have been made.
+
+
+## WP8 — DUSRM as the Primary SAND OS Architecture Reference
+
+**Status:** Governance policy and change-review process prepared; SAND-side adoption pending.
+
+- [WP8 status](M8-STATUS.md)
+- [SAND OS architecture governance](M8-SAND-OS-ARCHITECTURE-GOVERNANCE.md)
+- [DUSRM-based SAND architecture change-review template](../../adoption/sand-os/CHANGE-REVIEW-TEMPLATE.md)
+
+WP8 proposes DUSRM as the top-level project-wide responsibility reference for SAND OS. It replaces informal whole-project layer diagrams as the responsibility map, while SAND's concrete specifications (Veyra, SAPP, SANDFS, CPU and driver contracts) remain authoritative for implementation details. SAND OS has not been modified.
