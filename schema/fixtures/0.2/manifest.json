@@ -2,7 +2,7 @@
   "suiteId": "DUSRM-SCHEMA-0.2-FIXTURES",
   "schemaId": "urn:dusrm:schema:description:0.2-draft",
   "schemaVersion": "0.2-draft",
-  "purpose": "Structural and typed-relationship fixtures for DUSRM 1.0 preparation. The profile-specific fixtures are validated by tests/test_profiles_0_2.py and the dedicated WP5 CI step.",
+  "purpose": "Structural and typed-relationship fixtures for DUSRM 1.0 preparation. Profile-specific fixtures are validated by dedicated schema/semantic regression tests and CI steps.",
   "fixtures": [
     {
       "id": "WP3-POS-001",
@@ -45,12 +45,19 @@
       "path": "profiles/firebot-cyber-physical-robotics.json",
       "expected": "schema-pass-and-semantic-clean-with-profile-warning",
       "reason": "FireBot CPS profile pilot; planned physical systems remain distinct from simulation."
+    },
+    {
+      "id": "WP6-PROFILE-001",
+      "path": "profiles/sand-os-operating-system.json",
+      "expected": "schema-pass-and-semantic-clean-with-profile-warning",
+      "reason": "SAND OS operating-system profile pilot with nine-to-eight-strata mapping, current/proposed subsystem maturity, Veyra/SAPP/SANDFS boundaries and read-only QEMU CI evidence."
     }
   ],
   "limitations": [
-    "The structural fixture runner checks the WP3 minimal, SAND OS, and two negative fixtures.",
-    "The three WP5 profile fixtures are checked by a separate regression test and semantic CLI step.",
-    "Profile compatibility warnings are expected while the registry status remains not-assessed.",
-    "Fixture success does not establish independent profile compatibility, system implementation, evidence adequacy, safety, or conformance."
+    "The structural fixture runner checks WP3 minimal, SAND OS legacy pilot and two negative fixtures.",
+    "The WP5 standalone, ANANTA and FireBot fixtures and WP6 SAND OS operating-system fixture are checked by dedicated regression tests and semantic CLI steps.",
+    "All profile compatibility warnings are expected while the registry status remains not-assessed.",
+    "The SAND OS profile is a DUSRM-side description; its fixture validation does not modify the SAND OS repository.",
+    "Fixture success does not establish independent profile compatibility, physical implementation, evidence adequacy, safety or conformance."
   ]
 }
