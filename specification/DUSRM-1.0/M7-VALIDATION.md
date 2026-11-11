@@ -1,9 +1,9 @@
 # DUSRM 1.0 Preparation — WP7 Portable Kit Validation
 
 **Workflow:** DUSRM SAND OS validation kit  
-**Run:** [GitHub Actions run #43026965428](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43026965428)  
+**Run:** [GitHub Actions run #43031057224](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43026965428)  
 **Conclusion:** success  
-**Checked commit:** `3b36bd93879ae9a0d757bad9dd5f44d47e58a364`  
+**Checked commit:** `780e3d23008e0dbe85e7e64452104b94da1ada08`  
 **Date:** 2026-11-11
 
 ## Results
@@ -11,23 +11,27 @@
 | Check | Result |
 |---|---|
 | Pinned bundle integrity | 4/4 files verified |
-| Portable validation-kit regression tests | 5 passed |
+| Portable validation-kit regression tests | 13 passed |
 | Default SAND OS description validation | valid |
 | Structural schema errors | 0 |
 | Semantic errors | 0 |
 | Semantic warnings | 1 |
 | Profile compatibility warnings | 1 expected |
-| JSON report generation | passed |
+| Required OS domain coverage | 16/16 |\n| DUSRM layers represented in OS mapping | 8/8 |\n| JSON report generation | passed |
 | Report artifact upload | passed |
 
 ## Regression cases
 
-The five tests exercise:
+The thirteen tests exercise:
 1. Git blob hash verification for the bundled validator, schema, registry and architecture fixture.
-2. Positive SAND OS architecture validation with the expected warning and machine-readable report.
+2. Positive SAND OS architecture validation with a complete 16-domain coverage report.
 3. Strict compatibility mode returning exit code 3 while profile compatibility is not assessed.
-4. Rejection of a semantically invalid description with a dangling element reference.
-5. Rejection of an invalid schema version.
+4. Rejection of dangling element/evidence references and missing required domain coverage.
+5. Rejection of an invalid schema version and invalid layer mapping.
+6. Rejection of QEMU evidence relabeled as physical hardware testing.
+7. Rejection of DUSRM being marked as a required SAND runtime dependency.
+8. Rejection of implemented maturity claims that point to in-progress elements.
+9. Verification that all eight DUSRM layers remain present in the many-to-many OS mapping.
 
 ## Expected warning
 
@@ -47,4 +51,4 @@ The artifact is attached to the [workflow run](https://github.com/jadhavdurvesh/
 
 ## Scope
 
-The result demonstrates that the DUSRM schema and selected semantic rules can be run reproducibly against the SAND OS architecture description. It does not test SAND OS kernel code, create a boot image, execute the OS, verify physical hardware, audit security, or approve profile compatibility.
+The result demonstrates that the DUSRM schema and OS-profile rules can be run reproducibly against the SAND OS architecture description. It includes machine-checked 16/16 OS-domain coverage and all-eight-layer mapping. It does not test SAND OS kernel code, create a boot image, execute the OS, verify physical hardware, audit security, or approve profile compatibility.
