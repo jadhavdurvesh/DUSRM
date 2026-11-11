@@ -1,10 +1,10 @@
 {
   "kitId": "DUSRM-SAND-OS-VALIDATION-KIT",
-  "kitVersion": "0.2.1-draft",
+  "kitVersion": "0.2.2-draft",
   "status": "experimental",
   "purpose": "Standalone host-side validation kit for a DUSRM 0.2-draft SAND OS architecture description.",
   "dusrmRepository": "https://github.com/jadhavdurvesh/DUSRM",
-  "dusrmSourceCommit": "475637c0e5956176833d05b9a3d1d2b613becd50",
+  "dusrmSourceCommit": "ba2909a8ffad87691c966f502be5b46c43d64605",
   "canonicalProfileId": "DUSRM-PROFILE-OPERATING-SYSTEM-0.1",
   "profileVersion": "0.1-draft",
   "compatibilityStatus": "not-assessed",
@@ -14,7 +14,7 @@
     {
       "path": "validate_semantics_0_2.py",
       "sourcePath": "scripts/validate_semantics_0_2.py",
-      "gitBlobSha": "ae77b9121887c10993a610c96598e9cb6907d356"
+      "gitBlobSha": "63d00929b3508d2e2126f57a2930ba1db6af0701"
     },
     {
       "path": "dusrm-description-0.2.schema.json",
@@ -40,7 +40,16 @@
     ],
     "warningsAreErrorsByDefault": false,
     "strictCompatibilityExitCode": 3,
-    "reportFormat": "JSON"
+    "reportFormat": "JSON",
+    "osProfileRules": [
+      "all required OS domains must be covered exactly once",
+      "internal domains must link to declared OS elements",
+      "applicable domains must link to declared evidence",
+      "testInSimulation and testOnHardware require context-appropriate evidence",
+      "all eight core DUSRM layers must appear in the many-to-many mapping",
+      "implemented maturity must agree with realizing element maturity",
+      "DUSRM must remain outside OS boot and runtime"
+    ]
   },
   "limitations": [
     "This validates a DUSRM architecture description, not the SAND OS kernel binary or runtime.",
