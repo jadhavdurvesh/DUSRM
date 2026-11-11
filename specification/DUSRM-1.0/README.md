@@ -96,3 +96,18 @@ Resolve DUSRM core/profile review findings, obtain owner approval for any SAND-s
 ## Release gate
 
 DUSRM 1.0 must not be declared stable solely because WP1–WP5 artifacts and CI exist. The core ontology, relationship semantics, metamodel, schema, semantic rules, migration behavior, conformance checks, domain profiles, evidence, and independent review findings must be reconciled and approved through the repository's governance process.
+
+
+## WP7 — Portable Validation Kit and SAND OS Adoption Review
+
+**Status:** Portable kit implemented and CI passed; independent review and SAND-side adoption approval pending.
+
+- [WP7 status](M7-STATUS.md)
+- [WP7 validation record](M7-VALIDATION.md)
+- [Portable SAND OS validation kit](../../adoption/sand-os/README.md)
+- [Proposed SAND CI adoption](M7-SAND-CI-ADOPTION.md)
+- [Independent review checklist](M7-REVIEW-CHECKLIST.md)
+
+The [portable-kit CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43026965428) passed 4/4 bundle-integrity checks and all 5 kit tests. The SAND OS model produced zero semantic errors and one expected not-assessed compatibility warning.
+
+The SAND OS repository remains unchanged. Its proposed host-side CI adoption requires separate explicit approval.
