@@ -58,7 +58,8 @@ def main() -> int:
         return completed.returncode
 
     try:
-        payload = completed.stdout.lstrip()\n        findings, _ = json.JSONDecoder().raw_decode(payload)
+        payload = completed.stdout.lstrip()
+        findings, _ = json.JSONDecoder().raw_decode(payload)
         model: dict[str, Any] = json.loads(args.model.read_text(encoding="utf-8"))
         manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
@@ -105,7 +106,7 @@ def main() -> int:
 
     try:
         args.report.parent.mkdir(parents=True, exist_ok=True)
-        args.report.write_text(json.dumps(report, indent=2) + "\\n", encoding="utf-8")
+        args.report.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     except OSError as exc:
         print(f"Cannot write report {args.report}: {exc}", file=sys.stderr)
         return 2
