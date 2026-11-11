@@ -57,6 +57,6 @@ WP4 is complete as an internally implemented and CI-validated draft. Acceptance 
 
 ## Next work package
 
-**WP5 — Domain Profile Reconciliation and Independent Review Preparation**
+**WP5 — Domain Profile Reconciliation and Independent Review Preparation: internally complete.** See [WP5 status](M5-STATUS.md).
 
-Reconcile the standalone application, ANANTA and FireBot profiles against the 1.0 ontology/schema; identify profile-specific typed concepts and compatibility; build review cases; and prepare a reviewer package with objections, expected behaviors, and change-control records.
+The next work package is **WP6 — Independent Review Findings and Release Candidate Gate**.
