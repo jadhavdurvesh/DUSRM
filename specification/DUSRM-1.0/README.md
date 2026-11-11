@@ -87,16 +87,9 @@ All three profiles remain `not-assessed`. A clean fixture result is not a profil
 
 The SAND OS profile remains `not-assessed`. The [WP6 CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43024813575) passed 22 semantic/migration tests, 4 existing profile tests and 8 SAND OS profile tests. The SAND OS repository was inspected read-only and was not modified.
 
-## Proposed next work package
-
-**WP7 — Independent Review Findings and SAND OS Adoption Approval**
-
-Resolve DUSRM core/profile review findings, obtain owner approval for any SAND-side adoption changes, and determine whether a DUSRM 1.0 release candidate is justified. Do not declare a stable release without explicit governance approval.
-
 ## Release gate
 
-DUSRM 1.0 must not be declared stable solely because WP1–WP5 artifacts and CI exist. The core ontology, relationship semantics, metamodel, schema, semantic rules, migration behavior, conformance checks, domain profiles, evidence, and independent review findings must be reconciled and approved through the repository's governance process.
-
+DUSRM 1.0 must not be declared stable solely because WP1–WP8 artifacts and CI exist. The core ontology, layer definitions, relationship semantics, schema, semantic rules, migration behavior, conformance checks, domain profiles, evidence and independent review findings must be reconciled and approved through the repository's governance process.
 
 ## WP7 — Portable Validation Kit and SAND OS Adoption Review
 
@@ -108,7 +101,7 @@ DUSRM 1.0 must not be declared stable solely because WP1–WP5 artifacts and CI 
 - [Proposed SAND CI adoption](M7-SAND-CI-ADOPTION.md)
 - [Independent review checklist](M7-REVIEW-CHECKLIST.md)
 
-The [portable-kit CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031919228) passed 4/4 bundle-integrity checks and all 14 kit tests. The SAND OS model covered 16/16 required OS domains, mapped all eight DUSRM layers, produced zero semantic errors and retained one expected not-assessed compatibility warning.
+The [portable-kit CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031919228) passed 4/4 bundle-integrity checks and all 14 kit tests. Its report artifact is [available here](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031919228/artifacts/13860938644). The SAND OS model covered 16/16 required OS domains, mapped all eight DUSRM layers, produced zero semantic errors and retained one expected not-assessed compatibility warning.
 
 The SAND OS repository remains unchanged. Its proposed host-side CI adoption requires separate explicit approval.
 
