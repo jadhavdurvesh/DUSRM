@@ -101,7 +101,7 @@ DUSRM 1.0 must not be declared stable solely because WP1–WP8 artifacts and CI 
 - [Proposed SAND CI adoption](M7-SAND-CI-ADOPTION.md)
 - [Independent review checklist](M7-REVIEW-CHECKLIST.md)
 
-The [portable-kit CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031919228) passed 4/4 bundle-integrity checks and all 14 kit tests. Its report artifact is [available here](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031919228/artifacts/13860938644). The SAND OS model covered 16/16 required OS domains, mapped all eight DUSRM layers, produced zero semantic errors and retained one expected not-assessed compatibility warning.
+The [portable-kit CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43032173672) passed 4/4 bundle-integrity checks and all 14 kit tests. Its report artifact is [available here](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031919228/artifacts/13860029990). The SAND OS model covered 16/16 required OS domains, mapped all eight DUSRM layers, produced zero semantic errors and retained one expected not-assessed compatibility warning.
 
 The SAND OS repository remains unchanged. Its proposed host-side CI adoption requires separate explicit approval.
 
