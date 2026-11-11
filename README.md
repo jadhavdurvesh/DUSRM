@@ -3,7 +3,7 @@
 
 **Status:** Research proposal — working draft  
 **Current specification:** 0.9-draft  
-**1.0 preparation:** WP1–WP5 internally prepared; structural, semantic, profile-fixture and legacy CI passed; independent review pending  
+**1.0 preparation:** WP1–WP6 internally prepared; schema, semantic, migration, profile-fixture and legacy CI passed; independent review and SAND-side adoption approval pending  
 **Maturity:** Provisional reference framework; not normative or independently validated
 
 DUSRM is a proposed universal reference framework for describing, analyzing, designing, and evaluating computing and engineering systems. It is intended to provide a common conceptual foundation from which domain-specific reference models may be developed.
@@ -36,11 +36,11 @@ The 1.0 preparation work is tracked separately from the 0.9 draft:
 - **WP5 — Domain Profile Reconciliation:** standalone application, ANANTA and FireBot schema 0.2 profile pilots, compatibility matrix, evidence snapshot and independent-review cases. [Status](specification/DUSRM-1.0/M5-STATUS.md)
 - **WP6 — SAND OS Adoption Pilot:** operating-system profile, nine-to-eight-strata architecture mapping, read-only SAND evidence, desk review findings, standards crosswalk and host-side CI adoption plan. [Status](specification/DUSRM-1.0/M6-STATUS.md)
 
-The final [WP5 profile validation run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43020354463) passed on 2026-11-11. Twenty-two schema 0.2 semantic/migration tests and four profile tests passed. All three profile fixtures had zero semantic errors and the expected one-warning not-assessed compatibility result. The [schema 0.1](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43020348588), [0.8](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43020368107) and [0.9](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43020368182) workflows also passed on the tested commit.
+The final [WP6 schema 0.2/profile validation run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43024813575) passed on 2026-11-11. Twenty-two semantic/migration tests, four existing profile tests and eight SAND OS profile tests passed. The SAND OS fixture had zero semantic errors and the expected not-assessed profile warning. The [schema 0.1](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43024813742), [0.8](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43024813499) and [0.9](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43024813600) workflows also passed on the tested commit.
 
 **Important:** none of the three profiles has been approved as compatible. ANANTA's inspected sources contain a Windows checkpoint-rotation wording conflict, and FireBot's inspected current-state snapshot is dated 2026-10-11. See the [WP5 reconciliation report](specification/DUSRM-1.0/M5-RECONCILIATION.md) and [review package](specification/DUSRM-1.0/M5-REVIEW-PACKAGE.md).
 
-The next phase is **WP7 — Independent Review Findings and SAND OS Adoption Approval**. The SAND OS profile is not yet approved as compatible. No SAND OS repository changes were made. CI results are internal engineering evidence, not peer approval or a stable 1.0 release.
+The SAND OS adoption package is documented in the [WP6 adoption plan](specification/DUSRM-1.0/M6-SAND-OS-ADOPTION.md). The DUSRM-side profile is validated, but its compatibility remains not-assessed and no SAND OS repository changes were made. The next phase is **WP7 — Independent Review Findings and SAND OS Adoption Approval**. CI results are internal engineering evidence, not peer approval or a stable 1.0 release.
 
 ## Previous milestones
 
