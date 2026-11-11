@@ -337,6 +337,25 @@
       ]
     },
     {
+      "id": "sand-os-user-runtime",
+      "name": "User-mode runtime",
+      "category": "computational",
+      "kind": "user-runtime",
+      "roles": [
+        "application-startup",
+        "runtime-library",
+        "syscall-client",
+        "process-environment"
+      ],
+      "description": "Planned user-mode runtime environment for native SAPP applications. The current SAPP packer and limited process loader do not constitute a complete user runtime, standard library, dynamic linker or filesystem-backed launch path.",
+      "realizationState": "planned",
+      "evidenceRefs": [
+        "SAND-EV-API",
+        "SAND-EV-ROADMAP",
+        "SAND-EV-SAPP-README"
+      ]
+    },
+    {
       "id": "sand-os-sapp-sdk",
       "name": "SAPP v0.2 format and SDK",
       "category": "computational",
@@ -2145,13 +2164,13 @@
           "implementationState": "planned",
           "evidenceLevel": "documented",
           "elementRefs": [
-            "sand-os-sapp-sdk"
+            "sand-os-user-runtime"
           ],
           "evidenceRefs": [
             "SAND-EV-SAPP",
             "SAND-EV-SAPP-README"
           ],
-          "rationale": "A complete user-mode runtime, libraries, dynamic linker and filesystem-backed application launch remain planned."
+          "rationale": "A complete user-mode runtime, startup support, libraries, dynamic linker and filesystem-backed application launch remain planned; the existing SAPP SDK is not treated as a completed runtime."
         },
         {
           "domainId": "nativeServicesIPC",
