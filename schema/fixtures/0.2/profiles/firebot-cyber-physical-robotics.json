@@ -462,7 +462,98 @@
       "revision": "175eb0a6e1cc6f25a24a800318a0d06c37ec31cd"
     }
   ],
-  "relationships": [],
+  "relationships": [
+    {
+      "id": "FB-REL-SIM-MEMBER",
+      "type": "memberOf",
+      "source": {
+        "kind": "element",
+        "id": "fb-simulation"
+      },
+      "target": {
+        "kind": "system",
+        "id": "profile-firebot-cps-0-2-soi"
+      },
+      "rationale": "The simulation engine is an element of the integrated FireBot system description.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "FB-REL-HOST-DEP",
+      "type": "dependsOn",
+      "source": {
+        "kind": "element",
+        "id": "fb-dashboard"
+      },
+      "target": {
+        "kind": "environmentParticipant",
+        "id": "fb-host-computer"
+      },
+      "rationale": "The dashboard prototype depends on an external host computer.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "FB-REL-OPERATOR-INTERACTS",
+      "type": "interactsWith",
+      "source": {
+        "kind": "element",
+        "id": "fb-dashboard"
+      },
+      "target": {
+        "kind": "environmentParticipant",
+        "id": "fb-operator"
+      },
+      "rationale": "The dashboard presents simulated status to a human operator.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "FB-REL-EXPOSES-UI",
+      "type": "exposes",
+      "source": {
+        "kind": "element",
+        "id": "fb-dashboard"
+      },
+      "target": {
+        "kind": "interface",
+        "id": "FB-IF-OPERATOR"
+      },
+      "rationale": "The dashboard exposes the operator interaction boundary.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "FB-REL-TRIGGERS-ESTOP",
+      "type": "triggers",
+      "source": {
+        "kind": "event",
+        "id": "FB-EVENT-ESTOP-REQUEST"
+      },
+      "target": {
+        "kind": "transition",
+        "id": "FB-TRANS-ESTOP"
+      },
+      "rationale": "An accepted operator emergency-stop request triggers the intended local-safety transition.",
+      "designDisposition": "proposed",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "FB-REL-TRANSITIONS",
+      "type": "transitionsTo",
+      "source": {
+        "kind": "state",
+        "id": "FB-STATE-AUTO"
+      },
+      "target": {
+        "kind": "state",
+        "id": "FB-STATE-ESTOP"
+      },
+      "rationale": "The control mode can transition from autonomous to emergency stop.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    }
+  ],
   "operations": [
     {
       "id": "FB-OP-SIM-STEP",
