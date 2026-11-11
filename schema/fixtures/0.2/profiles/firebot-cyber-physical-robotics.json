@@ -1,0 +1,965 @@
+{
+  "schemaVersion": "0.2-draft",
+  "dusrmVersion": "1.0-preparation-WP5",
+  "descriptionId": "profile-firebot-cps-0-2",
+  "title": "DUSRM 0.2 Pilot — FireBot Cyber-Physical Rescue Robot",
+  "summary": "WP5 profile-reconciliation pilot. Documentation-level architecture description; not a conformance approval.",
+  "descriptionState": "draft",
+  "profileRefs": [
+    {
+      "profileId": "DUSRM-PROFILE-CPS-ROBOT-0.1",
+      "version": "0.1-draft",
+      "compatibility": "not-assessed"
+    }
+  ],
+  "context": {
+    "systemOfInterest": {
+      "id": "profile-firebot-cps-0-2-soi",
+      "name": "FireBot integrated firefighting and human-rescue robot",
+      "category": "computational",
+      "kind": "cyber-physical-robot-system",
+      "description": "Intended integrated robot system described using repository documentation; the current verified scope remains software-first and simulated, with physical implementation not established.",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "FB-EV-CURRENT",
+        "FB-EV-ARCH"
+      ]
+    },
+    "purpose": "Represent FireBot's software, simulation, intended physical platform, subsystem contracts and safety-policy requirements without confusing design intent with physical implementation.",
+    "scope": "FireBot system architecture, software dashboard/simulation, planned physical platform, proposed subsystem integrations and people-first mission outcomes.",
+    "abstractionLevel": "domain profile architecture pilot",
+    "boundary": {
+      "id": "profile-firebot-cps-0-2-boundary",
+      "inclusions": [
+        "dashboard",
+        "simulation engine",
+        "planned physical platform",
+        "planned vision/mapping/power/firmware subsystems",
+        "mission and safety-policy requirements"
+      ],
+      "exclusions": [
+        "host computer operating system",
+        "operator station hardware",
+        "external network infrastructure",
+        "optional ANANTA file-based workload pipeline"
+      ],
+      "notes": "Boundary selected for the profile pilot; use explicit external participants and planned realization states."
+    },
+    "environment": [
+      {
+        "id": "fb-operator",
+        "name": "Human operator",
+        "category": "humanOrganizational",
+        "kind": "operator",
+        "roles": [
+          "manual-operator",
+          "mission-supervisor"
+        ],
+        "description": "External human operator and emergency authority.",
+        "evidenceRefs": [
+          "FB-EV-ARCH"
+        ]
+      },
+      {
+        "id": "fb-environment",
+        "name": "Fireground environment",
+        "category": "environmental",
+        "kind": "operating-environment",
+        "roles": [
+          "hazard-environment",
+          "mission-context"
+        ],
+        "description": "Physical fireground and rescue environment; no real-world performance is demonstrated by current simulations.",
+        "evidenceRefs": [
+          "FB-EV-ARCH"
+        ]
+      },
+      {
+        "id": "fb-host-computer",
+        "name": "Dashboard host computer",
+        "category": "physical",
+        "kind": "host-platform",
+        "roles": [
+          "simulation-host",
+          "dashboard-host"
+        ],
+        "description": "External host for software presentation and simulation.",
+        "evidenceRefs": [
+          "FB-EV-CURRENT"
+        ]
+      }
+    ],
+    "assumptions": [
+      "FireBot CURRENT_STATE snapshot is dated 2026-10-11 and reports no physical sensors, motors, pump, batteries, cooling system or microphone connected.",
+      "Hosted deployment and full Node.js test execution are recorded as requiring verification in the inspected snapshot.",
+      "All model-level safety requirements remain design assertions, not physical safety evidence."
+    ]
+  },
+  "extensions": {
+    "org.dmj.dusrm.profile.cps-robot": {
+      "dataMaturityValues": [
+        "simulated",
+        "planned",
+        "implemented",
+        "unverified",
+        "measured"
+      ],
+      "measurementProvenanceRequired": true,
+      "coordinateMetadata": [
+        "coordinateFrame",
+        "spatialReference",
+        "uncertainty"
+      ],
+      "freshnessMetadata": [
+        "observedAt",
+        "ageLimit",
+        "stale"
+      ],
+      "safetyConcepts": [
+        "hazard",
+        "safetyFunction",
+        "safetyConstraint",
+        "degradedMode"
+      ],
+      "rule": "Never treat simulated or planned telemetry as a measured physical observation; keep local safety authority independent of remote coordination."
+    }
+  },
+  "elements": [
+    {
+      "id": "fb-dashboard",
+      "name": "FireBot dashboard",
+      "category": "computational",
+      "kind": "operator-dashboard",
+      "roles": [
+        "operator-display",
+        "mission-visualization"
+      ],
+      "realizationState": "inProgress",
+      "description": "Software dashboard prototype using simulated state.",
+      "evidenceRefs": [
+        "FB-EV-CURRENT",
+        "FB-EV-STATUS"
+      ]
+    },
+    {
+      "id": "fb-simulation",
+      "name": "FireBot simulation engine",
+      "category": "computational",
+      "kind": "simulation-engine",
+      "roles": [
+        "scenario-state",
+        "route-simulation",
+        "mission-progression"
+      ],
+      "realizationState": "inProgress",
+      "description": "Software simulation for route and scenario progression; not a physics-validated robot model.",
+      "evidenceRefs": [
+        "FB-EV-CURRENT",
+        "FB-EV-ARCH"
+      ]
+    },
+    {
+      "id": "fb-power-sim",
+      "name": "Simulated power and thermal policy",
+      "category": "computational",
+      "kind": "simulation-subsystem",
+      "roles": [
+        "synthetic-thermal-zones",
+        "simulated-power-state"
+      ],
+      "realizationState": "inProgress",
+      "description": "Synthetic thermal zones and simulated power-management behavior; no real sensor measurement or battery controller.",
+      "evidenceRefs": [
+        "FB-EV-CURRENT"
+      ]
+    },
+    {
+      "id": "fb-physical-platform",
+      "name": "Physical robot platform",
+      "category": "physical",
+      "kind": "robot-hardware",
+      "roles": [
+        "mobility",
+        "power",
+        "physical-sensing"
+      ],
+      "realizationState": "planned",
+      "description": "Chassis, motors, batteries, cameras, thermal sensors and pump are intended hardware; none are connected in the inspected state snapshot.",
+      "evidenceRefs": [
+        "FB-EV-CURRENT",
+        "FB-EV-ARCH"
+      ]
+    },
+    {
+      "id": "fb-vision",
+      "name": "Vision subsystem",
+      "category": "computational",
+      "kind": "perception-subsystem",
+      "roles": [
+        "person-detection",
+        "fire-detection"
+      ],
+      "realizationState": "planned",
+      "description": "Real person/fire vision AI remains pending or unverified.",
+      "evidenceRefs": [
+        "FB-EV-CURRENT",
+        "FB-EV-INTERFACES"
+      ]
+    },
+    {
+      "id": "fb-local-safety",
+      "name": "Local safety controller",
+      "category": "computational",
+      "kind": "safety-controller",
+      "roles": [
+        "emergency-stop",
+        "local-interlocks",
+        "manual-override"
+      ],
+      "realizationState": "planned",
+      "description": "Independent physical safety path is a design requirement, not an implemented controller.",
+      "evidenceRefs": [
+        "FB-EV-INTEGRATION",
+        "FB-EV-TECH-INTEGRATION"
+      ]
+    }
+  ],
+  "responsibilities": [
+    {
+      "id": "FB-R-SIM-EXEC",
+      "name": "Progress simulated mission execution",
+      "description": "Advance simulated routes, actions and scenario states.",
+      "primaryLayer": "L3",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "FB-EV-CURRENT"
+      ]
+    },
+    {
+      "id": "FB-R-STATE",
+      "name": "Represent robot and mission state",
+      "description": "Represent simulated pose, mission, power, thermal and detection state with source/freshness distinctions.",
+      "primaryLayer": "L4",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "FB-EV-ARCH",
+        "FB-EV-INTERFACES"
+      ]
+    },
+    {
+      "id": "FB-R-COMPUTE",
+      "name": "Compute simulated route and priorities",
+      "description": "Apply deterministic route planning and rule-based prioritization in simulation.",
+      "primaryLayer": "L5",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "FB-EV-CURRENT",
+        "FB-EV-ARCH"
+      ]
+    },
+    {
+      "id": "FB-R-DASH",
+      "name": "Provide operator interaction",
+      "description": "Display simulated map, robot state, detections, power and fleet status.",
+      "primaryLayer": "L6",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "FB-EV-ARCH",
+        "FB-EV-CURRENT"
+      ]
+    },
+    {
+      "id": "FB-R-SIM-CAP",
+      "name": "Provide simulation capabilities",
+      "description": "Provide scenario playback, simulated navigation and synthetic alerts.",
+      "primaryLayer": "L7",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "FB-EV-CURRENT"
+      ]
+    },
+    {
+      "id": "FB-R-SAFETY",
+      "name": "Preserve local emergency-stop and manual authority",
+      "description": "The intended physical system must enforce local emergency stop and manual override independently of host/network availability.",
+      "primaryLayer": "L3",
+      "realizationState": "planned",
+      "evidenceRefs": [
+        "FB-EV-INTEGRATION"
+      ]
+    },
+    {
+      "id": "FB-R-PHYSICAL",
+      "name": "Provide physical sensing and actuation",
+      "description": "Use physical cameras, sensors, motors, pump and power electronics.",
+      "primaryLayer": "L1",
+      "realizationState": "planned",
+      "evidenceRefs": [
+        "FB-EV-CURRENT",
+        "FB-EV-ARCH"
+      ]
+    },
+    {
+      "id": "FB-R-OUTCOME",
+      "name": "Support people-first rescue and firefighting",
+      "description": "Provide human-rescue-first mission support and firefighting capabilities.",
+      "primaryLayer": "L8",
+      "realizationState": "planned",
+      "evidenceRefs": [
+        "FB-EV-ARCH"
+      ]
+    }
+  ],
+  "realizations": [
+    {
+      "id": "FB-REAL-SIM",
+      "elementRef": "fb-simulation",
+      "responsibilityRef": "FB-R-SIM-EXEC",
+      "realizationState": "inProgress",
+      "rationale": "The repository describes an obstacle-aware software simulation; full Node test/deployment verification remains pending.",
+      "evidenceRefs": [
+        "FB-EV-CURRENT"
+      ]
+    },
+    {
+      "id": "FB-REAL-STATE",
+      "elementRef": "fb-simulation",
+      "responsibilityRef": "FB-R-STATE",
+      "realizationState": "inProgress",
+      "rationale": "Simulation state is represented in software.",
+      "evidenceRefs": [
+        "FB-EV-ARCH",
+        "FB-EV-CURRENT"
+      ]
+    },
+    {
+      "id": "FB-REAL-COMPUTE",
+      "elementRef": "fb-simulation",
+      "responsibilityRef": "FB-R-COMPUTE",
+      "realizationState": "inProgress",
+      "rationale": "Deterministic A* route planning and rule-based simulation are repository-reported.",
+      "evidenceRefs": [
+        "FB-EV-CURRENT"
+      ]
+    },
+    {
+      "id": "FB-REAL-DASH",
+      "elementRef": "fb-dashboard",
+      "responsibilityRef": "FB-R-DASH",
+      "realizationState": "inProgress",
+      "rationale": "Dashboard code exists but the hosted bundle still requires verification.",
+      "evidenceRefs": [
+        "FB-EV-CURRENT",
+        "FB-EV-STATUS"
+      ]
+    },
+    {
+      "id": "FB-REAL-SIM-CAP",
+      "elementRef": "fb-simulation",
+      "responsibilityRef": "FB-R-SIM-CAP",
+      "realizationState": "inProgress",
+      "rationale": "Simulation-only capabilities are represented in the software prototype.",
+      "evidenceRefs": [
+        "FB-EV-CURRENT"
+      ]
+    }
+  ],
+  "layerApplicability": [
+    {
+      "layer": "L1",
+      "applicability": "internal",
+      "rationale": "Physical platform belongs to the intended full system boundary, but its realization is planned."
+    },
+    {
+      "layer": "L2",
+      "applicability": "internal",
+      "rationale": "Power and compute resource policy is represented in simulation/planning; physical values remain unselected."
+    },
+    {
+      "layer": "L3",
+      "applicability": "internal",
+      "rationale": "Simulation progression is in progress; physical control and local safety are planned."
+    },
+    {
+      "layer": "L4",
+      "applicability": "internal",
+      "rationale": "Robot, mission, detection and power state contracts are modeled; physical state is not established."
+    },
+    {
+      "layer": "L5",
+      "applicability": "internal",
+      "rationale": "Route planning is simulated; real perception and SLAM remain unverified."
+    },
+    {
+      "layer": "L6",
+      "applicability": "internal",
+      "rationale": "Dashboard and subsystem contracts exist; live networking is not established."
+    },
+    {
+      "layer": "L7",
+      "applicability": "internal",
+      "rationale": "Dashboard and simulation capabilities are in progress; physical robot services are not validated."
+    },
+    {
+      "layer": "L8",
+      "applicability": "internal",
+      "rationale": "People-first rescue and firefighting remain intended mission outcomes."
+    }
+  ],
+  "properties": [
+    {
+      "id": "FB-PROP-THERMAL-STATUS",
+      "subjectRef": {
+        "kind": "element",
+        "id": "fb-power-sim"
+      },
+      "name": "thermalZoneStatus",
+      "valueType": "simulation-state",
+      "meaning": "Synthetic thermal zone status; this is not a measured physical temperature.",
+      "sourceRef": {
+        "kind": "specification",
+        "id": "FB-SPEC-ARCH"
+      }
+    },
+    {
+      "id": "FB-PROP-POSE",
+      "subjectRef": {
+        "kind": "element",
+        "id": "fb-simulation"
+      },
+      "name": "robotPose",
+      "valueType": "simulated-pose",
+      "meaning": "Simulated route/pose state; no real localization source is established.",
+      "sourceRef": {
+        "kind": "specification",
+        "id": "FB-SPEC-ARCH"
+      }
+    }
+  ],
+  "specifications": [
+    {
+      "id": "FB-SPEC-ARCH",
+      "name": "FireBot System Architecture",
+      "kind": "designDefinition",
+      "status": "published",
+      "sourceUri": "https://github.com/jadhavdurvesh/firebot-core/blob/main/ARCHITECTURE.md",
+      "revision": "b4044ffa60ed2f18cd7f6acb17bfad0454f29dfb"
+    },
+    {
+      "id": "FB-SPEC-INTERFACES",
+      "name": "FireBot Interfaces",
+      "kind": "interfaceContract",
+      "status": "draft",
+      "sourceUri": "https://github.com/jadhavdurvesh/firebot-core/blob/main/INTERFACES.md",
+      "revision": "953989c71eedb7bf2ff321305fd2667bfe8243f3"
+    },
+    {
+      "id": "FB-SPEC-INTEGRATION",
+      "name": "FireBot DMJ Systems Integration Plan",
+      "kind": "designDefinition",
+      "status": "draft",
+      "sourceUri": "https://github.com/jadhavdurvesh/firebot-core/blob/main/DMJ_SYSTEMS_INTEGRATION.md",
+      "revision": "175eb0a6e1cc6f25a24a800318a0d06c37ec31cd"
+    }
+  ],
+  "relationships": [],
+  "operations": [
+    {
+      "id": "FB-OP-SIM-STEP",
+      "name": "AdvanceSimulation",
+      "ownerRef": {
+        "kind": "element",
+        "id": "fb-simulation"
+      },
+      "purpose": "Advance the simulated robot/environment state for one scenario step.",
+      "designDisposition": "accepted",
+      "realizationState": "inProgress",
+      "preconditions": [
+        "Simulation scenario is active"
+      ],
+      "postconditions": [
+        "Simulated state is advanced"
+      ],
+      "failureConditions": [
+        "Invalid scenario state"
+      ],
+      "evidenceRefs": [
+        "FB-EV-CURRENT"
+      ]
+    },
+    {
+      "id": "FB-OP-EMERGENCY-STOP",
+      "name": "RequestEmergencyStop",
+      "ownerRef": {
+        "kind": "element",
+        "id": "fb-local-safety"
+      },
+      "purpose": "Represent the intended local emergency-stop command and safety authority.",
+      "designDisposition": "accepted",
+      "realizationState": "planned",
+      "preconditions": [
+        "Local safety controller is implemented and powered"
+      ],
+      "postconditions": [
+        "Actuation is inhibited locally"
+      ],
+      "failureConditions": [
+        "Controller or power path unavailable"
+      ],
+      "evidenceRefs": [
+        "FB-EV-INTEGRATION"
+      ]
+    }
+  ],
+  "executions": [],
+  "events": [
+    {
+      "id": "FB-EVENT-SIM-THERMAL-CRITICAL",
+      "name": "Synthetic thermal zone reaches critical state",
+      "eventKind": "generated",
+      "sourceRef": {
+        "kind": "element",
+        "id": "fb-power-sim"
+      },
+      "description": "Simulation event only; not a real sensor measurement.",
+      "evidenceRefs": [
+        "FB-EV-CURRENT"
+      ]
+    },
+    {
+      "id": "FB-EVENT-ESTOP-REQUEST",
+      "name": "Operator emergency-stop request",
+      "eventKind": "external",
+      "sourceRef": {
+        "kind": "environmentParticipant",
+        "id": "fb-operator"
+      },
+      "description": "Conceptual operator request; physical emergency-stop path is planned.",
+      "evidenceRefs": [
+        "FB-EV-INTEGRATION"
+      ]
+    }
+  ],
+  "stateVariables": [
+    {
+      "id": "FB-SV-MODE",
+      "subjectRef": {
+        "kind": "element",
+        "id": "fb-local-safety"
+      },
+      "name": "robotControlMode",
+      "meaning": "Intended local mode authority state; model-level only.",
+      "valueType": "enumeration",
+      "allowedValues": [
+        "autonomous",
+        "manual",
+        "emergencyStop"
+      ],
+      "authority": "local-safety-controller"
+    }
+  ],
+  "states": [
+    {
+      "id": "FB-STATE-AUTO",
+      "stateVariableRef": {
+        "kind": "stateVariable",
+        "id": "FB-SV-MODE"
+      },
+      "value": "autonomous",
+      "meaning": "Autonomous mode requested/selected."
+    },
+    {
+      "id": "FB-STATE-MANUAL",
+      "stateVariableRef": {
+        "kind": "stateVariable",
+        "id": "FB-SV-MODE"
+      },
+      "value": "manual",
+      "meaning": "Manual override mode."
+    },
+    {
+      "id": "FB-STATE-ESTOP",
+      "stateVariableRef": {
+        "kind": "stateVariable",
+        "id": "FB-SV-MODE"
+      },
+      "value": "emergencyStop",
+      "meaning": "Emergency stop asserted in the design model."
+    }
+  ],
+  "transitions": [
+    {
+      "id": "FB-TRANS-ESTOP",
+      "subjectRef": {
+        "kind": "element",
+        "id": "fb-local-safety"
+      },
+      "fromStateRef": {
+        "kind": "state",
+        "id": "FB-STATE-AUTO"
+      },
+      "toStateRef": {
+        "kind": "state",
+        "id": "FB-STATE-ESTOP"
+      },
+      "triggerEventRefs": [
+        {
+          "kind": "event",
+          "id": "FB-EVENT-ESTOP-REQUEST"
+        }
+      ],
+      "guard": "The operator emergency-stop request is accepted by the local safety path.",
+      "effect": "Inhibit actuator commands; remote autonomy cannot clear the stop.",
+      "designDisposition": "accepted",
+      "realizationState": "planned",
+      "evidenceRefs": [
+        "FB-EV-INTEGRATION"
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "FB-IF-OPERATOR",
+      "name": "FireBot operator dashboard interface",
+      "interfaceKind": "human",
+      "participantRoles": [
+        {
+          "role": "operator",
+          "participantRef": {
+            "kind": "environmentParticipant",
+            "id": "fb-operator"
+          }
+        },
+        {
+          "role": "dashboard",
+          "participantRef": {
+            "kind": "element",
+            "id": "fb-dashboard"
+          }
+        }
+      ],
+      "operationRefs": [
+        {
+          "kind": "operation",
+          "id": "FB-OP-SIM-STEP"
+        }
+      ],
+      "designDisposition": "proposed",
+      "description": "Dashboard/simulation interaction; no live robot network or actuator control is implied."
+    }
+  ],
+  "interactions": [
+    {
+      "id": "FB-INT-OPERATOR",
+      "name": "Operator views and advances a simulation scenario",
+      "interactionKind": "humanProcedure",
+      "participantRoles": [
+        {
+          "role": "operator",
+          "participantRef": {
+            "kind": "environmentParticipant",
+            "id": "fb-operator"
+          }
+        },
+        {
+          "role": "dashboard",
+          "participantRef": {
+            "kind": "element",
+            "id": "fb-dashboard"
+          }
+        }
+      ],
+      "direction": "bidirectional",
+      "interfaceRef": {
+        "kind": "interface",
+        "id": "FB-IF-OPERATOR"
+      },
+      "exchangedItems": [
+        "scenario selection",
+        "simulated robot state",
+        "dashboard rendering"
+      ],
+      "designDisposition": "proposed"
+    }
+  ],
+  "resources": [],
+  "allocations": [],
+  "capabilities": [
+    {
+      "id": "FB-CAP-SIM-NAV",
+      "name": "Simulated navigation",
+      "description": "Progress through deterministic simulated route scenarios.",
+      "providerRef": {
+        "kind": "element",
+        "id": "fb-simulation"
+      },
+      "operationRefs": [
+        {
+          "kind": "operation",
+          "id": "FB-OP-SIM-STEP"
+        }
+      ],
+      "limitations": [
+        "Not a validated robotics navigation stack"
+      ],
+      "realizationState": "inProgress"
+    },
+    {
+      "id": "FB-CAP-LOCAL-ESTOP",
+      "name": "Local emergency-stop authority",
+      "description": "Intended hardware/controller safety capability.",
+      "providerRef": {
+        "kind": "element",
+        "id": "fb-local-safety"
+      },
+      "operationRefs": [
+        {
+          "kind": "operation",
+          "id": "FB-OP-EMERGENCY-STOP"
+        }
+      ],
+      "limitations": [
+        "Planned only; no physical controller is connected"
+      ],
+      "realizationState": "planned"
+    }
+  ],
+  "services": [],
+  "requirements": [
+    {
+      "id": "FB-REQ-PEOPLE-FIRST",
+      "statement": "Mission policy should prioritize unresolved people before fire objectives, subject to safety and operator authority.",
+      "sourceRef": {
+        "kind": "specification",
+        "id": "FB-SPEC-ARCH"
+      },
+      "priority": "critical",
+      "acceptanceCriteria": [
+        "People-first ordering is represented in deterministic scenarios",
+        "Low-confidence and stale detections are not promoted to confirmed findings"
+      ],
+      "designDisposition": "proposed"
+    },
+    {
+      "id": "FB-REQ-LOCAL-ESTOP",
+      "statement": "Emergency stop and time-sensitive local safety control shall remain independent of host software and network availability.",
+      "sourceRef": {
+        "kind": "specification",
+        "id": "FB-SPEC-INTEGRATION"
+      },
+      "priority": "critical",
+      "acceptanceCriteria": [
+        "Local controller/hardware path operates without dashboard, broker or network",
+        "Remote messages cannot silently clear emergency stop"
+      ],
+      "designDisposition": "accepted"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "FB-CON-SAFETY-LOCAL",
+      "statement": "Remote APIs, network transport, dashboard and mission orchestration are not authoritative for local emergency-stop or immediate actuator safety.",
+      "category": "safety",
+      "subjectRefs": [
+        {
+          "kind": "element",
+          "id": "fb-local-safety"
+        },
+        {
+          "kind": "element",
+          "id": "fb-dashboard"
+        }
+      ],
+      "applicability": "internal",
+      "evidenceRefs": [
+        "FB-EV-INTEGRATION"
+      ]
+    },
+    {
+      "id": "FB-CON-SIM-PROVENANCE",
+      "statement": "Synthetic simulation values must not be represented as measured physical telemetry.",
+      "category": "other",
+      "subjectRefs": [
+        {
+          "kind": "element",
+          "id": "fb-simulation"
+        },
+        {
+          "kind": "element",
+          "id": "fb-power-sim"
+        }
+      ],
+      "applicability": "internal",
+      "evidenceRefs": [
+        "FB-EV-CURRENT",
+        "FB-EV-ARCH"
+      ]
+    }
+  ],
+  "invariants": [
+    {
+      "id": "FB-INV-ESTOP-PRECEDENCE",
+      "statement": "In the intended local safety model, emergency stop dominates autonomous command requests and requires an explicit local reset sequence.",
+      "subjectRefs": [
+        {
+          "kind": "element",
+          "id": "fb-local-safety"
+        }
+      ],
+      "assumptions": [
+        "Design-model requirement only; no physical safety verification is implied."
+      ],
+      "assessmentResult": "notAssessed",
+      "method": "Repository-documentation mapping; not a safety proof.",
+      "evidenceRefs": [
+        "FB-EV-INTEGRATION"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "FB-ASSERT-SIM-ONLY",
+      "statement": "The current recorded FireBot baseline is a software-first dashboard/simulation prototype, not a physically connected robot.",
+      "category": "implementation",
+      "subjectRefs": [
+        {
+          "kind": "system",
+          "id": "profile-firebot-cps-0-2"
+        }
+      ],
+      "realizationState": "inProgress",
+      "assessmentResult": "notAssessed",
+      "evidenceRefs": [
+        "FB-EV-CURRENT",
+        "FB-EV-STATUS"
+      ]
+    },
+    {
+      "id": "FB-ASSERT-PHYSICAL-PLANNED",
+      "statement": "Physical sensors, motors, pump, batteries and cooling remain planned/unconnected in the inspected snapshot.",
+      "category": "implementation",
+      "subjectRefs": [
+        {
+          "kind": "element",
+          "id": "fb-physical-platform"
+        }
+      ],
+      "realizationState": "planned",
+      "assessmentResult": "notAssessed",
+      "evidenceRefs": [
+        "FB-EV-CURRENT"
+      ]
+    }
+  ],
+  "decisions": [],
+  "evidence": [
+    {
+      "id": "FB-EV-CURRENT",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "supports",
+      "description": "FireBot current-state snapshot states software-first prototype status and explicitly lists unconnected physical hardware and unverified deployments/tests.",
+      "sourceUri": "https://github.com/jadhavdurvesh/firebot-core/blob/main/CURRENT_STATE.md",
+      "revision": "a5ff1a658cb025c38d88e33d24b5d669f4dc659e",
+      "scopeRefs": [
+        {
+          "kind": "system",
+          "id": "profile-firebot-cps-0-2-soi"
+        }
+      ],
+      "limitations": [
+        "Snapshot is dated 2026-10-11; it is not a live deployment or test result."
+      ]
+    },
+    {
+      "id": "FB-EV-ARCH",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "supports",
+      "description": "FireBot architecture overview and people-first project intent.",
+      "sourceUri": "https://github.com/jadhavdurvesh/firebot-core/blob/main/ARCHITECTURE.md",
+      "revision": "b4044ffa60ed2f18cd7f6acb17bfad0454f29dfb",
+      "scopeRefs": [
+        {
+          "kind": "system",
+          "id": "profile-firebot-cps-0-2-soi"
+        }
+      ],
+      "limitations": [
+        "Architecture describes intended behavior; physical realization is not established."
+      ]
+    },
+    {
+      "id": "FB-EV-STATUS",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "qualifies",
+      "description": "FireBot status document distinguishes code-present, simulation, planned and unverified work; Node/browser verification still pending in the snapshot.",
+      "sourceUri": "https://github.com/jadhavdurvesh/firebot-core/blob/main/STATUS.md",
+      "revision": "834d2b20e3457a0649f212800f257b2cd74e7a48",
+      "scopeRefs": [
+        {
+          "kind": "system",
+          "id": "profile-firebot-cps-0-2-soi"
+        }
+      ]
+    },
+    {
+      "id": "FB-EV-INTERFACES",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "qualifies",
+      "description": "FireBot interface contracts and simulation status fields.",
+      "sourceUri": "https://github.com/jadhavdurvesh/firebot-core/blob/main/INTERFACES.md",
+      "revision": "953989c71eedb7bf2ff321305fd2667bfe8243f3",
+      "scopeRefs": [
+        {
+          "kind": "element",
+          "id": "fb-simulation"
+        }
+      ],
+      "limitations": [
+        "Message contracts do not establish live physical subsystem connectivity."
+      ]
+    },
+    {
+      "id": "FB-EV-INTEGRATION",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "supports",
+      "description": "DMJ Systems integration plan requires local safety independence and labels technology integration as proposed/documentation-only.",
+      "sourceUri": "https://github.com/jadhavdurvesh/firebot-core/blob/main/DMJ_SYSTEMS_INTEGRATION.md",
+      "revision": "175eb0a6e1cc6f25a24a800318a0d06c37ec31cd",
+      "scopeRefs": [
+        {
+          "kind": "element",
+          "id": "fb-local-safety"
+        }
+      ],
+      "limitations": [
+        "Proposed architecture only; no live adapter or safety controller is claimed."
+      ]
+    },
+    {
+      "id": "FB-EV-TECH-INTEGRATION",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "qualifies",
+      "description": "Technology integration specification states candidate projects are proposed and not an implementation baseline.",
+      "sourceUri": "https://github.com/jadhavdurvesh/firebot-core/blob/main/TECHNOLOGY_INTEGRATION.md",
+      "revision": "a05311fb2604bd0463d3d09db9847e3cea524478",
+      "scopeRefs": [
+        {
+          "kind": "system",
+          "id": "profile-firebot-cps-0-2-soi"
+        }
+      ]
+    }
+  ]
+}
