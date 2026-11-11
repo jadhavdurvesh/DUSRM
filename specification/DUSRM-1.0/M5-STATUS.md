@@ -63,6 +63,6 @@ WP5 is complete as an internal reconciliation and reviewer-preparation milestone
 
 ## Next work package
 
-**WP6 — Independent Review Findings and Release Candidate Gate**
+**WP6 — SAND OS Adoption Pilot and Release-Gate Review: DUSRM-side pilot complete.** See [WP6 status](M6-STATUS.md).
 
-Obtain reviewer responses, resolve blockers/major findings, update core/profile decisions and only then determine whether a DUSRM 1.0 release candidate is justified.
+The next work package is **WP7 — Independent Review Findings and SAND OS Adoption Approval**.
