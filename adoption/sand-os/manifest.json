@@ -1,10 +1,10 @@
 {
   "kitId": "DUSRM-SAND-OS-VALIDATION-KIT",
-  "kitVersion": "0.2.0-draft",
+  "kitVersion": "0.2.1-draft",
   "status": "experimental",
   "purpose": "Standalone host-side validation kit for a DUSRM 0.2-draft SAND OS architecture description.",
   "dusrmRepository": "https://github.com/jadhavdurvesh/DUSRM",
-  "dusrmSourceCommit": "current-main-at-kit-refresh",
+  "dusrmSourceCommit": "475637c0e5956176833d05b9a3d1d2b613becd50",
   "canonicalProfileId": "DUSRM-PROFILE-OPERATING-SYSTEM-0.1",
   "profileVersion": "0.1-draft",
   "compatibilityStatus": "not-assessed",
@@ -29,7 +29,7 @@
     {
       "path": "sand-os-architecture.json",
       "sourcePath": "schema/fixtures/0.2/profiles/sand-os-operating-system.json",
-      "gitBlobSha": "ac858d022677f59375d6923375b42730f6b68e55"
+      "gitBlobSha": "ed0d0668d6f1240e14c5d3f53472657f759f8fef"
     }
   ],
   "validationContract": {
