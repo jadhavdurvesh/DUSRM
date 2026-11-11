@@ -574,6 +574,234 @@ def validate_semantics(
                 add("DUSRM-02-P-001", "warning", path,
                     "Profile compatibility is not explicitly approved by the registry.")
 
+
+    # Operating-system profile checks are opt-in: they apply only when the
+    # operating-system profile is explicitly referenced by the description.
+    os_profile_ids = {
+        ref.get("profileId")
+        for ref in document.get("profileRefs", [])
+        if isinstance(ref, dict)
+    }
+    os_profile_id = "DUSRM-PROFILE-OPERATING-SYSTEM-0.1"
+    if os_profile_id in os_profile_ids:
+        extension_key = "org.dmj.dusrm.profile.operating-system"
+        extensions = document.get("extensions") or {}
+        os_profile = extensions.get(extension_key) if isinstance(extensions, dict) else None
+        if not isinstance(os_profile, dict):
+            add(
+                "DUSRM-OS-P-001", "error", f"extensions.{extension_key}",
+                "The operating-system profile is referenced but its namespaced extension is missing.",
+            )
+        else:
+            mapping_rule = os_profile.get("mappingRule")
+            if not isinstance(mapping_rule, str) or not mapping_rule.strip():
+                add(
+                    "DUSRM-OS-P-005", "error", f"extensions.{extension_key}.mappingRule",
+                    "The operating-system profile must state how implementation strata map to DUSRM responsibility layers.",
+                )
+
+            integration = os_profile.get("integrationBoundary")
+            required_boundary = {
+                "requiredAtBoot": False,
+                "includedInKernelImage": False,
+                "requiredForRuntimeOperation": False,
+            }
+            if not isinstance(integration, dict):
+                add(
+                    "DUSRM-OS-P-006", "error", f"extensions.{extension_key}.integrationBoundary",
+                    "An explicit design-time/runtime integration boundary is required.",
+                )
+            else:
+                for field, expected in required_boundary.items():
+                    if integration.get(field) is not expected:
+                        add(
+                            "DUSRM-OS-P-006", "error",
+                            f"extensions.{extension_key}.integrationBoundary.{field}",
+                            f"For this profile, {field} must be {str(expected).lower()}.",
+                        )
+
+            strata = os_profile.get("implementationStrata", [])
+            if not isinstance(strata, list) or not strata:
+                add(
+                    "DUSRM-OS-P-005", "error", f"extensions.{extension_key}.implementationStrata",
+                    "At least one implementation stratum and its layer mapping are required.",
+                )
+            else:
+                seen_strata: set[str] = set()
+                for index, stratum in enumerate(strata):
+                    path = f"extensions.{extension_key}.implementationStrata[{index}]"
+                    if not isinstance(stratum, dict):
+                        add("DUSRM-OS-P-005", "error", path, "Implementation stratum must be an object.")
+                        continue
+                    identifier = stratum.get("stratumId")
+                    if not isinstance(identifier, str) or not identifier.strip():
+                        add("DUSRM-OS-P-005", "error", f"{path}.stratumId", "Stratum requires a stable identifier.")
+                    elif identifier in seen_strata:
+                        add("DUSRM-OS-P-005", "error", f"{path}.stratumId", f"Duplicate stratum identifier '{identifier}'.")
+                    else:
+                        seen_strata.add(identifier)
+                    layers = stratum.get("dusrmLayers")
+                    if not isinstance(layers, list) or not layers:
+                        add("DUSRM-OS-P-005", "error", f"{path}.dusrmLayers", "Each implementation stratum must map to at least one DUSRM layer.")
+                    else:
+                        invalid_layers = sorted({layer for layer in layers if layer not in CORE_LAYERS})
+                        if invalid_layers:
+                            add(
+                                "DUSRM-OS-P-005", "error", f"{path}.dusrmLayers",
+                                f"Unknown DUSRM layer(s): {invalid_layers}. Expected L1 through L8.",
+                            )
+
+            required_domains = os_profile.get("requiredDomains")
+            coverage = os_profile.get("subsystemCoverage")
+            allowed_applicability = {"internal", "externalDependency", "notApplicable"}
+            allowed_implementation = {"planned", "inProgress", "implemented"}
+            allowed_evidence = {
+                "planned", "documented", "sourceInspected", "testInSimulation",
+                "testOnHardware", "independentlyReviewed", "verified",
+            }
+            if not isinstance(required_domains, list) or not required_domains:
+                add(
+                    "DUSRM-OS-P-002", "error", f"extensions.{extension_key}.requiredDomains",
+                    "The operating-system profile must declare its required domain catalogue.",
+                )
+                required_domains = []
+            if len(required_domains) != len(set(x for x in required_domains if isinstance(x, str))):
+                add(
+                    "DUSRM-OS-P-002", "error", f"extensions.{extension_key}.requiredDomains",
+                    "Required OS domain identifiers must be unique.",
+                )
+            if not isinstance(coverage, list):
+                add(
+                    "DUSRM-OS-P-002", "error", f"extensions.{extension_key}.subsystemCoverage",
+                    "The operating-system profile must provide a subsystem coverage array.",
+                )
+                coverage = []
+
+            coverage_by_domain: dict[str, dict[str, Any]] = {}
+            for index, item in enumerate(coverage):
+                path = f"extensions.{extension_key}.subsystemCoverage[{index}]"
+                if not isinstance(item, dict):
+                    add("DUSRM-OS-P-002", "error", path, "Subsystem coverage item must be an object.")
+                    continue
+                domain_id = item.get("domainId")
+                if not isinstance(domain_id, str) or not domain_id.strip():
+                    add("DUSRM-OS-P-002", "error", f"{path}.domainId", "Coverage item requires a domainId.")
+                    continue
+                if domain_id in coverage_by_domain:
+                    add("DUSRM-OS-P-002", "error", f"{path}.domainId", f"Duplicate coverage for domain '{domain_id}'.")
+                else:
+                    coverage_by_domain[domain_id] = item
+                if domain_id not in required_domains:
+                    add("DUSRM-OS-P-002", "warning", f"{path}.domainId", f"Domain '{domain_id}' is not in requiredDomains.")
+                applicability_value = item.get("applicability")
+                implementation_value = item.get("implementationState")
+                evidence_value = item.get("evidenceLevel")
+                if applicability_value not in allowed_applicability:
+                    add("DUSRM-OS-P-002", "error", f"{path}.applicability", "Unknown applicability value.")
+                if implementation_value not in allowed_implementation:
+                    add("DUSRM-OS-P-004", "error", f"{path}.implementationState", "Unknown implementation maturity value.")
+                if evidence_value not in allowed_evidence:
+                    add("DUSRM-OS-P-004", "error", f"{path}.evidenceLevel", "Unknown evidence maturity value.")
+
+                element_refs = item.get("elementRefs", [])
+                if not isinstance(element_refs, list):
+                    add("DUSRM-OS-P-003", "error", f"{path}.elementRefs", "elementRefs must be an array.")
+                    element_refs = []
+                for ref_index, identifier in enumerate(element_refs):
+                    if not isinstance(identifier, str) or identifier not in records["element"]:
+                        add(
+                            "DUSRM-OS-P-003", "error", f"{path}.elementRefs[{ref_index}]",
+                            f"Element reference '{identifier}' does not resolve.",
+                        )
+                if applicability_value == "internal" and not element_refs:
+                    add(
+                        "DUSRM-OS-P-003", "error", f"{path}.elementRefs",
+                        "An internal OS domain must identify at least one realizing element.",
+                    )
+                if applicability_value == "notApplicable" and not str(item.get("rationale", "")).strip():
+                    add(
+                        "DUSRM-OS-P-002", "error", f"{path}.rationale",
+                        "A notApplicable OS domain requires a rationale.",
+                    )
+
+                evidence_refs = item.get("evidenceRefs", [])
+                if not isinstance(evidence_refs, list):
+                    add("DUSRM-OS-P-003", "error", f"{path}.evidenceRefs", "evidenceRefs must be an array.")
+                    evidence_refs = []
+                linked_evidence: list[dict[str, Any]] = []
+                for ref_index, identifier in enumerate(evidence_refs):
+                    evidence_item = records["evidence"].get(identifier) if isinstance(identifier, str) else None
+                    if evidence_item is None:
+                        add(
+                            "DUSRM-OS-P-003", "error", f"{path}.evidenceRefs[{ref_index}]",
+                            f"Evidence reference '{identifier}' does not resolve.",
+                        )
+                    else:
+                        linked_evidence.append(evidence_item)
+                if applicability_value != "notApplicable" and not evidence_refs:
+                    add(
+                        "DUSRM-OS-P-003", "error", f"{path}.evidenceRefs",
+                        "Every applicable OS domain requires at least one evidence reference, including planned domains.",
+                    )
+
+                if evidence_value == "testInSimulation" and not any(
+                    evidence_item.get("kind") in {"testResult", "simulation"}
+                    and evidence_item.get("context") == "simulation"
+                    for evidence_item in linked_evidence
+                ):
+                    add(
+                        "DUSRM-OS-P-004", "error", f"{path}.evidenceLevel",
+                        "testInSimulation requires linked test/simulation evidence with simulation context.",
+                    )
+                if evidence_value == "testOnHardware" and not any(
+                    evidence_item.get("kind") in {"testResult", "measurement", "observation"}
+                    and evidence_item.get("context") in {"physical", "field"}
+                    for evidence_item in linked_evidence
+                ):
+                    add(
+                        "DUSRM-OS-P-004", "error", f"{path}.evidenceLevel",
+                        "testOnHardware requires linked physical/field test, measurement or observation evidence.",
+                    )
+                if evidence_value == "independentlyReviewed" and not any(
+                    evidence_item.get("kind") == "review"
+                    and evidence_item.get("method") in {"designReview", "audit"}
+                    for evidence_item in linked_evidence
+                ):
+                    add(
+                        "DUSRM-OS-P-004", "error", f"{path}.evidenceLevel",
+                        "independentlyReviewed requires linked review evidence.",
+                    )
+                if evidence_value == "verified" and not any(
+                    evidence_item.get("relation") == "supports"
+                    and evidence_item.get("kind") in {"testResult", "formalResult", "measurement", "observation"}
+                    for evidence_item in linked_evidence
+                ):
+                    add(
+                        "DUSRM-OS-P-004", "error", f"{path}.evidenceLevel",
+                        "verified requires supporting test, formal, measurement or observation evidence.",
+                    )
+
+                if implementation_value == "implemented" and evidence_value in {"planned", "documented", "sourceInspected"}:
+                    add(
+                        "DUSRM-OS-P-004", "warning", f"{path}.implementationState",
+                        "Implemented maturity is paired with design/documentation-only evidence; confirm implementation evidence.",
+                    )
+                if implementation_value == "planned" and evidence_value in {"testOnHardware", "independentlyReviewed", "verified"}:
+                    add(
+                        "DUSRM-OS-P-004", "warning", f"{path}.implementationState",
+                        "Planned implementation is paired with advanced evidence; confirm that the evidence refers to the planned capability rather than another subsystem.",
+                    )
+
+            required_set = {x for x in required_domains if isinstance(x, str)}
+            covered_set = set(coverage_by_domain)
+            for missing in sorted(required_set - covered_set):
+                add(
+                    "DUSRM-OS-P-002", "error", f"extensions.{extension_key}.subsystemCoverage",
+                    f"Required operating-system domain '{missing}' has no coverage declaration.",
+                )
+
+    return sorted(findings, key=lambda item: (item.path, item.code, item.severity, item.message))
+
     return sorted(findings, key=lambda item: (item.path, item.code, item.severity, item.message))
 
 
