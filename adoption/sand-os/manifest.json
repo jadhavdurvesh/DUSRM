@@ -1,10 +1,10 @@
 {
   "kitId": "DUSRM-SAND-OS-VALIDATION-KIT",
-  "kitVersion": "0.1.0-draft",
+  "kitVersion": "0.2.0-draft",
   "status": "experimental",
   "purpose": "Standalone host-side validation kit for a DUSRM 0.2-draft SAND OS architecture description.",
   "dusrmRepository": "https://github.com/jadhavdurvesh/DUSRM",
-  "dusrmSourceCommit": "fa67073740ef4563fac48010a12b08d058cd3c73",
+  "dusrmSourceCommit": "current-main-at-kit-refresh",
   "canonicalProfileId": "DUSRM-PROFILE-OPERATING-SYSTEM-0.1",
   "profileVersion": "0.1-draft",
   "compatibilityStatus": "not-assessed",
@@ -14,7 +14,7 @@
     {
       "path": "validate_semantics_0_2.py",
       "sourcePath": "scripts/validate_semantics_0_2.py",
-      "gitBlobSha": "3a40116b5b99f67012d7e2f956a31940a7f3f9a0"
+      "gitBlobSha": "ae77b9121887c10993a610c96598e9cb6907d356"
     },
     {
       "path": "dusrm-description-0.2.schema.json",
@@ -29,12 +29,12 @@
     {
       "path": "sand-os-architecture.json",
       "sourcePath": "schema/fixtures/0.2/profiles/sand-os-operating-system.json",
-      "gitBlobSha": "b01fe7a4648e1b3e3abf3606161450eef856ab6d"
+      "gitBlobSha": "ac858d022677f59375d6923375b42730f6b68e55"
     }
   ],
   "validationContract": {
     "structuralSchema": "JSON Schema Draft 2020-12",
-    "semanticChecker": "Bundled DUSRM 0.2 semantic validator",
+    "semanticChecker": "DUSRM 0.2 semantic validator with operating-system profile coverage and maturity checks",
     "expectedWarnings": [
       "DUSRM-02-P-001"
     ],
