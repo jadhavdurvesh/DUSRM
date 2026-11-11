@@ -1,7 +1,7 @@
 # DUSRM 1.0 Preparation — WP7 Portable Kit Validation
 
 **Workflow:** DUSRM SAND OS validation kit  
-**Run:** [GitHub Actions run #43032761981](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031919228)  
+**Run:** [GitHub Actions run #43032761981](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43032761981)  
 **Conclusion:** success  
 **Checked commit:** `cbd9a9e2ec4d7a808c07a6598c3657c3d2d9672b`  
 **Date:** 2026-11-11
