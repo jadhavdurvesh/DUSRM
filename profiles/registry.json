@@ -29,6 +29,15 @@
       "compatibilityStatus": "not-assessed",
       "candidateSchemaVersion": "0.2-draft",
       "reconciliationStatus": "review-prepared"
+    },
+    {
+      "profileId": "DUSRM-PROFILE-OPERATING-SYSTEM-0.1",
+      "profileVersion": "0.1-draft",
+      "status": "draft",
+      "candidateCoreVersion": "1.0-preparation",
+      "candidateSchemaVersion": "0.2-draft",
+      "compatibilityStatus": "not-assessed",
+      "reconciliationStatus": "review-prepared"
     }
   ],
   "notes": [
@@ -36,7 +45,8 @@
     "The current reconciliation target is DUSRM 1.0-preparation with schema 0.2-draft.",
     "review-prepared means profile mappings, cases and evidence have been prepared for independent assessment; it is not compatibility approval.",
     "All compatibilityStatus values intentionally remain not-assessed.",
-    "Historical profile definitions originated under the 0.7-draft core; the new assessment target is 1.0-preparation/schema 0.2-draft."
+    "Historical profile definitions originated under the 0.7-draft core; the new assessment target is 1.0-preparation/schema 0.2-draft.",
+    "The SAND OS operating-system profile is a WP6 adoption pilot. It does not make DUSRM a SAND OS runtime dependency; compatibility remains not-assessed."
   ],
   "assessmentTarget": {
     "coreVersion": "1.0-preparation",
