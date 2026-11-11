@@ -33,14 +33,14 @@ The profile registry targets DUSRM 1.0-preparation/schema 0.2-draft while preser
 
 ## Automated validation
 
-The dedicated [WP5 CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43019955491) passed on 2026-11-11 at commit `a8a91447e3220904a6dade343d5dd90d649fda1f`.
+The dedicated [WP5 CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43020354463) passed on 2026-11-11 at commit `59167c68120c968a416c146f15f6fdbdfedfea96`.
 
 - 22 schema 0.2 semantic/migration tests passed.
 - 4 profile regression tests passed.
 - All three profile CLI checks reported zero semantic errors and the expected single not-assessed compatibility warning.
 - The migration smoke test passed.
 
-The [schema 0.1](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43019955486), [0.8](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43019955487) and [0.9](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43019955712) workflows also passed on the same commit.
+The [schema 0.1](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43020348588), [0.8](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43020368107) and [0.9](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43020368182) workflows also passed on the same commit.
 
 These runs validate fixtures and the implemented check subset only; they are not profile approvals or independent review.
 
