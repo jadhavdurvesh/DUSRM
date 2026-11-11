@@ -651,6 +651,22 @@ def validate_semantics(
                                 f"Unknown DUSRM layer(s): {invalid_layers}. Expected L1 through L8.",
                             )
 
+
+            mapped_layer_union: set[str] = set()
+            for stratum in strata if isinstance(strata, list) else []:
+                if isinstance(stratum, dict) and isinstance(stratum.get("dusrmLayers"), list):
+                    mapped_layer_union.update(
+                        layer for layer in stratum["dusrmLayers"]
+                        if isinstance(layer, str)
+                    )
+            missing_core_layers = sorted(CORE_LAYERS - mapped_layer_union)
+            if missing_core_layers:
+                add(
+                    "DUSRM-OS-P-005", "error", f"extensions.{extension_key}.implementationStrata",
+                    f"The OS architecture mapping omits core DUSRM layer(s): {missing_core_layers}.",
+                )
+
+
             required_domains = os_profile.get("requiredDomains")
             coverage = os_profile.get("subsystemCoverage")
             allowed_applicability = {"internal", "externalDependency", "notApplicable"}
@@ -722,6 +738,35 @@ def validate_semantics(
                     add(
                         "DUSRM-OS-P-002", "error", f"{path}.rationale",
                         "A notApplicable OS domain requires a rationale.",
+                    )
+
+
+                resolved_elements = [
+                    records["element"][identifier]
+                    for identifier in element_refs
+                    if isinstance(identifier, str) and identifier in records["element"]
+                ]
+                realized_states = [element.get("realizationState") for element in resolved_elements]
+                if implementation_value == "implemented" and any(
+                    state != "implemented" for state in realized_states
+                ):
+                    add(
+                        "DUSRM-OS-P-004", "error", f"{path}.implementationState",
+                        "An implemented OS domain references an element that is not marked implemented.",
+                    )
+                if implementation_value == "planned" and any(
+                    state != "planned" for state in realized_states
+                ):
+                    add(
+                        "DUSRM-OS-P-004", "warning", f"{path}.implementationState",
+                        "A planned OS domain references an element that is not marked planned; check whether the element combines current and future responsibilities.",
+                    )
+                if implementation_value == "inProgress" and resolved_elements and all(
+                    state == "planned" for state in realized_states
+                ):
+                    add(
+                        "DUSRM-OS-P-004", "warning", f"{path}.implementationState",
+                        "An in-progress OS domain references only planned elements.",
                     )
 
                 evidence_refs = item.get("evidenceRefs", [])
