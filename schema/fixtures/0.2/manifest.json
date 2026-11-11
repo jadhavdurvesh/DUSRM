@@ -2,7 +2,7 @@
   "suiteId": "DUSRM-SCHEMA-0.2-FIXTURES",
   "schemaId": "urn:dusrm:schema:description:0.2-draft",
   "schemaVersion": "0.2-draft",
-  "purpose": "Structural and typed-relationship endpoint fixtures for the DUSRM 1.0 preparation schema 0.2 draft.",
+  "purpose": "Structural and typed-relationship fixtures for DUSRM 1.0 preparation. The profile-specific fixtures are validated by tests/test_profiles_0_2.py and the dedicated WP5 CI step.",
   "fixtures": [
     {
       "id": "WP3-POS-001",
@@ -27,10 +27,30 @@
       "path": "invalid-legacy-status-field.json",
       "expected": "schema-fail",
       "reason": "Legacy overloaded top-level status is not allowed in schema 0.2; descriptionState is required."
+    },
+    {
+      "id": "WP5-PROFILE-001",
+      "path": "profiles/standalone-application.json",
+      "expected": "schema-pass-and-semantic-clean",
+      "reason": "Standalone task-list application scale-down profile pilot."
+    },
+    {
+      "id": "WP5-PROFILE-002",
+      "path": "profiles/ananta-database-engine.json",
+      "expected": "schema-pass-and-semantic-clean-with-profile-warning",
+      "reason": "ANANTA native DBMS profile pilot; profile compatibility remains not-assessed."
+    },
+    {
+      "id": "WP5-PROFILE-003",
+      "path": "profiles/firebot-cyber-physical-robotics.json",
+      "expected": "schema-pass-and-semantic-clean-with-profile-warning",
+      "reason": "FireBot CPS profile pilot; planned physical systems remain distinct from simulation."
     }
   ],
   "limitations": [
-    "The fixtures exercise JSON Schema structure and endpoint-kind constraints only.",
-    "Identifier resolution, cross-collection references, evidence adequacy, layer semantics and conformance are not validated by this fixture runner."
+    "The structural fixture runner checks the WP3 minimal, SAND OS, and two negative fixtures.",
+    "The three WP5 profile fixtures are checked by a separate regression test and semantic CLI step.",
+    "Profile compatibility warnings are expected while the registry status remains not-assessed.",
+    "Fixture success does not establish independent profile compatibility, system implementation, evidence adequacy, safety, or conformance."
   ]
 }
