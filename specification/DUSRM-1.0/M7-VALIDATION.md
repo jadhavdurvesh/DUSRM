@@ -1,9 +1,9 @@
 # DUSRM 1.0 Preparation — WP7 Portable Kit Validation
 
 **Workflow:** DUSRM SAND OS validation kit  
-**Run:** [GitHub Actions run #43031057224](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43026965428)  
+**Run:** [GitHub Actions run #43031919228](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43026965428)  
 **Conclusion:** success  
-**Checked commit:** `780e3d23008e0dbe85e7e64452104b94da1ada08`  
+**Checked commit:** `a83bb0107c29939d85246f69566600a857b8c36a`  
 **Date:** 2026-11-11
 
 ## Results
@@ -11,7 +11,7 @@
 | Check | Result |
 |---|---|
 | Pinned bundle integrity | 4/4 files verified |
-| Portable validation-kit regression tests | 13 passed |
+| Portable validation-kit regression tests | 14 passed |
 | Default SAND OS description validation | valid |
 | Structural schema errors | 0 |
 | Semantic errors | 0 |
@@ -22,7 +22,7 @@
 
 ## Regression cases
 
-The thirteen tests exercise:
+The fourteen tests exercise:
 1. Git blob hash verification for the bundled validator, schema, registry and architecture fixture.
 2. Positive SAND OS architecture validation with a complete 16-domain coverage report.
 3. Strict compatibility mode returning exit code 3 while profile compatibility is not assessed.
@@ -32,6 +32,7 @@ The thirteen tests exercise:
 7. Rejection of DUSRM being marked as a required SAND runtime dependency.
 8. Rejection of implemented maturity claims that point to in-progress elements.
 9. Verification that all eight DUSRM layers remain present in the many-to-many OS mapping.
+10. Malformed extension values are reported as validation findings rather than crashing the validator.
 
 ## Expected warning
 
@@ -52,3 +53,8 @@ The artifact is attached to the [workflow run](https://github.com/jadhavdurvesh/
 ## Scope
 
 The result demonstrates that the DUSRM schema and OS-profile rules can be run reproducibly against the SAND OS architecture description. It includes machine-checked 16/16 OS-domain coverage and all-eight-layer mapping. It does not test SAND OS kernel code, create a boot image, execute the OS, verify physical hardware, audit security, or approve profile compatibility.
+
+
+## Canonical DUSRM regression suite
+
+The canonical schema 0.2 [CI run #43031844187](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031844187) passed 31 semantic/migration tests, 4 existing domain-profile tests and 8 SAND OS profile tests. The legacy [0.8](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031844011) and [0.9](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031843986) workflows each passed 55 tests.
