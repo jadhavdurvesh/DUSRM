@@ -28,9 +28,11 @@ Schema 0.1 uses the 0.x status vocabulary and untyped relationship endpoint IDs.
 - [WP4 migration tooling guide](../specification/DUSRM-1.0/M4-MIGRATION-TOOLING.md)
 - [Dedicated CI workflow](../.github/workflows/dusrm-1.0-schema-validation.yml)
 
-Schema 0.2 structural, semantic, migration and WP5 profile CI [run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43020354463) passed on 2026-11-11. The workflow passed 22 semantic/migration tests and 4 profile tests, validated all three domain fixtures with zero semantic errors and the expected not-assessed profile warning, and exercised a 0.1→0.2 review-draft migration. The schema 0.1, 0.8 and 0.9 compatibility workflows also passed after the WP5 updates.
+Schema 0.2 structural, semantic, migration and WP5/WP6 profile CI [run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43024813575) passed on 2026-11-11. The workflow passed 22 semantic/migration tests, 4 existing profile tests and 8 SAND OS profile tests; validated the SAND OS profile with zero semantic errors and the expected not-assessed warning; and exercised a 0.1→0.2 review-draft migration. The schema 0.1, 0.8 and 0.9 compatibility workflows also passed on the tested code commit.
 
-The three profile fixtures are [standalone application](fixtures/0.2/profiles/standalone-application.json), [ANANTA](fixtures/0.2/profiles/ananta-database-engine.json), and [FireBot](fixtures/0.2/profiles/firebot-cyber-physical-robotics.json). Their registry compatibility states remain not-assessed; profile fixture success is not an approval.
+The four profile fixtures are [standalone application](fixtures/0.2/profiles/standalone-application.json), [ANANTA](fixtures/0.2/profiles/ananta-database-engine.json), [FireBot](fixtures/0.2/profiles/firebot-cyber-physical-robotics.json), and [SAND OS](fixtures/0.2/profiles/sand-os-operating-system.json). Their registry compatibility states remain not-assessed; profile fixture success is not an approval.
+
+See the [WP6 adoption plan](../specification/DUSRM-1.0/M6-SAND-OS-ADOPTION.md), [SAND OS architecture mapping](../specification/DUSRM-1.0/M6-SAND-OS-ARCHITECTURE-MAP.md), and [WP6 review findings](../specification/DUSRM-1.0/M6-REVIEW-FINDINGS.md).
 
 ## Validation boundaries
 
