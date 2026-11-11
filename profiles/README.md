@@ -4,15 +4,29 @@ Profiles specialize the DUSRM core for a class of systems. They may add domain t
 
 A profile must not silently redefine core DUSRM concepts or make one DMJ technology mandatory.
 
-## Profiles in the 0.6 draft
+## Historical profile definitions
 
 - [Standalone software application](standalone-application/PROFILE.md)
 - [Database engine — ANANTA](database-engine/ANANTA-PROFILE.md)
 - [Cyber-physical robotics — FireBot](cyber-physical-robotics/FIREBOT-PROFILE.md)
 
+These 0.1-draft profiles preserve their historical identity and origin. They were initially prepared against an earlier core draft and are not automatically compatible with the DUSRM 1.0-preparation target.
+
+## DUSRM 1.0-preparation reconciliation
+
+WP5 has prepared schema 0.2 typed pilot descriptions for all three profiles:
+
+- [Standalone application fixture](../schema/fixtures/0.2/profiles/standalone-application.json)
+- [ANANTA database-engine fixture](../schema/fixtures/0.2/profiles/ananta-database-engine.json)
+- [FireBot cyber-physical robotics fixture](../schema/fixtures/0.2/profiles/firebot-cyber-physical-robotics.json)
+
+See the [WP5 reconciliation report](../specification/DUSRM-1.0/M5-RECONCILIATION.md), [compatibility matrix](../specification/DUSRM-1.0/M5-COMPATIBILITY-MATRIX.md), and [review package](../specification/DUSRM-1.0/M5-REVIEW-PACKAGE.md).
+
 ## Registry
 
-See [registry.json](registry.json). Each entry records its profile version, candidate core version, and compatibility assessment status. The existing profiles are currently marked `not-assessed`; a candidate core version is not an approval.
+See [registry.json](registry.json). It now identifies DUSRM 1.0-preparation/schema 0.2-draft as the current assessment target. The original profile IDs and versions are retained. Every compatibility status remains `not-assessed`.
+
+`review-prepared` means only that a mapping fixture and review material have been prepared. It is not an approval, compatibility result or conformance statement.
 
 ## Compatibility
 
