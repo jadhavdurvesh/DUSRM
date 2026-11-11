@@ -17,7 +17,8 @@
 | Semantic errors | 0 |
 | Semantic warnings | 1 |
 | Profile compatibility warnings | 1 expected |
-| Required OS domain coverage | 16/16 |\n| DUSRM layers represented in OS mapping | 8/8 |\n| JSON report generation | passed |
+| Required OS domain coverage | 16/16 |
+| DUSRM layers represented in OS mapping | 8/8 |\n| JSON report generation | passed |
 | Report artifact upload | passed |
 
 ## Regression cases
