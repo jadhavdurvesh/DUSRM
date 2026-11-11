@@ -3,7 +3,7 @@
 
 **Status:** Research proposal — working draft  
 **Current specification:** 0.9-draft  
-**1.0 preparation:** WP1–WP6 internally prepared; schema, semantic, migration, profile-fixture and legacy CI passed; independent review and SAND-side adoption approval pending  
+**1.0 preparation:** WP1–WP8 internally prepared; schema, semantic, OS-profile coverage, migration, portable-kit and legacy CI passed; independent review and SAND-side adoption approval pending  
 **Maturity:** Provisional reference framework; not normative or independently validated
 
 DUSRM is a proposed universal reference framework for describing, analyzing, designing, and evaluating computing and engineering systems. It is intended to provide a common conceptual foundation from which domain-specific reference models may be developed.
@@ -36,12 +36,13 @@ The 1.0 preparation work is tracked separately from the 0.9 draft:
 - **WP5 — Domain Profile Reconciliation:** standalone application, ANANTA and FireBot schema 0.2 profile pilots, compatibility matrix, evidence snapshot and independent-review cases. [Status](specification/DUSRM-1.0/M5-STATUS.md)
 - **WP6 — SAND OS Adoption Pilot:** operating-system profile, nine-to-eight-strata architecture mapping, read-only SAND evidence, desk review findings, standards crosswalk and host-side CI adoption plan. [Status](specification/DUSRM-1.0/M6-STATUS.md)
 - **WP7 — Portable Validation Kit:** bundled schema/validator/profile/model, Git-blob integrity checking, JSON validation reports, regression tests and a proposed SAND host-CI integration. [Status](specification/DUSRM-1.0/M7-STATUS.md)
+- **WP8 — SAND OS Architecture Governance:** proposed adoption of DUSRM as SAND's primary project-level responsibility architecture, plus a DUSRM-based change-review workflow. [Status](specification/DUSRM-1.0/M8-STATUS.md)
 
 The final [WP6 schema 0.2/profile validation run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43024813575) passed on 2026-11-11. Twenty-two semantic/migration tests, four existing profile tests and eight SAND OS profile tests passed. The SAND OS fixture had zero semantic errors and the expected not-assessed profile warning. The [schema 0.1](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43024813742), [0.8](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43024813499) and [0.9](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43024813600) workflows also passed on the tested commit.
 
 **Important:** none of the three profiles has been approved as compatible. ANANTA's inspected sources contain a Windows checkpoint-rotation wording conflict, and FireBot's inspected current-state snapshot is dated 2026-10-11. See the [WP5 reconciliation report](specification/DUSRM-1.0/M5-RECONCILIATION.md) and [review package](specification/DUSRM-1.0/M5-REVIEW-PACKAGE.md).
 
-The SAND OS adoption package is documented in the [WP6 adoption plan](specification/DUSRM-1.0/M6-SAND-OS-ADOPTION.md). WP7 has now produced a [portable executable validation kit](adoption/sand-os/README.md); its [CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43026965428) passed 4/4 integrity checks and 5 tests. The OS profile compatibility remains not-assessed, no SAND OS repository changes were made, and independent review is pending. CI results are internal engineering evidence, not peer approval or a stable 1.0 release.
+The SAND OS adoption package is documented in the [WP6 adoption plan](specification/DUSRM-1.0/M6-SAND-OS-ADOPTION.md). WP7 provides a [portable executable validation kit](adoption/sand-os/README.md); its [CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031057224) passed 4/4 integrity checks and 13 tests. The OS profile covers 16/16 required domains and maps all eight DUSRM layers, with zero semantic errors and one not-assessed compatibility warning. WP8 proposes DUSRM as SAND's primary project-level architecture reference; see the [governance policy](specification/DUSRM-1.0/M8-SAND-OS-ARCHITECTURE-GOVERNANCE.md). No SAND OS repository changes were made. Independent review and adoption approval remain pending.
 
 ## Previous milestones
 
@@ -88,6 +89,7 @@ These technologies remain independently specified. DUSRM may map their roles to 
 - **DUSRM 1.0 preparation — WP5:** domain profile reconciliation and independent-review preparation. [Status](specification/DUSRM-1.0/M5-STATUS.md)
 - **DUSRM 1.0 preparation — WP6:** SAND OS adoption pilot and release-gate review. [Status](specification/DUSRM-1.0/M6-STATUS.md)
 - **DUSRM 1.0 preparation — WP7:** portable validation kit and SAND OS adoption review. [Status](specification/DUSRM-1.0/M7-STATUS.md)
+- **DUSRM 1.0 preparation — WP8:** DUSRM as primary SAND OS architecture reference and architecture change governance. [Status](specification/DUSRM-1.0/M8-STATUS.md)
 - **Next step:** independent review and explicit approval before any SAND OS repository changes.
 
 ## Repository map
