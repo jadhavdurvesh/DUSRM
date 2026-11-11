@@ -1,0 +1,1985 @@
+{
+  "schemaVersion": "0.2-draft",
+  "dusrmVersion": "1.0-preparation-WP6",
+  "descriptionId": "sand-os-system-architecture-0-2",
+  "title": "DUSRM 0.2 Pilot — SAND OS Operating-System Architecture",
+  "summary": "Repository-informed SAND OS architecture description. Current prototype capabilities are separated from planned userland and production capabilities.",
+  "descriptionState": "draft",
+  "profileRefs": [
+    {
+      "profileId": "DUSRM-PROFILE-OPERATING-SYSTEM-0.1",
+      "version": "0.1-draft",
+      "compatibility": "not-assessed"
+    }
+  ],
+  "context": {
+    "systemOfInterest": {
+      "id": "sand-os-system",
+      "name": "SAND OS",
+      "category": "computational",
+      "kind": "operating-system",
+      "description": "Independent OS research project with a SAND-authored legacy-BIOS x86 boot chain, 32-bit kernel, early process/storage subsystems, Veyra interface foundation and SAPP application format.",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-CI"
+      ]
+    },
+    "purpose": "Describe SAND OS responsibilities, boundaries, interfaces, persistent formats, maturity and evidence without adding runtime dependencies.",
+    "scope": "Current SAND-authored boot, kernel, memory, scheduling, process, syscall, storage, SANDFS, Veyra, graphics/windowing and SAPP components; future services are marked planned.",
+    "abstractionLevel": "system architecture and subsystem responsibility",
+    "boundary": {
+      "id": "sand-os-system-boundary",
+      "inclusions": [
+        "SAND BIOS boot stages",
+        "32-bit x86 kernel",
+        "architecture-specific CPU and interrupt support",
+        "memory manager",
+        "scheduler and synchronization",
+        "process/address-space prototype",
+        "syscall and Veyra interface foundation",
+        "block-device and ATA PIO",
+        "SANDFS v1",
+        "framebuffer/windowing prototype",
+        "SAPP format and SDK"
+      ],
+      "exclusions": [
+        "QEMU and host test runner",
+        "host compiler and build tools",
+        "host operating system",
+        "physical firmware/hardware internals",
+        "planned networking and service IPC",
+        "complete graphical compositor"
+      ],
+      "notes": "DUSRM is a design-time architecture description and validation method, not part of the kernel image or runtime."
+    },
+    "environment": [
+      {
+        "id": "sand-os-x86-bios-platform",
+        "name": "Legacy BIOS x86 target platform",
+        "category": "physical",
+        "kind": "target-platform",
+        "roles": [
+          "firmware-provider",
+          "cpu-platform"
+        ],
+        "description": "Current boot path targets legacy BIOS and 32-bit x86 protected mode.",
+        "evidenceRefs": [
+          "SAND-EV-ARCH"
+        ]
+      },
+      {
+        "id": "sand-os-qemu",
+        "name": "QEMU System i386",
+        "category": "computational",
+        "kind": "external-emulator",
+        "roles": [
+          "development-test-environment"
+        ],
+        "description": "External emulator for development and automated boot tests; not part of the SAND runtime.",
+        "evidenceRefs": [
+          "SAND-EV-CI"
+        ]
+      },
+      {
+        "id": "sand-os-host-toolchain",
+        "name": "Host build toolchain",
+        "category": "computational",
+        "kind": "development-toolchain",
+        "roles": [
+          "compiler",
+          "assembler",
+          "linker",
+          "build-runner"
+        ],
+        "description": "GCC, GNU Binutils, Make and Python are host-side tools.",
+        "evidenceRefs": [
+          "SAND-EV-BUILD"
+        ]
+      },
+      {
+        "id": "sand-os-sapp-image",
+        "name": "SAPP application image",
+        "category": "informational",
+        "kind": "native-executable-container",
+        "roles": [
+          "application-package-input"
+        ],
+        "description": "Versioned SAPP container supplied to the process loader; signatures and trust-store are not implemented.",
+        "evidenceRefs": [
+          "SAND-EV-SAPP"
+        ]
+      }
+    ],
+    "assumptions": [
+      "Repository documentation and CI are project evidence, not independent hardware or security certification.",
+      "The current target is legacy-BIOS x86-32; UEFI and x86-64 support are not established.",
+      "SAND's nine implementation strata do not map one-to-one to DUSRM's eight responsibility layers.",
+      "DUSRM validation remains external to SAND boot and runtime.",
+      "README milestone text conflicts with detailed architecture and roadmap text; milestone numbering is not used as the sole maturity authority."
+    ]
+  },
+  "elements": [
+    {
+      "id": "sand-os-boot-chain",
+      "name": "SAND boot chain",
+      "category": "computational",
+      "kind": "bootloader",
+      "roles": [
+        "BIOS-entry",
+        "stage-two-loader",
+        "kernel-handoff"
+      ],
+      "description": "SAND-authored boot sector and second-stage loader for bounded raw kernel payload loading and 32-bit protected-mode handoff.",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-CI"
+      ]
+    },
+    {
+      "id": "sand-os-x86-arch",
+      "name": "x86 architecture support",
+      "category": "computational",
+      "kind": "architecture-subsystem",
+      "roles": [
+        "GDT",
+        "IDT",
+        "interrupts",
+        "paging",
+        "context-switch",
+        "ATA-PIO",
+        "VBE",
+        "PS2"
+      ],
+      "description": "Architecture-specific x86-32 support and early platform drivers.",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-API"
+      ]
+    },
+    {
+      "id": "sand-os-kernel-core",
+      "name": "SAND kernel core",
+      "category": "computational",
+      "kind": "kernel",
+      "roles": [
+        "kernel-entry",
+        "exceptions",
+        "subsystem-coordination"
+      ],
+      "description": "Freestanding 32-bit kernel hosting SAND-owned subsystem policies and self-tests.",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-CI"
+      ]
+    },
+    {
+      "id": "sand-os-memory-manager",
+      "name": "Memory manager",
+      "category": "computational",
+      "kind": "memory-subsystem",
+      "roles": [
+        "E820-discovery",
+        "frame-allocation",
+        "paging",
+        "heap"
+      ],
+      "description": "Early bounded physical-frame allocator, non-PAE paging and page-backed bump heap; production VM features remain incomplete.",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-ARCH"
+      ]
+    },
+    {
+      "id": "sand-os-scheduler-sync",
+      "name": "Kernel scheduler and synchronization",
+      "category": "computational",
+      "kind": "scheduler-subsystem",
+      "roles": [
+        "kernel-thread-scheduling",
+        "preemption",
+        "blocking",
+        "semaphore",
+        "mutex"
+      ],
+      "description": "Uniprocessor kernel-thread scheduler and basic synchronization prototype; not SMP-safe or production hardened.",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-CI"
+      ]
+    },
+    {
+      "id": "sand-os-process-manager",
+      "name": "Process manager",
+      "category": "computational",
+      "kind": "process-subsystem",
+      "roles": [
+        "process-table",
+        "address-spaces",
+        "CR3-switch",
+        "termination",
+        "reclamation",
+        "SAPP-load-entry"
+      ],
+      "description": "Bounded process table and distinct user address spaces; no complete preemptive user-process scheduler or robust fault isolation.",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-PROCESS"
+      ]
+    },
+    {
+      "id": "sand-os-syscall-gateway",
+      "name": "System-call gateway",
+      "category": "computational",
+      "kind": "kernel-interface",
+      "roles": [
+        "ring3-entry",
+        "int-0x80",
+        "syscall-dispatch"
+      ],
+      "description": "Limited syscall proof-of-concept; a general-purpose safe syscall ABI and complete user-pointer validation are not established.",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-VEYRA",
+        "SAND-EV-API"
+      ]
+    },
+    {
+      "id": "sand-os-block-storage",
+      "name": "Block-device abstraction",
+      "category": "computational",
+      "kind": "storage-subsystem",
+      "roles": [
+        "device-registration",
+        "sector-read",
+        "sector-write"
+      ],
+      "description": "SAND-owned block-device registration interface with sector callbacks.",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-API"
+      ]
+    },
+    {
+      "id": "sand-os-ata-driver",
+      "name": "Primary-master ATA PIO driver",
+      "category": "computational",
+      "kind": "device-driver",
+      "roles": [
+        "ATA-identify",
+        "28-bit-LBA",
+        "single-sector-io"
+      ],
+      "description": "Initial polling-only primary-master ATA PIO backend, not a general storage driver framework.",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-ARCH"
+      ]
+    },
+    {
+      "id": "sand-os-sandfs",
+      "name": "SANDFS v1",
+      "category": "informational",
+      "kind": "native-filesystem",
+      "roles": [
+        "format",
+        "mount",
+        "file-read",
+        "file-write"
+      ],
+      "description": "Versioned one-sector-per-file filesystem prototype; lacks journaling, crash consistency, checksums, permissions and concurrent-access locks.",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-FS"
+      ]
+    },
+    {
+      "id": "sand-os-veyra",
+      "name": "SAND Veyra interface foundation",
+      "category": "computational",
+      "kind": "abi-interface-framework",
+      "roles": [
+        "ABI-descriptor",
+        "status-convention",
+        "interface-metadata"
+      ],
+      "description": "Versioned descriptor/status foundation; not a complete general-purpose syscall ABI or IPC facility.",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-VEYRA",
+        "SAND-EV-API"
+      ]
+    },
+    {
+      "id": "sand-os-graphics",
+      "name": "Framebuffer and windowing prototype",
+      "category": "computational",
+      "kind": "graphics-subsystem",
+      "roles": [
+        "framebuffer",
+        "VBE-display",
+        "window-records",
+        "focus",
+        "pointer-dragging"
+      ],
+      "description": "Early framebuffer/windowing functionality; no complete compositor, application surfaces or desktop event loop.",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-API"
+      ]
+    },
+    {
+      "id": "sand-os-sapp-sdk",
+      "name": "SAPP v0.2 format and SDK",
+      "category": "computational",
+      "kind": "application-sdk",
+      "roles": [
+        "ELF32-to-SAPP-packaging",
+        "segment-validation",
+        "relocations",
+        "manifest",
+        "application-tooling"
+      ],
+      "description": "Custom SAPP container and builder; signing, trust store, filesystem launch, shared libraries and dynamic linker remain incomplete.",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-SAPP",
+        "SAND-EV-SAPP-README",
+        "SAND-EV-CI"
+      ]
+    },
+    {
+      "id": "sand-os-networking",
+      "name": "Network stack and services",
+      "category": "computational",
+      "kind": "planned-subsystem",
+      "roles": [
+        "network-interface",
+        "IP",
+        "UDP",
+        "socket-api"
+      ],
+      "description": "Future roadmap work; no working SAND network stack is claimed.",
+      "realizationState": "planned",
+      "evidenceRefs": [
+        "SAND-EV-ROADMAP",
+        "SAND-EV-API"
+      ]
+    },
+    {
+      "id": "sand-os-service-ipc",
+      "name": "Service IPC and supervision",
+      "category": "computational",
+      "kind": "planned-subsystem",
+      "roles": [
+        "message-passing",
+        "service-lifecycle",
+        "service-supervision"
+      ],
+      "description": "IPC and service contracts are future Veyra gaps; not implemented.",
+      "realizationState": "planned",
+      "evidenceRefs": [
+        "SAND-EV-API",
+        "SAND-EV-ROADMAP"
+      ]
+    },
+    {
+      "id": "sand-os-compositor",
+      "name": "Native desktop compositor",
+      "category": "computational",
+      "kind": "planned-subsystem",
+      "roles": [
+        "surface-composition",
+        "window-server",
+        "desktop-shell"
+      ],
+      "description": "Planned native desktop subsystem; the current framebuffer/window prototypes are not a complete compositor.",
+      "realizationState": "planned",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-ROADMAP"
+      ]
+    }
+  ],
+  "responsibilities": [
+    {
+      "id": "sand-os-r-platform",
+      "name": "Establish platform entry and execution context",
+      "description": "Interact with target firmware/CPU platform and establish controlled transition into the SAND kernel.",
+      "primaryLayer": "L1",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-ARCH"
+      ]
+    },
+    {
+      "id": "sand-os-r-resource",
+      "name": "Manage memory, execution and device resources",
+      "description": "Allocate and constrain physical frames, kernel memory, process slots, thread slots and block-device access within current prototype limits.",
+      "primaryLayer": "L2",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-PROCESS",
+        "SAND-EV-API"
+      ]
+    },
+    {
+      "id": "sand-os-r-execution",
+      "name": "Control boot, interrupt, thread and process execution",
+      "description": "Sequence boot operations, handle interrupts, schedule kernel threads and manage bounded process lifecycle operations.",
+      "primaryLayer": "L3",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-CI"
+      ]
+    },
+    {
+      "id": "sand-os-r-state",
+      "name": "Maintain kernel, process and persistent filesystem state",
+      "description": "Represent execution states, address-space state, filesystem metadata and versioned application-container contents.",
+      "primaryLayer": "L4",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-FS",
+        "SAND-EV-SAPP"
+      ]
+    },
+    {
+      "id": "sand-os-r-compute",
+      "name": "Compute address translation, scheduling and image validation",
+      "description": "Perform paging decisions, runnable-thread selection, format validation and kernel/userland transformations.",
+      "primaryLayer": "L5",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-SAPP"
+      ]
+    },
+    {
+      "id": "sand-os-r-interface",
+      "name": "Expose controlled kernel and subsystem interfaces",
+      "description": "Provide versioned SAND-owned descriptors, syscall entry and future ABI/service boundaries while preserving privilege separation.",
+      "primaryLayer": "L6",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-VEYRA",
+        "SAND-EV-API"
+      ]
+    },
+    {
+      "id": "sand-os-r-services",
+      "name": "Provide native storage, graphics and application services",
+      "description": "Offer file, block-device, windowing and application-package capabilities with explicit prototype limitations.",
+      "primaryLayer": "L7",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-FS",
+        "SAND-EV-API",
+        "SAND-EV-SAPP"
+      ]
+    },
+    {
+      "id": "sand-os-r-outcome",
+      "name": "Provide an independent general-purpose operating system",
+      "description": "Deliver a complete, secure and usable OS with stable userland, drivers, storage, networking, graphical desktop, native apps and release engineering.",
+      "primaryLayer": "L8",
+      "realizationState": "planned",
+      "evidenceRefs": [
+        "SAND-EV-ROADMAP",
+        "SAND-EV-SEC"
+      ]
+    }
+  ],
+  "realizations": [
+    {
+      "id": "sand-os-real-platform",
+      "elementRef": "sand-os-boot-chain",
+      "responsibilityRef": "sand-os-r-platform",
+      "realizationState": "inProgress",
+      "rationale": "SAND-authored BIOS boot stages establish the current platform entry path; support is limited to legacy BIOS x86-32.",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-CI"
+      ]
+    },
+    {
+      "id": "sand-os-real-resource",
+      "elementRef": "sand-os-memory-manager",
+      "responsibilityRef": "sand-os-r-resource",
+      "realizationState": "inProgress",
+      "rationale": "The memory manager implements early frame allocation, paging and heap management.",
+      "evidenceRefs": [
+        "SAND-EV-ARCH"
+      ]
+    },
+    {
+      "id": "sand-os-real-execution",
+      "elementRef": "sand-os-kernel-core",
+      "responsibilityRef": "sand-os-r-execution",
+      "realizationState": "inProgress",
+      "rationale": "The kernel hosts boot, interrupt, scheduling and process-management prototypes.",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-CI"
+      ]
+    },
+    {
+      "id": "sand-os-real-state",
+      "elementRef": "sand-os-process-manager",
+      "responsibilityRef": "sand-os-r-state",
+      "realizationState": "inProgress",
+      "rationale": "Process descriptors and page-directory mappings represent process lifecycle and address-space state.",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-PROCESS"
+      ]
+    },
+    {
+      "id": "sand-os-real-compute",
+      "elementRef": "sand-os-scheduler-sync",
+      "responsibilityRef": "sand-os-r-compute",
+      "realizationState": "inProgress",
+      "rationale": "The scheduler selects runnable execution contexts under the current prototype policy.",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-CI"
+      ]
+    },
+    {
+      "id": "sand-os-real-interface",
+      "elementRef": "sand-os-veyra",
+      "responsibilityRef": "sand-os-r-interface",
+      "realizationState": "inProgress",
+      "rationale": "Veyra supplies the shared descriptor/status foundation; general ABI and IPC remain incomplete.",
+      "evidenceRefs": [
+        "SAND-EV-VEYRA",
+        "SAND-EV-API"
+      ]
+    },
+    {
+      "id": "sand-os-real-services",
+      "elementRef": "sand-os-sandfs",
+      "responsibilityRef": "sand-os-r-services",
+      "realizationState": "inProgress",
+      "rationale": "SANDFS implements a small native storage prototype; graphics and SAPP provide additional early facilities.",
+      "evidenceRefs": [
+        "SAND-EV-FS",
+        "SAND-EV-SAPP"
+      ]
+    }
+  ],
+  "layerApplicability": [
+    {
+      "layer": "L1",
+      "applicability": "externalDependency",
+      "rationale": "The target relies on external legacy BIOS and x86 hardware/firmware; SAND provides its own boot and architecture code."
+    },
+    {
+      "layer": "L2",
+      "applicability": "internal",
+      "rationale": "Memory, thread, process and storage resource management are internal kernel responsibilities."
+    },
+    {
+      "layer": "L3",
+      "applicability": "internal",
+      "rationale": "Boot sequencing, interrupts, scheduling and process lifecycle are within the system boundary."
+    },
+    {
+      "layer": "L4",
+      "applicability": "internal",
+      "rationale": "Process/thread state, filesystem metadata and executable package state are represented."
+    },
+    {
+      "layer": "L5",
+      "applicability": "internal",
+      "rationale": "Paging, scheduler selection and application-image validation provide computation/transformation responsibilities."
+    },
+    {
+      "layer": "L6",
+      "applicability": "internal",
+      "rationale": "Syscall and Veyra descriptor contracts define interaction boundaries; a stable general-purpose ABI remains incomplete."
+    },
+    {
+      "layer": "L7",
+      "applicability": "internal",
+      "rationale": "Storage, graphics/windowing and SAPP developer facilities are in scope as prototypes."
+    },
+    {
+      "layer": "L8",
+      "applicability": "internal",
+      "rationale": "The general-purpose OS outcome is in scope but is not yet realized as a complete product."
+    }
+  ],
+  "specifications": [
+    {
+      "id": "sand-os-spec-architecture",
+      "name": "SAND OS Architecture",
+      "kind": "designDefinition",
+      "status": "published",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/docs/ARCHITECTURE.md",
+      "revision": "1af2bc56a0837693eb90d806694bca38787513f4",
+      "description": "Architecture and current subsystem maturity boundaries."
+    },
+    {
+      "id": "sand-os-spec-roadmap",
+      "name": "SAND OS Engineering Roadmap",
+      "kind": "designDefinition",
+      "status": "published",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/docs/ROADMAP.md",
+      "revision": "a5e5644e44318d6a55fd6ab0899d6d9c667bec0f",
+      "description": "M0–M13 intended roadmap and exit evidence."
+    },
+    {
+      "id": "sand-os-spec-veyra",
+      "name": "SAND Veyra ABI Foundation",
+      "kind": "interfaceContract",
+      "status": "published",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/docs/VEYRA_ABI.md",
+      "revision": "4d1b4b3b5cbe3122979f3510419af7a784ba713e",
+      "description": "Veyra descriptor, status convention and privilege-boundary rules; not a general-purpose syscall ABI."
+    },
+    {
+      "id": "sand-os-spec-api",
+      "name": "SAND Veyra Interface Catalogue",
+      "kind": "interfaceContract",
+      "status": "published",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/docs/API_CATALOG.md",
+      "revision": "3e3d40cab3ad247c74e364f9f23a267ec2793339",
+      "description": "Implemented/prototype/future status of SAND-owned interfaces."
+    },
+    {
+      "id": "sand-os-spec-sapp",
+      "name": "SAPP Binary Format",
+      "kind": "technicalSpecification",
+      "status": "published",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/sdk/sapp/FORMAT.md",
+      "revision": "2f5f52676a64e026cd24a22401af3c67d406d171",
+      "description": "SAPP v1 container layout, segments, relocations and development-only signing boundary."
+    },
+    {
+      "id": "sand-os-spec-integrations",
+      "name": "SAND OS Integration Boundaries",
+      "kind": "designDefinition",
+      "status": "published",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/docs/INTEGRATIONS.md",
+      "revision": "a5e724395b73c3e456ad486a0d3ace526453b25e",
+      "description": "Independent technology integration responsibilities and explicit DUSRM non-runtime role."
+    },
+    {
+      "id": "sand-os-spec-security",
+      "name": "SAND OS Security Policy",
+      "kind": "technicalSpecification",
+      "status": "published",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/docs/SECURITY.md",
+      "revision": "660831fc567b0265d5654b284579fbdbf9b12e2e",
+      "description": "Experimental research status and absence of production-grade security controls."
+    }
+  ],
+  "relationships": [
+    {
+      "id": "sand-os-rel-boot-member",
+      "type": "memberOf",
+      "source": {
+        "kind": "element",
+        "id": "sand-os-boot-chain"
+      },
+      "target": {
+        "kind": "system",
+        "id": "sand-os-system"
+      },
+      "rationale": "The boot chain is an internal constituent of SAND OS.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed",
+      "evidenceRefs": [
+        "SAND-EV-ARCH"
+      ]
+    },
+    {
+      "id": "sand-os-rel-kernel-decompose",
+      "type": "decomposesInto",
+      "source": {
+        "kind": "element",
+        "id": "sand-os-kernel-core"
+      },
+      "target": {
+        "kind": "element",
+        "id": "sand-os-memory-manager"
+      },
+      "rationale": "The kernel delegates memory-management responsibilities to a dedicated subsystem.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed",
+      "evidenceRefs": [
+        "SAND-EV-ARCH"
+      ]
+    },
+    {
+      "id": "sand-os-rel-boot-depends-platform",
+      "type": "dependsOn",
+      "source": {
+        "kind": "element",
+        "id": "sand-os-boot-chain"
+      },
+      "target": {
+        "kind": "environmentParticipant",
+        "id": "sand-os-x86-bios-platform"
+      },
+      "rationale": "The current boot path depends on legacy BIOS and x86 platform services.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed",
+      "evidenceRefs": [
+        "SAND-EV-ARCH"
+      ]
+    },
+    {
+      "id": "sand-os-rel-veyra-exposes",
+      "type": "exposes",
+      "source": {
+        "kind": "element",
+        "id": "sand-os-veyra"
+      },
+      "target": {
+        "kind": "interface",
+        "id": "sand-os-veyra-interface"
+      },
+      "rationale": "Veyra is the published interface architecture for SAND-owned ABI and subsystem contracts.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed",
+      "evidenceRefs": [
+        "SAND-EV-VEYRA",
+        "SAND-EV-API"
+      ]
+    },
+    {
+      "id": "sand-os-rel-process-requires-veyra",
+      "type": "requires",
+      "source": {
+        "kind": "element",
+        "id": "sand-os-process-manager"
+      },
+      "target": {
+        "kind": "interface",
+        "id": "sand-os-veyra-interface"
+      },
+      "rationale": "Process and user-mode integration depends on safe SAND-owned interface contracts.",
+      "designDisposition": "proposed",
+      "assessmentResult": "notAssessed",
+      "evidenceRefs": [
+        "SAND-EV-API"
+      ]
+    },
+    {
+      "id": "sand-os-rel-sapp-interacts-process",
+      "type": "interactsWith",
+      "source": {
+        "kind": "element",
+        "id": "sand-os-sapp-sdk"
+      },
+      "target": {
+        "kind": "element",
+        "id": "sand-os-process-manager"
+      },
+      "rationale": "The SAPP toolchain and kernel SAPP loading path interact across the executable-container boundary.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed",
+      "evidenceRefs": [
+        "SAND-EV-SAPP",
+        "SAND-EV-SAPP-README"
+      ]
+    },
+    {
+      "id": "sand-os-rel-memory-allocates",
+      "type": "allocates",
+      "source": {
+        "kind": "element",
+        "id": "sand-os-process-manager"
+      },
+      "target": {
+        "kind": "resource",
+        "id": "sand-os-process-slots"
+      },
+      "rationale": "The bounded process manager owns a fixed number of process descriptors.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed",
+      "evidenceRefs": [
+        "SAND-EV-PROCESS"
+      ]
+    },
+    {
+      "id": "sand-os-rel-sandfs-contained",
+      "type": "containedWithin",
+      "source": {
+        "kind": "element",
+        "id": "sand-os-sandfs"
+      },
+      "target": {
+        "kind": "boundary",
+        "id": "sand-os-system-boundary"
+      },
+      "rationale": "SANDFS is an internal SAND-owned filesystem prototype.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed",
+      "evidenceRefs": [
+        "SAND-EV-FS"
+      ]
+    },
+    {
+      "id": "sand-os-rel-exec-process",
+      "type": "performs",
+      "source": {
+        "kind": "execution",
+        "id": "sand-os-process-create-execution"
+      },
+      "target": {
+        "kind": "operation",
+        "id": "sand-os-op-process-create"
+      },
+      "rationale": "The illustrative execution record references the bounded process creation operation; it is not an additional runtime test.",
+      "designDisposition": "proposed",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "sand-os-rel-event-trigger",
+      "type": "triggers",
+      "source": {
+        "kind": "event",
+        "id": "sand-os-process-create-request"
+      },
+      "target": {
+        "kind": "transition",
+        "id": "sand-os-transition-process-ready"
+      },
+      "rationale": "A process creation request triggers the modeled transition into the ready state after successful setup.",
+      "designDisposition": "proposed",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "sand-os-rel-state-transition",
+      "type": "transitionsTo",
+      "source": {
+        "kind": "state",
+        "id": "sand-os-process-created"
+      },
+      "target": {
+        "kind": "state",
+        "id": "sand-os-process-ready"
+      },
+      "rationale": "The process lifecycle includes a created-to-ready transition.",
+      "designDisposition": "proposed",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "sand-os-rel-sdk-implements",
+      "type": "implements",
+      "source": {
+        "kind": "element",
+        "id": "sand-os-sapp-sdk"
+      },
+      "target": {
+        "kind": "specification",
+        "id": "sand-os-spec-sapp"
+      },
+      "rationale": "The SDK and packer implement the SAPP container specification within current development limits.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed",
+      "evidenceRefs": [
+        "SAND-EV-SAPP",
+        "SAND-EV-SAPP-README"
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "id": "sand-os-op-boot",
+      "name": "BootKernel",
+      "ownerRef": {
+        "kind": "element",
+        "id": "sand-os-boot-chain"
+      },
+      "purpose": "Load the bounded kernel payload, establish the initial CPU mode and transfer control to the kernel entry point.",
+      "designDisposition": "accepted",
+      "realizationState": "inProgress",
+      "preconditions": [
+        "Target firmware provides the assumed legacy BIOS services",
+        "Kernel payload fits documented loader bounds"
+      ],
+      "postconditions": [
+        "Control reaches the kernel entry point in 32-bit protected mode"
+      ],
+      "failureConditions": [
+        "BIOS disk read failure",
+        "Kernel payload size/bounds failure",
+        "Invalid boot-stage transition"
+      ],
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-CI"
+      ]
+    },
+    {
+      "id": "sand-os-op-process-create",
+      "name": "CreateProcessAddressSpace",
+      "ownerRef": {
+        "kind": "element",
+        "id": "sand-os-process-manager"
+      },
+      "purpose": "Create a bounded process record and distinct user address-space resources.",
+      "designDisposition": "accepted",
+      "realizationState": "inProgress",
+      "preconditions": [
+        "Kernel memory manager initialized",
+        "A process slot is available",
+        "User mappings fall within the reserved user range"
+      ],
+      "postconditions": [
+        "A process descriptor and page directory are created"
+      ],
+      "failureConditions": [
+        "Process table full",
+        "Frame allocation failure",
+        "Invalid user mapping"
+      ],
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-CI"
+      ]
+    },
+    {
+      "id": "sand-os-op-sandfs-mount",
+      "name": "MountSANDFS",
+      "ownerRef": {
+        "kind": "element",
+        "id": "sand-os-sandfs"
+      },
+      "purpose": "Validate the SANDFS superblock and bounded metadata before exposing the filesystem prototype.",
+      "designDisposition": "accepted",
+      "realizationState": "inProgress",
+      "preconditions": [
+        "A registered block device exists",
+        "The selected LBA range is within device bounds"
+      ],
+      "postconditions": [
+        "SANDFS is mounted for documented limited operations"
+      ],
+      "failureConditions": [
+        "Invalid superblock",
+        "Metadata outside device bounds",
+        "Unsupported format version"
+      ],
+      "evidenceRefs": [
+        "SAND-EV-FS",
+        "SAND-EV-CI"
+      ]
+    }
+  ],
+  "executions": [
+    {
+      "id": "sand-os-process-create-execution",
+      "operationRef": {
+        "kind": "operation",
+        "id": "sand-os-op-process-create"
+      },
+      "subjectRef": {
+        "kind": "element",
+        "id": "sand-os-process-manager"
+      },
+      "executionState": "queued",
+      "context": "Illustrative architecture execution; not evidence of an additional runtime test."
+    }
+  ],
+  "events": [
+    {
+      "id": "sand-os-process-create-request",
+      "name": "Process creation requested",
+      "eventKind": "external",
+      "sourceRef": {
+        "kind": "element",
+        "id": "sand-os-process-manager"
+      },
+      "description": "Abstract trigger used to define the process lifecycle transition."
+    }
+  ],
+  "stateVariables": [
+    {
+      "id": "sand-os-process-state-variable",
+      "subjectRef": {
+        "kind": "element",
+        "id": "sand-os-process-manager"
+      },
+      "name": "processLifecycleState",
+      "meaning": "Lifecycle state of a process descriptor.",
+      "valueType": "enumeration",
+      "allowedValues": [
+        "created",
+        "ready",
+        "running",
+        "terminated"
+      ],
+      "authority": "kernel-process-manager"
+    },
+    {
+      "id": "sand-os-filesystem-state-variable",
+      "subjectRef": {
+        "kind": "element",
+        "id": "sand-os-sandfs"
+      },
+      "name": "filesystemMountState",
+      "meaning": "Mount lifecycle state of the SANDFS prototype.",
+      "valueType": "enumeration",
+      "allowedValues": [
+        "unmounted",
+        "mounted",
+        "rejected"
+      ],
+      "authority": "SANDFS-filesystem"
+    }
+  ],
+  "states": [
+    {
+      "id": "sand-os-process-created",
+      "stateVariableRef": {
+        "kind": "stateVariable",
+        "id": "sand-os-process-state-variable"
+      },
+      "value": "created",
+      "meaning": "Process resources are being initialized or have been allocated but are not yet ready."
+    },
+    {
+      "id": "sand-os-process-ready",
+      "stateVariableRef": {
+        "kind": "stateVariable",
+        "id": "sand-os-process-state-variable"
+      },
+      "value": "ready",
+      "meaning": "The process is eligible for later scheduling when a complete user-process scheduler exists."
+    },
+    {
+      "id": "sand-os-fs-unmounted",
+      "stateVariableRef": {
+        "kind": "stateVariable",
+        "id": "sand-os-filesystem-state-variable"
+      },
+      "value": "unmounted",
+      "meaning": "SANDFS is not mounted."
+    },
+    {
+      "id": "sand-os-fs-mounted",
+      "stateVariableRef": {
+        "kind": "stateVariable",
+        "id": "sand-os-filesystem-state-variable"
+      },
+      "value": "mounted",
+      "meaning": "SANDFS metadata was accepted and the limited filesystem API is available."
+    }
+  ],
+  "transitions": [
+    {
+      "id": "sand-os-transition-process-ready",
+      "subjectRef": {
+        "kind": "element",
+        "id": "sand-os-process-manager"
+      },
+      "fromStateRef": {
+        "kind": "state",
+        "id": "sand-os-process-created"
+      },
+      "toStateRef": {
+        "kind": "state",
+        "id": "sand-os-process-ready"
+      },
+      "triggerEventRefs": [
+        {
+          "kind": "event",
+          "id": "sand-os-process-create-request"
+        }
+      ],
+      "guard": "Process record and required user address-space resources are initialized successfully.",
+      "effect": "Mark the process READY.",
+      "designDisposition": "proposed",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-ARCH"
+      ]
+    },
+    {
+      "id": "sand-os-transition-fs-mounted",
+      "subjectRef": {
+        "kind": "element",
+        "id": "sand-os-sandfs"
+      },
+      "fromStateRef": {
+        "kind": "state",
+        "id": "sand-os-fs-unmounted"
+      },
+      "toStateRef": {
+        "kind": "state",
+        "id": "sand-os-fs-mounted"
+      },
+      "guard": "Superblock, format version, LBA bounds and directory metadata validation succeed.",
+      "effect": "Expose the bounded SANDFS read/write operations.",
+      "designDisposition": "accepted",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-FS",
+        "SAND-EV-CI"
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "sand-os-veyra-interface",
+      "name": "SAND Veyra interface descriptor foundation",
+      "interfaceKind": "logical",
+      "participantRoles": [
+        {
+          "role": "provider",
+          "participantRef": {
+            "kind": "element",
+            "id": "sand-os-veyra"
+          }
+        },
+        {
+          "role": "consumer",
+          "participantRef": {
+            "kind": "element",
+            "id": "sand-os-process-manager"
+          }
+        }
+      ],
+      "contractSpecificationRef": {
+        "kind": "specification",
+        "id": "sand-os-spec-veyra"
+      },
+      "operationRefs": [
+        {
+          "kind": "operation",
+          "id": "sand-os-op-process-create"
+        }
+      ],
+      "designDisposition": "proposed",
+      "description": "Versioned descriptor/status foundation. It does not assert that general IPC or a stable general-purpose syscall ABI exists.",
+      "evidenceRefs": [
+        "SAND-EV-VEYRA",
+        "SAND-EV-API"
+      ]
+    }
+  ],
+  "interactions": [
+    {
+      "id": "sand-os-veyra-interaction",
+      "name": "Kernel subsystem consumes a Veyra contract",
+      "interactionKind": "requestResponse",
+      "participantRoles": [
+        {
+          "role": "provider",
+          "participantRef": {
+            "kind": "element",
+            "id": "sand-os-veyra"
+          }
+        },
+        {
+          "role": "consumer",
+          "participantRef": {
+            "kind": "element",
+            "id": "sand-os-process-manager"
+          }
+        }
+      ],
+      "direction": "directed",
+      "interfaceRef": {
+        "kind": "interface",
+        "id": "sand-os-veyra-interface"
+      },
+      "exchangedItems": [
+        "versioned interface descriptor",
+        "status code",
+        "capability flags"
+      ],
+      "designDisposition": "proposed"
+    }
+  ],
+  "resources": [
+    {
+      "id": "sand-os-process-slots",
+      "name": "Process descriptor slots",
+      "resourceKind": "capacity",
+      "ownerRef": {
+        "kind": "element",
+        "id": "sand-os-process-manager"
+      },
+      "unit": "processes",
+      "capacity": {
+        "value": 3,
+        "unit": "processes"
+      },
+      "description": "Compile-time bounded process table limit in the current process header; not a scalable capacity guarantee.",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-PROCESS"
+      ]
+    }
+  ],
+  "allocations": [
+    {
+      "id": "sand-os-process-slot-allocation",
+      "allocatorRef": {
+        "kind": "element",
+        "id": "sand-os-process-manager"
+      },
+      "resourceRef": {
+        "kind": "resource",
+        "id": "sand-os-process-slots"
+      },
+      "recipientRef": {
+        "kind": "element",
+        "id": "sand-os-kernel-core"
+      },
+      "quantity": 3,
+      "unit": "processes",
+      "policy": "Bounded static process descriptor table; future dynamic allocation is not implied.",
+      "designDisposition": "accepted",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-PROCESS"
+      ]
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "sand-os-process-capability",
+      "name": "Bounded process address-space lifecycle",
+      "description": "Create, activate, terminate and destroy process address spaces within current prototype limits.",
+      "providerRef": {
+        "kind": "element",
+        "id": "sand-os-process-manager"
+      },
+      "operationRefs": [
+        {
+          "kind": "operation",
+          "id": "sand-os-op-process-create"
+        }
+      ],
+      "preconditions": [
+        "Kernel memory manager is initialized",
+        "Process table capacity is available"
+      ],
+      "limitations": [
+        "No complete preemptive user-process scheduler",
+        "No robust fault isolation",
+        "Safe user-pointer validation remains incomplete"
+      ],
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-CI"
+      ]
+    },
+    {
+      "id": "sand-os-filesystem-capability",
+      "name": "SANDFS v1 limited file storage",
+      "description": "Format, mount and read/write files within the fixed-directory, one-sector-per-file prototype.",
+      "providerRef": {
+        "kind": "element",
+        "id": "sand-os-sandfs"
+      },
+      "operationRefs": [
+        {
+          "kind": "operation",
+          "id": "sand-os-op-sandfs-mount"
+        }
+      ],
+      "preconditions": [
+        "A compatible block device is registered"
+      ],
+      "limitations": [
+        "No journal or crash consistency",
+        "No permissions or concurrent access locks",
+        "Small fixed directory and file-size limits"
+      ],
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-FS",
+        "SAND-EV-CI"
+      ]
+    }
+  ],
+  "services": [
+    {
+      "id": "sand-os-process-service",
+      "name": "Process management service boundary",
+      "description": "Kernel-owned process management operations used by boot tests and future SAPP launch facilities.",
+      "providerRef": {
+        "kind": "element",
+        "id": "sand-os-process-manager"
+      },
+      "capabilityRef": {
+        "kind": "capability",
+        "id": "sand-os-process-capability"
+      },
+      "interfaceRef": {
+        "kind": "interface",
+        "id": "sand-os-veyra-interface"
+      },
+      "consumerRefs": [
+        {
+          "kind": "element",
+          "id": "sand-os-sapp-sdk"
+        }
+      ],
+      "qualityConstraints": [
+        "Current process APIs remain prototype-level",
+        "No stable general-purpose application ABI is implied"
+      ],
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "SAND-EV-API",
+        "SAND-EV-SAPP"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "id": "sand-os-req-arch-boundary",
+      "statement": "Architecture-specific code shall remain behind interfaces consumed by the kernel core.",
+      "sourceRef": {
+        "kind": "specification",
+        "id": "sand-os-spec-architecture"
+      },
+      "priority": "high",
+      "acceptanceCriteria": [
+        "Architecture-specific code has explicit SAND-owned subsystem boundaries"
+      ],
+      "designDisposition": "accepted",
+      "evidenceRefs": [
+        "SAND-EV-ARCH"
+      ]
+    },
+    {
+      "id": "sand-os-req-user-privilege",
+      "statement": "User applications shall not execute in kernel privilege level.",
+      "sourceRef": {
+        "kind": "specification",
+        "id": "sand-os-spec-architecture"
+      },
+      "priority": "critical",
+      "acceptanceCriteria": [
+        "User application execution uses user privilege mappings",
+        "Kernel structures are not exposed as unrestricted user authority"
+      ],
+      "designDisposition": "accepted",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-VEYRA"
+      ]
+    },
+    {
+      "id": "sand-os-req-format-versioning",
+      "statement": "Persistent storage formats and executable containers shall be versioned and validated.",
+      "sourceRef": {
+        "kind": "specification",
+        "id": "sand-os-spec-architecture"
+      },
+      "priority": "high",
+      "acceptanceCriteria": [
+        "SANDFS format version is validated",
+        "SAPP format version and segment bounds are validated"
+      ],
+      "designDisposition": "accepted",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-FS",
+        "SAND-EV-SAPP"
+      ]
+    }
+  ],
+  "constraints": [
+    {
+      "id": "sand-os-constraint-no-linux-runtime",
+      "statement": "The resulting SAND OS runtime shall not depend on a Linux kernel or another pre-existing general-purpose OS runtime.",
+      "category": "structural",
+      "subjectRefs": [
+        {
+          "kind": "system",
+          "id": "sand-os-system"
+        }
+      ],
+      "applicability": "internal",
+      "evidenceRefs": [
+        "SAND-EV-README",
+        "SAND-EV-ARCH"
+      ]
+    },
+    {
+      "id": "sand-os-constraint-qemu-external",
+      "statement": "QEMU and the host compiler/build toolchain remain external development/test tools and are not included in the OS runtime.",
+      "category": "structural",
+      "subjectRefs": [
+        {
+          "kind": "system",
+          "id": "sand-os-system"
+        },
+        {
+          "kind": "environmentParticipant",
+          "id": "sand-os-qemu"
+        }
+      ],
+      "applicability": "externalDependency",
+      "evidenceRefs": [
+        "SAND-EV-README",
+        "SAND-EV-BUILD"
+      ]
+    },
+    {
+      "id": "sand-os-constraint-prototype-security",
+      "statement": "SAND OS is experimental research software and must not be described as production-secure or suitable for sensitive workloads.",
+      "category": "security",
+      "subjectRefs": [
+        {
+          "kind": "system",
+          "id": "sand-os-system"
+        }
+      ],
+      "applicability": "internal",
+      "evidenceRefs": [
+        "SAND-EV-SEC"
+      ]
+    },
+    {
+      "id": "sand-os-constraint-sapp-unsigned",
+      "statement": "Unsigned SAPP packages are development artifacts; production signing and trust-store verification are not implemented.",
+      "category": "security",
+      "subjectRefs": [
+        {
+          "kind": "element",
+          "id": "sand-os-sapp-sdk"
+        }
+      ],
+      "applicability": "internal",
+      "evidenceRefs": [
+        "SAND-EV-SAPP"
+      ]
+    }
+  ],
+  "invariants": [
+    {
+      "id": "sand-os-invariant-wx",
+      "statement": "A SAPP v1 load segment must not be simultaneously writable and executable.",
+      "subjectRefs": [
+        {
+          "kind": "element",
+          "id": "sand-os-sapp-sdk"
+        },
+        {
+          "kind": "specification",
+          "id": "sand-os-spec-sapp"
+        }
+      ],
+      "assessmentResult": "notAssessed",
+      "assumptions": [
+        "The invariant is stated by the format specification; the complete runtime enforcement path requires separate review."
+      ],
+      "method": "Specification/CI mapping; not an independent security assessment.",
+      "evidenceRefs": [
+        "SAND-EV-SAPP",
+        "SAND-EV-CI"
+      ]
+    },
+    {
+      "id": "sand-os-invariant-user-boundary",
+      "statement": "Kernel-private mappings and interfaces must not be exposed as unrestricted user-mode authority.",
+      "subjectRefs": [
+        {
+          "kind": "element",
+          "id": "sand-os-process-manager"
+        },
+        {
+          "kind": "element",
+          "id": "sand-os-syscall-gateway"
+        },
+        {
+          "kind": "element",
+          "id": "sand-os-veyra"
+        }
+      ],
+      "assessmentResult": "notAssessed",
+      "assumptions": [
+        "Current process and syscall path is a prototype; safe user-pointer validation is incomplete."
+      ],
+      "method": "Architecture review requirement; not a verified security property.",
+      "evidenceRefs": [
+        "SAND-EV-ARCH",
+        "SAND-EV-VEYRA"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "sand-os-assert-ci",
+      "statement": "The latest inspected SAND OS Native Boot CI run passed boot-image build, SDK/ABI host checks and QEMU self-tests at the inspected repository head.",
+      "category": "verification",
+      "subjectRefs": [
+        {
+          "kind": "system",
+          "id": "sand-os-system"
+        }
+      ],
+      "realizationState": "inProgress",
+      "assessmentResult": "notAssessed",
+      "evidenceRefs": [
+        "SAND-EV-CI"
+      ]
+    },
+    {
+      "id": "sand-os-assert-not-production",
+      "statement": "The repository explicitly describes SAND OS as experimental research software and not suitable for production or safety-critical use.",
+      "category": "implementation",
+      "subjectRefs": [
+        {
+          "kind": "system",
+          "id": "sand-os-system"
+        }
+      ],
+      "realizationState": "inProgress",
+      "assessmentResult": "notAssessed",
+      "evidenceRefs": [
+        "SAND-EV-SEC"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "sand-os-decision-dusrm-boundary",
+      "title": "DUSRM remains a design-time architecture and validation dependency only",
+      "statement": "DUSRM descriptions and validation may govern SAND subsystem boundaries, but DUSRM is not linked into the boot chain, kernel image, runtime or SAPP container.",
+      "disposition": "accepted",
+      "rationale": "Preserves SAND runtime independence and avoids introducing a second kernel API or boot dependency.",
+      "subjectRefs": [
+        {
+          "kind": "system",
+          "id": "sand-os-system"
+        },
+        {
+          "kind": "specification",
+          "id": "sand-os-spec-integrations"
+        }
+      ],
+      "evidenceRefs": [
+        "SAND-EV-API"
+      ]
+    },
+    {
+      "id": "sand-os-decision-no-one-to-one-layer-map",
+      "title": "Map SAND architecture strata to DUSRM layers many-to-many",
+      "statement": "SAND's nine implementation strata are mapped to DUSRM's eight responsibility layers by responsibility; neither model mirrors the other's number or ordering.",
+      "disposition": "accepted",
+      "rationale": "DUSRM layers are responsibility categories, while SAND strata are implementation organization and dependency boundaries.",
+      "subjectRefs": [
+        {
+          "kind": "system",
+          "id": "sand-os-system"
+        }
+      ],
+      "evidenceRefs": [
+        "SAND-EV-ARCH"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "SAND-EV-README",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "qualifies",
+      "description": "SAND OS README establishes the independent OS objective and current legacy-BIOS x86-32 boot path, but labels current status M0 while detailed architecture, roadmap and CI describe later subsystems.",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/README.md",
+      "revision": "6510d8c87567628aaf218df0bb71d570bfdb7b6c",
+      "scopeRefs": [
+        {
+          "kind": "system",
+          "id": "sand-os-system"
+        }
+      ],
+      "producedBy": "Read-only GitHub source inspection",
+      "limitations": [
+        "README milestone text conflicts with detailed architecture and roadmap; do not use its M0 label as sole maturity evidence."
+      ]
+    },
+    {
+      "id": "SAND-EV-ARCH",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "supports",
+      "description": "SAND OS architecture document describes boot, x86 architecture, memory, scheduler, process, filesystem and graphics prototypes with limitations.",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/docs/ARCHITECTURE.md",
+      "revision": "1af2bc56a0837693eb90d806694bca38787513f4",
+      "scopeRefs": [
+        {
+          "kind": "system",
+          "id": "sand-os-system"
+        }
+      ],
+      "producedBy": "Read-only GitHub source inspection",
+      "limitations": [
+        "Documentation is not independent physical-hardware or security verification."
+      ]
+    },
+    {
+      "id": "SAND-EV-ROADMAP",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "qualifies",
+      "description": "SAND OS roadmap records M0–M13 and intended exit evidence.",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/docs/ROADMAP.md",
+      "revision": "a5e5644e44318d6a55fd6ab0899d6d9c667bec0f",
+      "scopeRefs": [
+        {
+          "kind": "system",
+          "id": "sand-os-system"
+        }
+      ],
+      "producedBy": "Read-only GitHub source inspection",
+      "limitations": [
+        "Roadmap entries are plans and do not by themselves establish implementation."
+      ]
+    },
+    {
+      "id": "SAND-EV-API",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "supports",
+      "description": "Veyra catalogue distinguishes implemented, prototype and future interfaces and lists missing IPC, service and stable ABI facilities.",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/docs/API_CATALOG.md",
+      "revision": "3e3d40cab3ad247c74e364f9f23a267ec2793339",
+      "scopeRefs": [
+        {
+          "kind": "element",
+          "id": "sand-os-veyra"
+        }
+      ],
+      "producedBy": "Read-only GitHub source inspection",
+      "limitations": [
+        "Presence of a header does not establish a stable public interface."
+      ]
+    },
+    {
+      "id": "SAND-EV-VEYRA",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "qualifies",
+      "description": "Veyra foundation defines versioned descriptors and status conventions while explicitly stating the general-purpose syscall ABI is incomplete.",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/docs/VEYRA_ABI.md",
+      "revision": "4d1b4b3b5cbe3122979f3510419af7a784ba713e",
+      "scopeRefs": [
+        {
+          "kind": "element",
+          "id": "sand-os-veyra"
+        }
+      ],
+      "producedBy": "Read-only GitHub source inspection",
+      "limitations": [
+        "Descriptor helper is for trusted readable memory and does not make arbitrary user pointers safe."
+      ]
+    },
+    {
+      "id": "SAND-EV-SAPP",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "supports",
+      "description": "SAPP format specifies header, segments, relocations, W+X rejection and development-only unsigned packages.",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/sdk/sapp/FORMAT.md",
+      "revision": "2f5f52676a64e026cd24a22401af3c67d406d171",
+      "scopeRefs": [
+        {
+          "kind": "element",
+          "id": "sand-os-sapp-sdk"
+        }
+      ],
+      "producedBy": "Read-only GitHub source inspection",
+      "limitations": [
+        "Signing, trust-store verification and complete production launch path are not implemented."
+      ]
+    },
+    {
+      "id": "SAND-EV-SAPP-README",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "supports",
+      "description": "SAPP SDK README states v0.2 packer, multi-segment packaging, BSS, permissions, relocations and process_create_sapp integration.",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/sdk/sapp/README.md",
+      "revision": "922efd98361dcd6227f3ccae060ffb6073e588be",
+      "scopeRefs": [
+        {
+          "kind": "element",
+          "id": "sand-os-sapp-sdk"
+        },
+        {
+          "kind": "element",
+          "id": "sand-os-process-manager"
+        }
+      ],
+      "producedBy": "Read-only GitHub source inspection",
+      "limitations": [
+        "Filesystem launch, shared libraries, dynamic linker and production signing/trust are absent."
+      ]
+    },
+    {
+      "id": "SAND-EV-FS",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "qualifies",
+      "description": "Architecture document describes SANDFS as a versioned one-sector-per-file prototype with explicit restrictions.",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/docs/ARCHITECTURE.md",
+      "revision": "1af2bc56a0837693eb90d806694bca38787513f4",
+      "scopeRefs": [
+        {
+          "kind": "element",
+          "id": "sand-os-sandfs"
+        }
+      ],
+      "producedBy": "Read-only GitHub source inspection",
+      "limitations": [
+        "No journal, crash consistency, checksums, permissions or concurrent access locks; not for important data."
+      ]
+    },
+    {
+      "id": "SAND-EV-PROCESS",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "supports",
+      "description": "SAND process header defines a compile-time bounded process table and lifecycle API.",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/include/sand/kernel/process.h",
+      "revision": "9e7503d80487632fecfa80459816784ab4403079",
+      "scopeRefs": [
+        {
+          "kind": "element",
+          "id": "sand-os-process-manager"
+        }
+      ],
+      "producedBy": "Read-only GitHub source inspection",
+      "limitations": [
+        "Header presence does not establish a complete general-purpose process scheduler."
+      ]
+    },
+    {
+      "id": "SAND-EV-SCHED-HEADER",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "qualifies",
+      "description": "Scheduler header defines SAND_SCHEDULER_MAX_THREADS as 8 while architecture narrative describes four thread descriptors/stacks; record as source consistency question.",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/include/sand/kernel/scheduler.h",
+      "revision": "2265e29e0c3e3be5027c4c116dc10b689270ef38",
+      "scopeRefs": [
+        {
+          "kind": "element",
+          "id": "sand-os-scheduler-sync"
+        }
+      ],
+      "producedBy": "Read-only GitHub source inspection",
+      "limitations": [
+        "A header constant alone does not prove the active scheduler table/stack count; reconcile with implementation and tests."
+      ]
+    },
+    {
+      "id": "SAND-EV-SEC",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "supports",
+      "description": "Security policy explicitly states experimental status and absence of production-grade security boundary, verified boot, sandbox, cryptographic update or security audit.",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/docs/SECURITY.md",
+      "revision": "660831fc567b0265d5654b284579fbdbf9b12e2e",
+      "scopeRefs": [
+        {
+          "kind": "system",
+          "id": "sand-os-system"
+        }
+      ],
+      "producedBy": "Read-only GitHub source inspection",
+      "limitations": [
+        "Project policy/status, not an independent security audit."
+      ]
+    },
+    {
+      "id": "SAND-EV-BUILD",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "supports",
+      "description": "Build instructions define Linux/WSL host toolchain and QEMU test environment, not runtime dependencies.",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/blob/main/docs/BUILDING.md",
+      "revision": "not-captured-in-WP6-snapshot",
+      "scopeRefs": [
+        {
+          "kind": "environmentParticipant",
+          "id": "sand-os-qemu"
+        },
+        {
+          "kind": "environmentParticipant",
+          "id": "sand-os-host-toolchain"
+        }
+      ],
+      "producedBy": "Read-only GitHub source inspection",
+      "limitations": [
+        "Build instructions are not evidence of physical hardware support."
+      ]
+    },
+    {
+      "id": "SAND-EV-CI",
+      "kind": "testResult",
+      "method": "test",
+      "context": "simulation",
+      "relation": "supports",
+      "description": "SAND OS Native Boot CI run #42876341368 passed on the inspected main commit 661cdedd38e2e24e202dee22798047fd7311353a. It ran make clean/check, SAPP unit tests, Veyra descriptor host tests and booted the image in QEMU with kernel self-test assertions.",
+      "sourceUri": "https://github.com/jadhavdurvesh/sand-os/actions/runs/42876341368",
+      "revision": "661cdedd38e2e24e202dee22798047",
+      "scopeRefs": [
+        {
+          "kind": "system",
+          "id": "sand-os-system"
+        }
+      ],
+      "producedBy": "GitHub Actions / QEMU",
+      "resultSummary": "Workflow conclusion success; host checks and QEMU kernel self-test assertions completed.",
+      "limitations": [
+        "QEMU results do not prove physical hardware compatibility, production security, broad filesystem correctness or stable general-purpose user ABI."
+      ]
+    }
+  ],
+  "extensions": {
+    "org.dmj.dusrm.profile.operating-system": {
+      "profileId": "DUSRM-PROFILE-OPERATING-SYSTEM-0.1",
+      "mappingRule": "SAND implementation strata and DUSRM responsibility layers are different classification systems. Mapping is many-to-many, descriptive and does not imply an execution order.",
+      "adoptionMode": "design-time architecture description plus CI validation; no kernel/runtime dependency",
+      "maturityVocabulary": [
+        "planned",
+        "inProgress",
+        "implemented",
+        "tested",
+        "observed",
+        "verified"
+      ],
+      "implementationStrata": [
+        {
+          "sandStratum": 1,
+          "name": "Boot and platform entry",
+          "dusrmLayers": [
+            "L1",
+            "L3"
+          ]
+        },
+        {
+          "sandStratum": 2,
+          "name": "Architecture-specific CPU, interrupt, paging and context-switch code",
+          "dusrmLayers": [
+            "L1",
+            "L2",
+            "L3",
+            "L5"
+          ]
+        },
+        {
+          "sandStratum": 3,
+          "name": "Kernel core: memory, scheduler, synchronization, IPC and object model",
+          "dusrmLayers": [
+            "L2",
+            "L3",
+            "L4",
+            "L5",
+            "L6"
+          ]
+        },
+        {
+          "sandStratum": 4,
+          "name": "Device framework and hardware drivers",
+          "dusrmLayers": [
+            "L1",
+            "L2",
+            "L3",
+            "L6",
+            "L7"
+          ]
+        },
+        {
+          "sandStratum": 5,
+          "name": "Storage and native filesystem",
+          "dusrmLayers": [
+            "L2",
+            "L4",
+            "L7"
+          ]
+        },
+        {
+          "sandStratum": 6,
+          "name": "System-call ABI and user-mode runtime",
+          "dusrmLayers": [
+            "L3",
+            "L4",
+            "L6",
+            "L7"
+          ]
+        },
+        {
+          "sandStratum": 7,
+          "name": "Native services and shell",
+          "dusrmLayers": [
+            "L4",
+            "L5",
+            "L6",
+            "L7",
+            "L8"
+          ]
+        },
+        {
+          "sandStratum": 8,
+          "name": "Graphics, windowing and input",
+          "dusrmLayers": [
+            "L1",
+            "L3",
+            "L4",
+            "L6",
+            "L7"
+          ]
+        },
+        {
+          "sandStratum": 9,
+          "name": "Applications, package management and SDK",
+          "dusrmLayers": [
+            "L3",
+            "L4",
+            "L5",
+            "L6",
+            "L7",
+            "L8"
+          ]
+        }
+      ],
+      "prohibitedClaims": [
+        "QEMU tests are not physical hardware verification.",
+        "Veyra descriptor headers are not a complete syscall/IPC ABI.",
+        "SANDFS v1 is not a production filesystem.",
+        "Unsigned SAPP is not production-ready.",
+        "Production security is not established."
+      ]
+    }
+  }
+}
