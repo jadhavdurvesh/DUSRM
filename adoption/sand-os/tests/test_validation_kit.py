@@ -177,5 +177,18 @@ class ValidationKitTests(unittest.TestCase):
 
 
 
+    def test_malformed_layer_value_fails_without_crashing_validator(self):
+        model = json.loads(MODEL.read_text(encoding="utf-8"))
+        profile = model["extensions"]["org.dmj.dusrm.profile.operating-system"]
+        profile["implementationStrata"][0]["dusrmLayers"] = [{"layer": "L1"}]
+        with tempfile.TemporaryDirectory() as temp:
+            model_path = Path(temp) / "malformed-layer.json"
+            model_path.write_text(json.dumps(model), encoding="utf-8")
+            result = self.run_cli(str(model_path), "--report", str(Path(temp) / "report.json"))
+            self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+            self.assertIn("Unknown DUSRM layer(s)", result.stderr)
+
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
