@@ -270,6 +270,17 @@ class SemanticValidator02Tests(unittest.TestCase):
 
 
 
+    def test_os_profile_malformed_layer_value_is_reported_without_crashing(self):
+        doc = self.os_fixture()
+        extension = doc["extensions"]["org.dmj.dusrm.profile.operating-system"]
+        extension["implementationStrata"][0]["dusrmLayers"] = [{"layer": "L1"}]
+        findings = validate_semantics(doc, REGISTRY)
+        self.assertTrue(any(
+            item.code == "DUSRM-OS-P-005" for item in findings
+        ))
+
+
+
 class Migration02Tests(unittest.TestCase):
     def test_minimal_01_description_becomes_review_draft(self):
         source = json.loads((ROOT / "conformance/fixtures/valid-minimal.json").read_text())
