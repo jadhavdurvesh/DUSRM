@@ -3,7 +3,7 @@
 **Workflow:** DUSRM SAND OS validation kit  
 **Run:** [GitHub Actions run #43026965428](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43026965428)  
 **Conclusion:** success  
-**Checked commit:** `3b36bd93879ae9a0d757bad9dd5f44d47e58a364)  
+**Checked commit:** `3b36bd93879ae9a0d757bad9dd5f44d47e58a364`  
 **Date:** 2026-11-11
 
 ## Results
