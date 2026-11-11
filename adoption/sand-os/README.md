@@ -1,11 +1,11 @@
 # DUSRM SAND OS Validation Kit
 
-**Kit:** DUSRM-SAND-OS-VALIDATION-KIT 0.1.0-draft  
+**Kit:** DUSRM-SAND-OS-VALIDATION-KIT 0.2.2-draft  
 **Status:** Experimental, host-side architecture-description validation  
 **Canonical source:** [jadhavdurvesh/DUSRM](https://github.com/jadhavdurvesh/DUSRM)  
 **Target architecture:** [jadhavdurvesh/sand-os](https://github.com/jadhavdurvesh/sand-os)
 
-**Latest validation:** [DUSRM SAND OS kit CI passed](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43026965428) on 2026-11-11. Four bundled files verified, five tests passed, zero semantic errors and one expected profile compatibility warning.
+**Latest completed validation:** [DUSRM SAND OS kit CI passed](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031057224) on 2026-11-11. Four bundled files verified, 13 tests passed, all 16 required OS domains covered, all eight DUSRM layers mapped, zero semantic errors and one expected profile compatibility warning.
 
 ## What this actually is
 
@@ -13,7 +13,8 @@ This is a portable, executable copy of the DUSRM schema 0.2 draft, semantic vali
 
 It can:
 - check a DUSRM description against JSON Schema Draft 2020-12;
-- resolve typed references and run selected cross-record consistency checks;
+- resolve typed references and run cross-record consistency checks;
+- enforce operating-system profile coverage, layer-map completeness and maturity/evidence consistency;
 - keep profile compatibility warnings visible;
 - produce a JSON validation report with input hashes;
 - verify that bundled files still match the exact Git blob objects recorded in `manifest.json`.
@@ -61,6 +62,7 @@ The report records:
 - target repository/revision and description identity;
 - schema, registry, validator and model SHA-256 digests;
 - error/warning counts and complete findings;
+- required versus covered OS domains, unmapped layers and coverage completeness;
 - explicit profile compatibility status;
 - limitations attached to the kit.
 
@@ -86,6 +88,10 @@ After separate approval, a SAND host-side CI job may:
 
 It must not run inside QEMU or the guest OS, alter the disk image, add kernel objects, generate headers, or make the SAND boot path depend on DUSRM.
 
+## OS profile coverage
+
+The current fixture represents 16 required operating-system domains and maps nine SAND implementation strata onto all eight DUSRM layers. The validator requires internal domains to reference SAND elements, applicable domains to reference evidence, and test maturity claims to be backed by context-appropriate evidence. A planned user-mode runtime is modeled separately from the current SAPP SDK.
+
 ## Compatibility and maturity
 
 The operating-system profile is `DUSRM-PROFILE-OPERATING-SYSTEM-0.1`; its compatibility status is `not-assessed`. Passing the validator is not profile approval.
@@ -100,5 +106,6 @@ SAND OS source revision and QEMU evidence are pinned in `manifest.json`. QEMU su
 - `profile-registry.json` — pinned profile registry.
 - `sand-os-architecture.json` — SAND OS architecture fixture.
 - `verify_bundle.py` — Git blob integrity verifier.
-- `tests/` — positive, negative and policy-behavior tests.
+- `tests/` — positive, negative, domain-coverage, maturity and policy-behavior tests.
+- [Architecture change-review template](CHANGE-REVIEW-TEMPLATE.md) — DUSRM-based SAND architecture review.
 - `manifest.json` — source revision and artifact pins.
