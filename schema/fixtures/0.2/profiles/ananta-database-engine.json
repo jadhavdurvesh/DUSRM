@@ -472,7 +472,83 @@
       "revision": "64d1768f89593c5090e6e087cdbb9a103ce64b3c"
     }
   ],
-  "relationships": [],
+  "relationships": [
+    {
+      "id": "AN-REL-ENGINE-MEMBER",
+      "type": "memberOf",
+      "source": {
+        "kind": "element",
+        "id": "ananta-engine"
+      },
+      "target": {
+        "kind": "system",
+        "id": "profile-ananta-dbms-0-2-soi"
+      },
+      "rationale": "ANANTA engine core is an internal element of the database SOI.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "AN-REL-HOST-DEP",
+      "type": "dependsOn",
+      "source": {
+        "kind": "element",
+        "id": "ananta-storage"
+      },
+      "target": {
+        "kind": "environmentParticipant",
+        "id": "ananta-host-os"
+      },
+      "rationale": "The native storage subsystem uses host filesystem and device I/O primitives.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "AN-REL-EXPOSES-API",
+      "type": "exposes",
+      "source": {
+        "kind": "element",
+        "id": "ananta-api"
+      },
+      "target": {
+        "kind": "interface",
+        "id": "AN-IF-EMBEDDED"
+      },
+      "rationale": "The curated API exposes the embedded interaction boundary.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "AN-REL-PERFORMS-AQL",
+      "type": "performs",
+      "source": {
+        "kind": "execution",
+        "id": "AN-EXEC-AQL"
+      },
+      "target": {
+        "kind": "operation",
+        "id": "AN-OP-AQL"
+      },
+      "rationale": "The illustrative execution refers to the supported AQL operation specification.",
+      "designDisposition": "proposed",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "AN-REL-TRANSITIONS",
+      "type": "transitionsTo",
+      "source": {
+        "kind": "state",
+        "id": "AN-STATE-OPEN"
+      },
+      "target": {
+        "kind": "state",
+        "id": "AN-STATE-RECOVERY"
+      },
+      "rationale": "The database availability state can move to recovery-required after uncertain committed publication.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    }
+  ],
   "operations": [
     {
       "id": "AN-OP-INGEST",
