@@ -22,17 +22,17 @@ DUSRM is informed by and should complement existing architecture-description, sy
 - [Pinned kit manifest](../../adoption/sand-os/manifest.json)
 - [One-command validator and report generator](../../adoption/sand-os/validate.py)
 - [Git blob integrity verifier](../../adoption/sand-os/verify_bundle.py)
-- [Thirteen kit regression tests](../../adoption/sand-os/tests/test_validation_kit.py)
+- [Fourteen kit regression tests](../../adoption/sand-os/tests/test_validation_kit.py)
 - [WP7 SAND CI adoption proposal](M7-SAND-CI-ADOPTION.md)
 - [WP7 review checklist](M7-REVIEW-CHECKLIST.md)
 - [WP7 validation record](M7-VALIDATION.md)
 
 ## Executable validation result
 
-The dedicated [DUSRM SAND OS validation kit CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031057224) passed on 2026-11-11 at commit `780e3d23008e0dbe85e7e64452104b94da1ada08`.
+The dedicated [DUSRM SAND OS validation kit CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031919228) passed on 2026-11-11 at commit `a83bb0107c29939d85246f69566600a857b8c36a`.
 
 - Bundled source integrity: **4/4 files verified** against recorded Git blob object IDs.
-- Portable-kit regression tests: **13 passed**.
+- Portable-kit regression tests: **14 passed**.
 - SAND OS architecture description: structurally and semantically valid.
 - Semantic errors: **0**.
 - Warnings: **1**, intentionally retained.
@@ -73,3 +73,10 @@ WP7 is not complete until:
 5. separate explicit authorization is obtained before any SAND OS repository change.
 
 WP8 now proposes DUSRM as SAND's primary project-level responsibility architecture; see [WP8 governance](M8-SAND-OS-ARCHITECTURE-GOVERNANCE.md). Until the owner approves adoption and independent review is complete, the portable kit remains an experimental DUSRM-side tool and no SAND CI changes are made.
+
+
+## Latest canonical regression runs
+
+The schema 0.2 workflow [run #43031844187](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031844187) passed 31 semantic/migration tests, 4 existing profile tests and 8 SAND OS profile tests. The legacy [0.8 run #43031844011](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031844011) and [0.9 run #43031843986](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031843986) each passed 55 tests.
+
+WP8 proposes using DUSRM as the primary system-wide SAND OS responsibility architecture. See [WP8 status](M8-STATUS.md) and [governance policy](M8-SAND-OS-ARCHITECTURE-GOVERNANCE.md).
