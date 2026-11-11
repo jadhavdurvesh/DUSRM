@@ -244,8 +244,10 @@ class SemanticValidator02Tests(unittest.TestCase):
     def test_os_profile_must_map_all_eight_core_layers(self):
         doc = self.os_fixture()
         extension = doc["extensions"]["org.dmj.dusrm.profile.operating-system"]
-        extension["implementationStrata"][0]["dusrmLayers"] = ["L3"]
-        extension["implementationStrata"][1]["dusrmLayers"] = ["L3"]
+        for stratum in extension["implementationStrata"]:
+            stratum["dusrmLayers"] = [
+                layer for layer in stratum["dusrmLayers"] if layer != "L8"
+            ]
         findings = validate_semantics(doc, REGISTRY)
         self.assertTrue(any(
             item.code == "DUSRM-OS-P-005" and "omits core DUSRM layer" in item.message
