@@ -175,6 +175,72 @@ class SemanticValidator02Tests(unittest.TestCase):
         self.assertIn("DUSRM-02-M-001", codes(findings))
 
 
+    def os_fixture(self):
+        return json.loads((ROOT / "schema/fixtures/0.2/profiles/sand-os-operating-system.json").read_text())
+
+    def test_os_profile_has_complete_domain_coverage(self):
+        doc = self.os_fixture()
+        findings = validate_semantics(doc, REGISTRY)
+        self.assertFalse([item for item in findings if item.severity == "error"])
+        self.assertFalse([
+            item for item in findings
+            if item.severity == "warning" and item.code != "DUSRM-02-P-001"
+        ])
+
+    def test_os_profile_missing_required_domain_is_rejected(self):
+        doc = self.os_fixture()
+        extension = doc["extensions"]["org.dmj.dusrm.profile.operating-system"]
+        extension["subsystemCoverage"] = [
+            item for item in extension["subsystemCoverage"]
+            if item["domainId"] != "processIsolation"
+        ]
+        findings = validate_semantics(doc, REGISTRY)
+        self.assertTrue(any(
+            item.code == "DUSRM-OS-P-002" and "processIsolation" in item.message
+            for item in findings
+        ))
+
+    def test_os_profile_cannot_claim_hardware_test_from_qemu_evidence(self):
+        doc = self.os_fixture()
+        extension = doc["extensions"]["org.dmj.dusrm.profile.operating-system"]
+        extension["subsystemCoverage"][0]["evidenceLevel"] = "testOnHardware"
+        findings = validate_semantics(doc, REGISTRY)
+        self.assertTrue(any(
+            item.code == "DUSRM-OS-P-004" and "physical/field" in item.message
+            for item in findings
+        ))
+
+    def test_os_profile_must_keep_dusrm_out_of_runtime(self):
+        doc = self.os_fixture()
+        extension = doc["extensions"]["org.dmj.dusrm.profile.operating-system"]
+        extension["integrationBoundary"]["requiredForRuntimeOperation"] = True
+        findings = validate_semantics(doc, REGISTRY)
+        self.assertTrue(any(item.code == "DUSRM-OS-P-006" for item in findings))
+
+    def test_os_profile_rejects_unknown_layer_mapping(self):
+        doc = self.os_fixture()
+        extension = doc["extensions"]["org.dmj.dusrm.profile.operating-system"]
+        extension["implementationStrata"][0]["dusrmLayers"] = ["L9"]
+        findings = validate_semantics(doc, REGISTRY)
+        self.assertTrue(any(
+            item.code == "DUSRM-OS-P-005" and "L9" in item.message
+            for item in findings
+        ))
+
+    def test_os_profile_requires_resolvable_domain_elements_and_evidence(self):
+        doc = self.os_fixture()
+        extension = doc["extensions"]["org.dmj.dusrm.profile.operating-system"]
+        domain = next(
+            item for item in extension["subsystemCoverage"]
+            if item["domainId"] == "processIsolation"
+        )
+        domain["elementRefs"] = ["missing-element"]
+        domain["evidenceRefs"] = ["missing-evidence"]
+        findings = validate_semantics(doc, REGISTRY)
+        self.assertTrue(any(item.code == "DUSRM-OS-P-003" for item in findings))
+
+
+
 class Migration02Tests(unittest.TestCase):
     def test_minimal_01_description_becomes_review_draft(self):
         source = json.loads((ROOT / "conformance/fixtures/valid-minimal.json").read_text())
