@@ -3,12 +3,12 @@
 **Work package:** WP5 — Domain Profile Reconciliation and Independent Review Preparation  
 **Status:** Internal automated validation passed; external review pending  
 **Date:** 2026-11-11  
-**Commit checked:** `a8a91447e3220904a6dade343d5dd90d649fda1f`
+**Commit checked:** `59167c68120c968a416c146f15f6fdbdfedfea96`
 
 ## 1. Dedicated WP5 validation
 
 - Workflow: DUSRM 1.0 preparation — Schema 0.2 and semantic validation
-- Run: [WP5 profile-fixture CI](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43019955491)
+- Run: [WP5 profile-fixture CI](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43020354463)
 - Conclusion: **success**
 - Job: Validate schema, semantics and migration
 - Schema 0.2 semantic/migration tests: **22 passed**
@@ -35,10 +35,10 @@ The warning is `DUSRM-02-P-001`: profile compatibility is not explicitly approve
 
 ## 3. Legacy compatibility workflows
 
-All were successful on the same code/fixture commit:
-- [Schema 0.1 validation](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43019955486) — success.
-- [DUSRM 0.8 semantic and formal validation](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43019955487) — success.
-- [DUSRM 0.9 advanced model validation](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43019955712) — success.
+All were successful after the WP5 fixture and documentation updates:
+- [Schema 0.1 validation](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43020348588) — success.
+- [DUSRM 0.8 semantic and formal validation](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43020368107) — success.
+- [DUSRM 0.9 advanced model validation](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43020368182) — success.
 
 ## 4. Scope and limitations
 
