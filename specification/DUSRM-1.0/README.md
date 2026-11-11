@@ -71,11 +71,26 @@ This directory contains versioned work packages for preparing a proposed 1.0 cor
 
 All three profiles remain `not-assessed`. A clean fixture result is not a profile compatibility approval.
 
+## WP6 — SAND OS Adoption Pilot and Release Gate Review
+
+**Status:** DUSRM-side OS profile and integration plan prepared; CI validation pending.
+
+- [WP6 status](M6-STATUS.md)
+- [SAND OS adoption plan](M6-SAND-OS-ADOPTION.md)
+- [SAND OS architecture mapping](M6-SAND-OS-ARCHITECTURE-MAP.md)
+- [Desk review findings](M6-REVIEW-FINDINGS.md)
+- [SAND OS implementation plan](M6-IMPLEMENTATION-PLAN.md)
+- [Standards crosswalk](M6-STANDARDS-CROSSWALK.md)
+- [Operating-system profile](../../profiles/operating-system/PROFILE.md)
+- [SAND OS schema 0.2 fixture](../../schema/fixtures/0.2/profiles/sand-os-operating-system.json)
+
+The SAND OS profile remains `not-assessed`. The SAND OS repository was inspected read-only and was not modified.
+
 ## Proposed next work package
 
-**WP6 — Independent Review Findings and Release Candidate Gate**
+**WP7 — Independent Review Findings and SAND OS Adoption Approval**
 
-Collect independent review responses, disposition blockers and major findings, reconcile the core ontology/schema/profile decisions, and determine whether a DUSRM 1.0 release candidate is justified. Do not declare a stable release without explicit governance approval.
+Resolve DUSRM core/profile review findings, obtain owner approval for any SAND-side adoption changes, and determine whether a DUSRM 1.0 release candidate is justified. Do not declare a stable release without explicit governance approval.
 
 ## Release gate
 
