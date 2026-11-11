@@ -44,6 +44,10 @@ class ValidationKitTests(unittest.TestCase):
             self.assertEqual(report["summary"]["errors"], 0)
             self.assertEqual(report["summary"]["compatibilityWarnings"], 1)
             self.assertEqual(report["target"]["compatibilityStatus"], "not-assessed")
+            self.assertEqual(report["profileCoverage"]["requiredDomainCount"], 16)
+            self.assertEqual(report["profileCoverage"]["coveredDomainCount"], 16)
+            self.assertTrue(report["profileCoverage"]["complete"])
+            self.assertTrue(report["profileCoverage"]["allEightLayersMapped"])
 
     def test_strict_compatibility_returns_distinct_exit_code(self):
         with tempfile.TemporaryDirectory() as temp:
