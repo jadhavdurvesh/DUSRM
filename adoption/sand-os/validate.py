@@ -58,7 +58,7 @@ def main() -> int:
         return completed.returncode
 
     try:
-        findings: list[dict[str, Any]] = json.loads(completed.stdout or "[]")
+        payload = completed.stdout.lstrip()\n        findings, _ = json.JSONDecoder().raw_decode(payload)
         model: dict[str, Any] = json.loads(args.model.read_text(encoding="utf-8"))
         manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
