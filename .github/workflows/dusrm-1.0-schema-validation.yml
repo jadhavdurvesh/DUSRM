@@ -7,6 +7,10 @@ on:
       - ".github/workflows/dusrm-1.0-schema-validation.yml"
       - "schema/dusrm-description-0.2.schema.json"
       - "schema/fixtures/0.2/**"
+      - "profiles/**"
+      - "tests/test_profiles_0_2.py"
+      - "profiles/**"
+      - "tests/test_profiles_0_2.py"
       - "scripts/validate_schema_0_2_fixtures.py"
       - "scripts/validate_semantics_0_2.py"
       - "scripts/migrate_schema_0_1_to_0_2.py"
@@ -53,6 +57,12 @@ jobs:
           python scripts/validate_semantics_0_2.py schema/fixtures/0.2/valid-sand-os-architecture.json
       - name: Run schema 0.2 semantic and migration regression tests
         run: python -m unittest discover -s tests -p 'test_semantics_0_2.py' -v
+      - name: Validate domain profile fixtures
+        run: |
+          python -m unittest discover -s tests -p 'test_profiles_0_2.py' -v
+          python scripts/validate_semantics_0_2.py schema/fixtures/0.2/profiles/standalone-application.json
+          python scripts/validate_semantics_0_2.py schema/fixtures/0.2/profiles/ananta-database-engine.json
+          python scripts/validate_semantics_0_2.py schema/fixtures/0.2/profiles/firebot-cyber-physical-robotics.json
       - name: Exercise loss-aware migration
         shell: bash
         run: |
