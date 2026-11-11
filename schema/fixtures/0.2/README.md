@@ -7,6 +7,7 @@ Run from the repository root:
 ```bash
 python scripts/validate_schema_0_2_fixtures.py
 python -m unittest discover -s tests -p 'test_profiles_0_2.py' -v
+python -m unittest discover -s tests -p 'test_sand_os_profile_0_2.py' -v
 ```
 
 ## Core structural fixtures
