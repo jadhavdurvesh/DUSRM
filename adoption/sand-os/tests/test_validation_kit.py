@@ -78,5 +78,74 @@ class ValidationKitTests(unittest.TestCase):
             self.assertIn("SCHEMA ERROR", result.stderr)
 
 
+    def test_os_profile_covers_every_required_domain_exactly_once(self):
+        model = json.loads(MODEL.read_text(encoding="utf-8"))
+        profile = model["extensions"]["org.dmj.dusrm.profile.operating-system"]
+        required = set(profile["requiredDomains"])
+        covered = [item["domainId"] for item in profile["subsystemCoverage"]]
+        self.assertEqual(set(covered), required)
+        self.assertEqual(len(covered), len(required))
+
+    def test_missing_required_os_domain_is_rejected(self):
+        model = json.loads(MODEL.read_text(encoding="utf-8"))
+        profile = model["extensions"]["org.dmj.dusrm.profile.operating-system"]
+        profile["subsystemCoverage"] = [
+            item for item in profile["subsystemCoverage"]
+            if item["domainId"] != "processIsolation"
+        ]
+        with tempfile.TemporaryDirectory() as temp:
+            model_path = Path(temp) / "missing-domain.json"
+            model_path.write_text(json.dumps(model), encoding="utf-8")
+            result = self.run_cli(str(model_path), "--report", str(Path(temp) / "report.json"))
+            self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+            self.assertIn("Required operating-system domain 'processIsolation'", result.stderr)
+
+    def test_simulation_evidence_cannot_be_relabelled_as_hardware_test(self):
+        model = json.loads(MODEL.read_text(encoding="utf-8"))
+        profile = model["extensions"]["org.dmj.dusrm.profile.operating-system"]
+        profile["subsystemCoverage"][0]["evidenceLevel"] = "testOnHardware"
+        with tempfile.TemporaryDirectory() as temp:
+            model_path = Path(temp) / "hardware-claim.json"
+            model_path.write_text(json.dumps(model), encoding="utf-8")
+            result = self.run_cli(str(model_path), "--report", str(Path(temp) / "report.json"))
+            self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+            self.assertIn("testOnHardware requires linked physical/field", result.stderr)
+
+    def test_dusrm_cannot_become_a_kernel_runtime_dependency(self):
+        model = json.loads(MODEL.read_text(encoding="utf-8"))
+        profile = model["extensions"]["org.dmj.dusrm.profile.operating-system"]
+        profile["integrationBoundary"]["requiredForRuntimeOperation"] = True
+        with tempfile.TemporaryDirectory() as temp:
+            model_path = Path(temp) / "runtime-coupled.json"
+            model_path.write_text(json.dumps(model), encoding="utf-8")
+            result = self.run_cli(str(model_path), "--report", str(Path(temp) / "report.json"))
+            self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+            self.assertIn("requiredForRuntimeOperation must be false", result.stderr)
+
+    def test_unknown_dusrm_layer_in_os_mapping_is_rejected(self):
+        model = json.loads(MODEL.read_text(encoding="utf-8"))
+        profile = model["extensions"]["org.dmj.dusrm.profile.operating-system"]
+        profile["implementationStrata"][0]["dusrmLayers"] = ["L9"]
+        with tempfile.TemporaryDirectory() as temp:
+            model_path = Path(temp) / "invalid-layer.json"
+            model_path.write_text(json.dumps(model), encoding="utf-8")
+            result = self.run_cli(str(model_path), "--report", str(Path(temp) / "report.json"))
+            self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+            self.assertIn("Unknown DUSRM layer(s)", result.stderr)
+
+    def test_internal_domain_requires_realizing_element_and_evidence(self):
+        model = json.loads(MODEL.read_text(encoding="utf-8"))
+        profile = model["extensions"]["org.dmj.dusrm.profile.operating-system"]
+        domain = next(item for item in profile["subsystemCoverage"] if item["domainId"] == "processIsolation")
+        domain["elementRefs"] = ["missing-element"]
+        domain["evidenceRefs"] = ["missing-evidence"]
+        with tempfile.TemporaryDirectory() as temp:
+            model_path = Path(temp) / "dangling-domain.json"
+            model_path.write_text(json.dumps(model), encoding="utf-8")
+            result = self.run_cli(str(model_path), "--report", str(Path(temp) / "report.json"))
+            self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+            self.assertIn("does not resolve", result.stderr)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
