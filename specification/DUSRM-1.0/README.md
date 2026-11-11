@@ -73,7 +73,7 @@ All three profiles remain `not-assessed`. A clean fixture result is not a profil
 
 ## WP6 — SAND OS Adoption Pilot and Release Gate Review
 
-**Status:** DUSRM-side OS profile and integration plan prepared; CI validation pending.
+**Status:** DUSRM-side OS profile and adoption package prepared; CI passed; SAND-side approval and independent review pending.
 
 - [WP6 status](M6-STATUS.md)
 - [SAND OS adoption plan](M6-SAND-OS-ADOPTION.md)
@@ -81,10 +81,11 @@ All three profiles remain `not-assessed`. A clean fixture result is not a profil
 - [Desk review findings](M6-REVIEW-FINDINGS.md)
 - [SAND OS implementation plan](M6-IMPLEMENTATION-PLAN.md)
 - [Standards crosswalk](M6-STANDARDS-CROSSWALK.md)
+- [WP6 validation report](M6-VALIDATION.md)
 - [Operating-system profile](../../profiles/operating-system/PROFILE.md)
 - [SAND OS schema 0.2 fixture](../../schema/fixtures/0.2/profiles/sand-os-operating-system.json)
 
-The SAND OS profile remains `not-assessed`. The SAND OS repository was inspected read-only and was not modified.
+The SAND OS profile remains `not-assessed`. The [WP6 CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43024813575) passed 22 semantic/migration tests, 4 existing profile tests and 8 SAND OS profile tests. The SAND OS repository was inspected read-only and was not modified.
 
 ## Proposed next work package
 
