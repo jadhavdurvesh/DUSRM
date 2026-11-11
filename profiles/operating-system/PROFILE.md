@@ -73,7 +73,37 @@ An OS description should model, where applicable:
 
 Absence of a subsystem may be recorded as planned, external, optional or not applicable with rationale.
 
-## 6. Maturity and evidence
+## 6. Machine-checkable OS coverage
+
+The schema 0.2 OS profile extension defines a required domain catalogue. Each domain is represented exactly once in `subsystemCoverage` and is declared as `internal`, `externalDependency` or `notApplicable`.
+
+The current catalogue includes:
+- boot/firmware and processor architecture;
+- kernel core, memory management and execution/scheduling;
+- process isolation and device drivers;
+- storage/filesystems and kernel interfaces;
+- user runtime and native services/IPC;
+- graphics/input and application packaging;
+- networking, security/trust and build verification.
+
+Every internal domain must reference at least one declared OS element. Every applicable domain must reference evidence. A not-applicable domain must include a rationale. Element/evidence identifiers must resolve.
+
+The profile maps implementation strata to DUSRM's core layers. All eight DUSRM layers must appear in the union of the mapping. This is a coverage check, not a one-to-one structure requirement.
+
+### Evidence and maturity rules
+
+The machine-checkable evidence levels are `planned`, `documented`, `sourceInspected`, `testInSimulation`, `testOnHardware`, `independentlyReviewed` and `verified`.
+
+- `testInSimulation` requires linked test/simulation evidence with simulation context.
+- `testOnHardware` requires linked physical/field test, measurement or observation evidence.
+- `independentlyReviewed` requires a linked review record.
+- `verified` requires linked supporting test, formal, measurement or observation evidence.
+- A domain marked `implemented` cannot reference elements that are only planned or in progress.
+- Planned and in-progress domains must not be promoted to verified merely because documentation exists.
+
+The validator enforces these checks for the operating-system profile. It does not infer implementation or hardware maturity from names, documentation wording or a CI badge.
+
+## 7. Maturity and evidence
 
 Keep at least these distinctions:
 - designed/documented;
@@ -86,7 +116,7 @@ Keep at least these distinctions:
 
 Do not promote emulator success to physical hardware support. Do not treat a header, API declaration, design note or roadmap item as proof of a stable runtime contract.
 
-## 7. SAND OS pilot
+## 8. SAND OS pilot
 
 The DUSRM-side fixture is [sand-os-operating-system.json](../../schema/fixtures/0.2/profiles/sand-os-operating-system.json). It models the current documented SAND OS architecture and evidence without changing the SAND OS repository.
 
@@ -96,6 +126,6 @@ See:
 - [Review findings](../../specification/DUSRM-1.0/M6-REVIEW-FINDINGS.md)
 - [Implementation plan](../../specification/DUSRM-1.0/M6-IMPLEMENTATION-PLAN.md)
 
-## 8. Compatibility status
+## 9. Compatibility status
 
 This profile remains `not-assessed`. Passing a schema fixture or a DUSRM semantic validator is not proof that this profile is complete, compatible with all of DUSRM 1.0, or satisfied by a real OS implementation.
