@@ -1,0 +1,1044 @@
+{
+  "schemaVersion": "0.2-draft",
+  "dusrmVersion": "1.0-preparation-WP5",
+  "descriptionId": "profile-ananta-dbms-0-2",
+  "title": "DUSRM 0.2 Pilot — ANANTA Native Database Engine",
+  "summary": "WP5 profile-reconciliation pilot. Documentation-level architecture description; not a conformance approval.",
+  "descriptionState": "draft",
+  "profileRefs": [
+    {
+      "profileId": "DUSRM-PROFILE-DBMS-0.1",
+      "version": "0.1-draft",
+      "compatibility": "not-assessed"
+    }
+  ],
+  "context": {
+    "systemOfInterest": {
+      "id": "profile-ananta-dbms-0-2-soi",
+      "name": "ANANTA native database engine",
+      "category": "computational",
+      "kind": "native-database-management-system",
+      "description": "Repository-informed model of ANANTA's native Rust database engine and embedded API; no source code is changed or executed by DUSRM.",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "AN-EV-README",
+        "AN-EV-ARCH"
+      ]
+    },
+    "purpose": "Map native storage, catalog, query, execution, embedded API, WAL and recovery responsibilities without redefining ANANTA's technical contracts.",
+    "scope": "Native engine, native storage artifacts, catalog, AQL execution, WAL/recovery and embedded Rust API.",
+    "abstractionLevel": "domain profile architecture pilot",
+    "boundary": {
+      "id": "profile-ananta-dbms-0-2-boundary",
+      "inclusions": [
+        "native engine",
+        "catalog",
+        "native storage",
+        "AQL query and execution",
+        "embedded Rust API",
+        "WAL and recovery"
+      ],
+      "exclusions": [
+        "host operating system and filesystem primitives",
+        "reference PostgreSQL/ClickHouse systems",
+        "optional FireBot JSONL workload producer",
+        "planned Studio application"
+      ],
+      "notes": "Boundary selected for the profile pilot; use explicit external participants and planned realization states."
+    },
+    "environment": [
+      {
+        "id": "ananta-host-os",
+        "name": "Host operating system and filesystem",
+        "category": "physical",
+        "kind": "host-platform",
+        "roles": [
+          "filesystem-provider",
+          "device-io-provider"
+        ],
+        "description": "External platform supplies filesystem and device I/O primitives.",
+        "evidenceRefs": [
+          "AN-EV-ARCH"
+        ]
+      },
+      {
+        "id": "ananta-app-client",
+        "name": "Embedded Rust application",
+        "category": "computational",
+        "kind": "api-consumer",
+        "roles": [
+          "database-client"
+        ],
+        "description": "External application consuming the embedded ANANTA API.",
+        "evidenceRefs": [
+          "AN-EV-API"
+        ]
+      },
+      {
+        "id": "ananta-firebot-jsonl",
+        "name": "Optional FireBot JSONL workload file",
+        "category": "informational",
+        "kind": "file-workload",
+        "roles": [
+          "optional-ingestion-input"
+        ],
+        "description": "Optional file-based JSONL workload; not a live FireBot network connection.",
+        "evidenceRefs": [
+          "AN-EV-FIREBOT"
+        ]
+      }
+    ],
+    "assumptions": [
+      "Current status is based on inspected repository documentation and tree snapshot only.",
+      "API, AQL, ANF, ANWL, ANCP and ANBK specifications remain authoritative for implementation detail.",
+      "No live FireBot integration is inferred from the file-based workload adapter."
+    ]
+  },
+  "extensions": {},
+  "elements": [
+    {
+      "id": "ananta-engine",
+      "name": "ANANTA engine core",
+      "category": "computational",
+      "kind": "database-engine",
+      "roles": [
+        "database-runtime",
+        "operation-owner"
+      ],
+      "realizationState": "inProgress",
+      "description": "Native Rust database engine.",
+      "evidenceRefs": [
+        "AN-EV-README",
+        "AN-EV-ARCH"
+      ]
+    },
+    {
+      "id": "ananta-catalog",
+      "name": "Catalog and schema snapshots",
+      "category": "informational",
+      "kind": "catalog",
+      "roles": [
+        "stable-object-identity",
+        "schema-state"
+      ],
+      "realizationState": "inProgress",
+      "description": "Local catalog with stable table/column identities and immutable schema snapshots.",
+      "evidenceRefs": [
+        "AN-EV-README",
+        "AN-EV-WAL"
+      ]
+    },
+    {
+      "id": "ananta-storage",
+      "name": "Native storage subsystem",
+      "category": "computational",
+      "kind": "storage-engine",
+      "roles": [
+        "ANF",
+        "Chronicle",
+        "Capsule",
+        "Navigation-Map"
+      ],
+      "realizationState": "inProgress",
+      "description": "Native immutable artifacts and local filesystem publication.",
+      "evidenceRefs": [
+        "AN-EV-README",
+        "AN-EV-WAL"
+      ]
+    },
+    {
+      "id": "ananta-aql",
+      "name": "AQL query and execution path",
+      "category": "computational",
+      "kind": "query-engine",
+      "roles": [
+        "query-language",
+        "planner",
+        "execution-operators"
+      ],
+      "realizationState": "inProgress",
+      "description": "Native AQL v0.1 parsing, planning and bounded supported execution paths.",
+      "evidenceRefs": [
+        "AN-EV-README",
+        "AN-EV-API"
+      ]
+    },
+    {
+      "id": "ananta-wal",
+      "name": "ANWL WAL and recovery subsystem",
+      "category": "computational",
+      "kind": "recovery-subsystem",
+      "roles": [
+        "durable-intent",
+        "redo-recovery"
+      ],
+      "realizationState": "inProgress",
+      "description": "Redo recovery for documented immutable artifact and metadata operations only.",
+      "evidenceRefs": [
+        "AN-EV-WAL"
+      ]
+    },
+    {
+      "id": "ananta-api",
+      "name": "Curated embedded API",
+      "category": "computational",
+      "kind": "embedded-api",
+      "roles": [
+        "developer-interface",
+        "typed-errors",
+        "versioned-execution-options"
+      ],
+      "realizationState": "inProgress",
+      "description": "Embedded Rust API v0.1; M7.1 hardening remains in progress.",
+      "evidenceRefs": [
+        "AN-EV-API"
+      ]
+    }
+  ],
+  "responsibilities": [
+    {
+      "id": "AN-R-RESOURCE",
+      "name": "Bound execution and ownership resources",
+      "description": "Bound batch rows/cells/working set and enforce the exclusive writer owner policy.",
+      "primaryLayer": "L2",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "AN-EV-API",
+        "AN-EV-TRANSACTIONS"
+      ]
+    },
+    {
+      "id": "AN-R-EXEC",
+      "name": "Execute database operations",
+      "description": "Run scans, AQL execution, ingestion and supported DDL operations with defined execution lifecycles.",
+      "primaryLayer": "L3",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "AN-EV-README",
+        "AN-EV-API"
+      ]
+    },
+    {
+      "id": "AN-R-STATE",
+      "name": "Maintain database and artifact state",
+      "description": "Persist catalog snapshots, native files, WAL and recovery state.",
+      "primaryLayer": "L4",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "AN-EV-README",
+        "AN-EV-WAL"
+      ]
+    },
+    {
+      "id": "AN-R-COMPUTE",
+      "name": "Parse, plan and compute queries",
+      "description": "Parse AQL and execute supported query/analytics operators.",
+      "primaryLayer": "L5",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "AN-EV-README",
+        "AN-EV-API"
+      ]
+    },
+    {
+      "id": "AN-R-INTERFACE",
+      "name": "Expose embedded database interaction",
+      "description": "Expose typed Rust APIs and AQL query execution to embedding applications.",
+      "primaryLayer": "L6",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "AN-EV-API"
+      ]
+    },
+    {
+      "id": "AN-R-CAP",
+      "name": "Provide native database capabilities",
+      "description": "Create tables, evolve schemas, ingest batches, scan data, execute supported AQL, backup and restore.",
+      "primaryLayer": "L7",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "AN-EV-README",
+        "AN-EV-API"
+      ]
+    },
+    {
+      "id": "AN-R-OUTCOME",
+      "name": "Provide an independent database platform",
+      "description": "Build a native DBMS/data platform that does not require PostgreSQL or ClickHouse for native operation.",
+      "primaryLayer": "L8",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "AN-EV-README",
+        "AN-EV-ARCH"
+      ]
+    }
+  ],
+  "realizations": [
+    {
+      "id": "AN-REAL-RESOURCE",
+      "elementRef": "ananta-api",
+      "responsibilityRef": "AN-R-RESOURCE",
+      "realizationState": "inProgress",
+      "rationale": "Execution budgets and exclusive writer ownership are exposed/documented in the API and transaction scope.",
+      "evidenceRefs": [
+        "AN-EV-README"
+      ]
+    },
+    {
+      "id": "AN-REAL-EXEC",
+      "elementRef": "ananta-engine",
+      "responsibilityRef": "AN-R-EXEC",
+      "realizationState": "inProgress",
+      "rationale": "The engine hosts supported execution and persistence operations.",
+      "evidenceRefs": [
+        "AN-EV-README"
+      ]
+    },
+    {
+      "id": "AN-REAL-STATE",
+      "elementRef": "ananta-storage",
+      "responsibilityRef": "AN-R-STATE",
+      "realizationState": "inProgress",
+      "rationale": "The storage subsystem owns native immutable artifacts and recovery records.",
+      "evidenceRefs": [
+        "AN-EV-README"
+      ]
+    },
+    {
+      "id": "AN-REAL-COMPUTE",
+      "elementRef": "ananta-aql",
+      "responsibilityRef": "AN-R-COMPUTE",
+      "realizationState": "inProgress",
+      "rationale": "The AQL subsystem implements supported query planning and execution.",
+      "evidenceRefs": [
+        "AN-EV-README"
+      ]
+    },
+    {
+      "id": "AN-REAL-INTERFACE",
+      "elementRef": "ananta-api",
+      "responsibilityRef": "AN-R-INTERFACE",
+      "realizationState": "inProgress",
+      "rationale": "The curated embedded API exposes supported developer operations.",
+      "evidenceRefs": [
+        "AN-EV-README"
+      ]
+    },
+    {
+      "id": "AN-REAL-CAP",
+      "elementRef": "ananta-engine",
+      "responsibilityRef": "AN-R-CAP",
+      "realizationState": "inProgress",
+      "rationale": "The engine provides the supported native database capabilities.",
+      "evidenceRefs": [
+        "AN-EV-README"
+      ]
+    },
+    {
+      "id": "AN-REAL-OUTCOME",
+      "elementRef": "ananta-engine",
+      "responsibilityRef": "AN-R-OUTCOME",
+      "realizationState": "inProgress",
+      "rationale": "The native engine is the central product realization; complete platform remains in progress.",
+      "evidenceRefs": [
+        "AN-EV-README"
+      ]
+    }
+  ],
+  "layerApplicability": [
+    {
+      "layer": "L1",
+      "applicability": "externalDependency",
+      "rationale": "The host OS provides filesystem and device I/O primitives."
+    },
+    {
+      "layer": "L2",
+      "applicability": "internal",
+      "rationale": "ANANTA enforces resource budgets and single-writer ownership."
+    },
+    {
+      "layer": "L3",
+      "applicability": "internal",
+      "rationale": "Supported query, ingest, scan and DDL operations execute here."
+    },
+    {
+      "layer": "L4",
+      "applicability": "internal",
+      "rationale": "Catalog, schema snapshots, native artifacts and WAL represent persistent state."
+    },
+    {
+      "layer": "L5",
+      "applicability": "internal",
+      "rationale": "AQL parsing/planning and analytical operators provide computation."
+    },
+    {
+      "layer": "L6",
+      "applicability": "internal",
+      "rationale": "Embedded API and AQL are interaction boundaries."
+    },
+    {
+      "layer": "L7",
+      "applicability": "internal",
+      "rationale": "Table, ingest, scan, query and backup/restore capabilities are exposed."
+    },
+    {
+      "layer": "L8",
+      "applicability": "internal",
+      "rationale": "Native DBMS platform purpose is inside the model."
+    }
+  ],
+  "properties": [
+    {
+      "id": "AN-PROP-MAX-ROWS",
+      "subjectRef": {
+        "kind": "element",
+        "id": "ananta-api"
+      },
+      "name": "defaultMaxBatchRows",
+      "valueType": "integer",
+      "meaning": "Default maximum batch rows documented for versioned execution options.",
+      "unit": "rows",
+      "value": 65536,
+      "sourceRef": {
+        "kind": "specification",
+        "id": "AN-SPEC-API"
+      }
+    },
+    {
+      "id": "AN-PROP-MAX-CELLS",
+      "subjectRef": {
+        "kind": "element",
+        "id": "ananta-api"
+      },
+      "name": "defaultMaxBatchCells",
+      "valueType": "integer",
+      "meaning": "Default maximum batch cells documented for versioned execution options.",
+      "unit": "cells",
+      "value": 1000000,
+      "sourceRef": {
+        "kind": "specification",
+        "id": "AN-SPEC-API"
+      }
+    },
+    {
+      "id": "AN-PROP-MAX-WORKING-SET",
+      "subjectRef": {
+        "kind": "element",
+        "id": "ananta-api"
+      },
+      "name": "defaultMaxWorkingSetBytes",
+      "valueType": "integer",
+      "meaning": "Default in-process execution working-set budget.",
+      "unit": "bytes",
+      "value": 67108864,
+      "sourceRef": {
+        "kind": "specification",
+        "id": "AN-SPEC-API"
+      }
+    }
+  ],
+  "specifications": [
+    {
+      "id": "AN-SPEC-API",
+      "name": "Embedded API Contract v0.1",
+      "kind": "interfaceContract",
+      "status": "draft",
+      "sourceUri": "https://github.com/jadhavdurvesh/Ananta/blob/main/docs/specifications/embedded-api-m7-v0.1.md",
+      "revision": "0719b79f17ccdcc11932402ba2059020b817a2b4",
+      "description": "API v0.1; M7.1 hardening in progress."
+    },
+    {
+      "id": "AN-SPEC-WAL",
+      "name": "ANANTA WAL Recovery v0.1",
+      "kind": "technicalSpecification",
+      "status": "draft",
+      "sourceUri": "https://github.com/jadhavdurvesh/Ananta/blob/main/docs/specifications/wal-recovery-v0.1.md",
+      "revision": "c0b024cdc427d0a9cb010b29ff2d3ea7522079f1"
+    },
+    {
+      "id": "AN-SPEC-TRANSACTIONS",
+      "name": "ANANTA Transaction and Concurrency Scope v0.1",
+      "kind": "technicalSpecification",
+      "status": "draft",
+      "sourceUri": "https://github.com/jadhavdurvesh/Ananta/blob/main/docs/specifications/transaction-concurrency-m6-v0.1.md",
+      "revision": "0d16617ba745609407224668ed68bfb68fb891fc"
+    },
+    {
+      "id": "AN-SPEC-ARCH",
+      "name": "Native ANANTA Architecture",
+      "kind": "designDefinition",
+      "status": "published",
+      "sourceUri": "https://github.com/jadhavdurvesh/Ananta/blob/main/docs/architecture/native-engine.md",
+      "revision": "64d1768f89593c5090e6e087cdbb9a103ce64b3c"
+    }
+  ],
+  "relationships": [],
+  "operations": [
+    {
+      "id": "AN-OP-INGEST",
+      "name": "IngestBatch",
+      "ownerRef": {
+        "kind": "element",
+        "id": "ananta-storage"
+      },
+      "purpose": "Validate and ingest an idempotent batch with a durable receipt and commit-order sequence.",
+      "designDisposition": "accepted",
+      "realizationState": "inProgress",
+      "preconditions": [
+        "Database is open",
+        "Caller supplies a valid BatchId"
+      ],
+      "postconditions": [
+        "A receipt is returned after supported publication completes"
+      ],
+      "failureConditions": [
+        "Validation failure",
+        "BatchId payload conflict",
+        "WAL/recovery failure"
+      ],
+      "evidenceRefs": [
+        "AN-EV-README",
+        "AN-EV-WAL"
+      ]
+    },
+    {
+      "id": "AN-OP-AQL",
+      "name": "ExecuteAql",
+      "ownerRef": {
+        "kind": "element",
+        "id": "ananta-aql"
+      },
+      "purpose": "Plan and execute a supported AQL query, yielding lazy owned result batches.",
+      "designDisposition": "accepted",
+      "realizationState": "inProgress",
+      "preconditions": [
+        "Database handle is open",
+        "Query and bindings are valid"
+      ],
+      "postconditions": [
+        "A lazy result iterator yields supported result batches"
+      ],
+      "failureConditions": [
+        "Parse/type/plan error",
+        "Resource limit",
+        "Cancellation",
+        "Storage error"
+      ],
+      "evidenceRefs": [
+        "AN-EV-API",
+        "AN-EV-README"
+      ]
+    }
+  ],
+  "executions": [
+    {
+      "id": "AN-EXEC-AQL",
+      "operationRef": {
+        "kind": "operation",
+        "id": "AN-OP-AQL"
+      },
+      "subjectRef": {
+        "kind": "element",
+        "id": "ananta-aql"
+      },
+      "executionState": "queued",
+      "context": "Illustrative execution record; not a live query run."
+    }
+  ],
+  "events": [
+    {
+      "id": "AN-EVENT-PUBLICATION-UNCERTAIN",
+      "name": "Publication becomes uncertain",
+      "eventKind": "generated",
+      "sourceRef": {
+        "kind": "element",
+        "id": "ananta-wal"
+      },
+      "description": "Abstract event from the documented post-commit publication/recovery boundary."
+    }
+  ],
+  "stateVariables": [
+    {
+      "id": "AN-SV-DB-STATE",
+      "subjectRef": {
+        "kind": "element",
+        "id": "ananta-engine"
+      },
+      "name": "databaseAvailability",
+      "meaning": "Database handle and recovery availability state.",
+      "valueType": "enumeration",
+      "allowedValues": [
+        "open",
+        "locked",
+        "recoveryRequired"
+      ],
+      "authority": "exclusive-database-owner"
+    }
+  ],
+  "states": [
+    {
+      "id": "AN-STATE-OPEN",
+      "stateVariableRef": {
+        "kind": "stateVariable",
+        "id": "AN-SV-DB-STATE"
+      },
+      "value": "open",
+      "meaning": "Database handle is open."
+    },
+    {
+      "id": "AN-STATE-LOCKED",
+      "stateVariableRef": {
+        "kind": "stateVariable",
+        "id": "AN-SV-DB-STATE"
+      },
+      "value": "locked",
+      "meaning": "Another writer owns the database lock."
+    },
+    {
+      "id": "AN-STATE-RECOVERY",
+      "stateVariableRef": {
+        "kind": "stateVariable",
+        "id": "AN-SV-DB-STATE"
+      },
+      "value": "recoveryRequired",
+      "meaning": "Publication uncertainty requires reopen/recovery before further operations."
+    }
+  ],
+  "transitions": [
+    {
+      "id": "AN-TRANS-RECOVERY",
+      "subjectRef": {
+        "kind": "element",
+        "id": "ananta-engine"
+      },
+      "fromStateRef": {
+        "kind": "state",
+        "id": "AN-STATE-OPEN"
+      },
+      "toStateRef": {
+        "kind": "state",
+        "id": "AN-STATE-RECOVERY"
+      },
+      "triggerEventRefs": [
+        {
+          "kind": "event",
+          "id": "AN-EVENT-PUBLICATION-UNCERTAIN"
+        }
+      ],
+      "guard": "A committed publication cannot be confirmed at the final artifact boundary.",
+      "effect": "Mark the handle recovery-required; require reopen/recovery.",
+      "designDisposition": "accepted",
+      "realizationState": "inProgress",
+      "evidenceRefs": [
+        "AN-EV-WAL"
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "AN-IF-EMBEDDED",
+      "name": "ANANTA embedded Rust API",
+      "interfaceKind": "logical",
+      "participantRoles": [
+        {
+          "role": "consumer",
+          "participantRef": {
+            "kind": "environmentParticipant",
+            "id": "ananta-app-client"
+          }
+        },
+        {
+          "role": "provider",
+          "participantRef": {
+            "kind": "element",
+            "id": "ananta-api"
+          }
+        }
+      ],
+      "contractSpecificationRef": {
+        "kind": "specification",
+        "id": "AN-SPEC-API"
+      },
+      "operationRefs": [
+        {
+          "kind": "operation",
+          "id": "AN-OP-INGEST"
+        },
+        {
+          "kind": "operation",
+          "id": "AN-OP-AQL"
+        }
+      ],
+      "designDisposition": "accepted",
+      "description": "In-process embedded API contract; not a stable network protocol."
+    }
+  ],
+  "interactions": [
+    {
+      "id": "AN-INT-EMBEDDED",
+      "name": "Application calls embedded API",
+      "interactionKind": "requestResponse",
+      "participantRoles": [
+        {
+          "role": "consumer",
+          "participantRef": {
+            "kind": "environmentParticipant",
+            "id": "ananta-app-client"
+          }
+        },
+        {
+          "role": "provider",
+          "participantRef": {
+            "kind": "element",
+            "id": "ananta-api"
+          }
+        }
+      ],
+      "direction": "directed",
+      "interfaceRef": {
+        "kind": "interface",
+        "id": "AN-IF-EMBEDDED"
+      },
+      "exchangedItems": [
+        "typed API request",
+        "query or ingest options",
+        "result iterator or receipt"
+      ],
+      "designDisposition": "accepted"
+    }
+  ],
+  "resources": [
+    {
+      "id": "AN-RES-WORKING-SET",
+      "name": "AQL execution working-set budget",
+      "resourceKind": "capacity",
+      "ownerRef": {
+        "kind": "element",
+        "id": "ananta-api"
+      },
+      "unit": "bytes",
+      "capacity": {
+        "value": 67108864,
+        "unit": "bytes"
+      },
+      "description": "Default in-process ExecutionOptionsV1 budget; not a universal maximum for all legacy storage scans.",
+      "realizationState": "inProgress"
+    }
+  ],
+  "allocations": [
+    {
+      "id": "AN-ALLOC-WORKING-SET",
+      "allocatorRef": {
+        "kind": "element",
+        "id": "ananta-api"
+      },
+      "resourceRef": {
+        "kind": "resource",
+        "id": "AN-RES-WORKING-SET"
+      },
+      "recipientRef": {
+        "kind": "element",
+        "id": "ananta-aql"
+      },
+      "quantity": 67108864,
+      "unit": "bytes",
+      "policy": "Versioned in-process execution options; bounded operator/batch path only.",
+      "designDisposition": "accepted",
+      "realizationState": "inProgress"
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "AN-CAP-INGEST",
+      "name": "Native batch ingestion",
+      "description": "Accept validated batches and create immutable ANF/Chronicle artifacts with documented receipt semantics.",
+      "providerRef": {
+        "kind": "element",
+        "id": "ananta-storage"
+      },
+      "operationRefs": [
+        {
+          "kind": "operation",
+          "id": "AN-OP-INGEST"
+        }
+      ],
+      "limitations": [
+        "One exclusive writer owner",
+        "Not general multi-operation ACID"
+      ],
+      "realizationState": "inProgress"
+    },
+    {
+      "id": "AN-CAP-AQL",
+      "name": "Supported AQL execution",
+      "description": "Execute supported AQL paths over native storage batches.",
+      "providerRef": {
+        "kind": "element",
+        "id": "ananta-aql"
+      },
+      "operationRefs": [
+        {
+          "kind": "operation",
+          "id": "AN-OP-AQL"
+        }
+      ],
+      "limitations": [
+        "Joins and other operators remain incomplete"
+      ],
+      "realizationState": "inProgress"
+    }
+  ],
+  "services": [
+    {
+      "id": "AN-SERVICE-EMBEDDED",
+      "name": "Embedded database service",
+      "description": "In-process database capabilities through the curated embedded Rust API.",
+      "providerRef": {
+        "kind": "element",
+        "id": "ananta-api"
+      },
+      "capabilityRef": {
+        "kind": "capability",
+        "id": "AN-CAP-AQL"
+      },
+      "interfaceRef": {
+        "kind": "interface",
+        "id": "AN-IF-EMBEDDED"
+      },
+      "consumerRefs": [
+        {
+          "kind": "environmentParticipant",
+          "id": "ananta-app-client"
+        }
+      ],
+      "qualityConstraints": [
+        "API v0.1 hardening in progress",
+        "No stable network server protocol implied"
+      ],
+      "realizationState": "inProgress"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "AN-REQ-SINGLE-WRITER",
+      "statement": "The documented database lifecycle must enforce one exclusive writer owner and must not imply multi-writer or MVCC guarantees.",
+      "sourceRef": {
+        "kind": "specification",
+        "id": "AN-SPEC-TRANSACTIONS"
+      },
+      "priority": "critical",
+      "acceptanceCriteria": [
+        "Second independent writer is rejected",
+        "Shared-reference readers are scoped to the same open handle"
+      ],
+      "designDisposition": "accepted"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "AN-CON-SINGLE-WRITER",
+      "statement": "One exclusive writer owner process/handle; concurrent shared-reference readers are supported only through the same handle.",
+      "category": "authority",
+      "subjectRefs": [
+        {
+          "kind": "element",
+          "id": "ananta-engine"
+        }
+      ],
+      "applicability": "internal",
+      "evidenceRefs": [
+        "AN-EV-TRANSACTIONS"
+      ]
+    },
+    {
+      "id": "AN-CON-NO-MVCC-ACID",
+      "statement": "Do not claim MVCC, arbitrary multi-operation atomicity, savepoints, or general ACID semantics.",
+      "category": "structural",
+      "subjectRefs": [
+        {
+          "kind": "element",
+          "id": "ananta-engine"
+        },
+        {
+          "kind": "specification",
+          "id": "AN-SPEC-TRANSACTIONS"
+        }
+      ],
+      "applicability": "internal",
+      "evidenceRefs": [
+        "AN-EV-TRANSACTIONS"
+      ]
+    },
+    {
+      "id": "AN-CON-DURABILITY-PLATFORM",
+      "statement": "Durability claims must remain scoped to documented artifact publication and verified filesystem/platform behavior; physical power-loss immunity is not universal.",
+      "category": "environmental",
+      "subjectRefs": [
+        {
+          "kind": "element",
+          "id": "ananta-wal"
+        }
+      ],
+      "applicability": "internal",
+      "evidenceRefs": [
+        "AN-EV-WAL"
+      ]
+    }
+  ],
+  "invariants": [
+    {
+      "id": "AN-INV-COMMIT-WAL",
+      "statement": "For supported immutable publication operations, a durable WAL COMMIT precedes final artifact publication.",
+      "subjectRefs": [
+        {
+          "kind": "element",
+          "id": "ananta-wal"
+        },
+        {
+          "kind": "specification",
+          "id": "AN-SPEC-WAL"
+        }
+      ],
+      "assumptions": [
+        "Applies only to listed supported operations and the documented filesystem/platform scope."
+      ],
+      "assessmentResult": "notAssessed",
+      "method": "Repository-documentation mapping; no independent crash test executed in WP5.",
+      "evidenceRefs": [
+        "AN-EV-WAL"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "AN-ASSERT-EMBEDDED",
+      "statement": "ANANTA exposes a curated embedded Rust API with lazy AQL result iteration and versioned in-process execution budgets.",
+      "category": "implementation",
+      "subjectRefs": [
+        {
+          "kind": "element",
+          "id": "ananta-api"
+        }
+      ],
+      "realizationState": "inProgress",
+      "assessmentResult": "notAssessed",
+      "evidenceRefs": [
+        "AN-EV-API"
+      ]
+    }
+  ],
+  "decisions": [],
+  "evidence": [
+    {
+      "id": "AN-EV-README",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "supports",
+      "description": "ANANTA README describes native engine scope, current features and limitations.",
+      "sourceUri": "https://github.com/jadhavdurvesh/Ananta/blob/main/README.md",
+      "revision": "ca138eee12f6bb55de058378c96f2c1396503b66",
+      "scopeRefs": [
+        {
+          "kind": "system",
+          "id": "profile-ananta-dbms-0-2-soi"
+        }
+      ],
+      "limitations": [
+        "Repository claims were not independently built or tested during WP5."
+      ]
+    },
+    {
+      "id": "AN-EV-ARCH",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "supports",
+      "description": "Native engine architecture and independence boundaries.",
+      "sourceUri": "https://github.com/jadhavdurvesh/Ananta/blob/main/docs/architecture/native-engine.md",
+      "revision": "64d1768f89593c5090e6e087cdbb9a103ce64b3c",
+      "scopeRefs": [
+        {
+          "kind": "system",
+          "id": "profile-ananta-dbms-0-2-soi"
+        }
+      ]
+    },
+    {
+      "id": "AN-EV-TRANSACTIONS",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "supports",
+      "description": "Transaction and concurrency scope: operation-scoped atomic redo units, exclusive writer, same-handle readers; no general multi-operation ACID/MVCC.",
+      "sourceUri": "https://github.com/jadhavdurvesh/Ananta/blob/main/docs/specifications/transaction-concurrency-m6-v0.1.md",
+      "revision": "0d16617ba745609407224668ed68bfb68fb891fc",
+      "scopeRefs": [
+        {
+          "kind": "element",
+          "id": "ananta-engine"
+        }
+      ],
+      "limitations": [
+        "This file conflicts with newer README claims about Windows checkpoint rotation; compatibility review remains open."
+      ]
+    },
+    {
+      "id": "AN-EV-WAL",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "qualifies",
+      "description": "WAL redo/recovery specification for documented immutable artifacts and metadata operations.",
+      "sourceUri": "https://github.com/jadhavdurvesh/Ananta/blob/main/docs/specifications/wal-recovery-v0.1.md",
+      "revision": "c0b024cdc427d0a9cb010b29ff2d3ea7522079f1",
+      "scopeRefs": [
+        {
+          "kind": "element",
+          "id": "ananta-wal"
+        }
+      ],
+      "limitations": [
+        "The specification retains an older statement that checkpoint rotation is Unix-only; README describes targeted Windows replacement support."
+      ]
+    },
+    {
+      "id": "AN-EV-API",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "supports",
+      "description": "Embedded API contract v0.1 describes typed errors, lazy result iteration, execution budgets and cancellation.",
+      "sourceUri": "https://github.com/jadhavdurvesh/Ananta/blob/main/docs/specifications/embedded-api-m7-v0.1.md",
+      "revision": "0719b79f17ccdcc11932402ba2059020b817a2b4",
+      "scopeRefs": [
+        {
+          "kind": "element",
+          "id": "ananta-api"
+        }
+      ],
+      "limitations": [
+        "M7.1 remains in progress; this is not a stable network protocol."
+      ]
+    },
+    {
+      "id": "AN-EV-FIREBOT",
+      "kind": "sourceDocument",
+      "method": "sourceInspection",
+      "context": "sourceRepository",
+      "relation": "qualifies",
+      "description": "Optional privacy-minimized file-based FireBot JSONL workload connector.",
+      "sourceUri": "https://github.com/jadhavdurvesh/Ananta/blob/main/workloads/firebot/README.md",
+      "revision": "dd3a35c7c71e58dda49876b00fb95838e41668e8",
+      "scopeRefs": [
+        {
+          "kind": "environmentParticipant",
+          "id": "ananta-firebot-jsonl"
+        }
+      ],
+      "limitations": [
+        "File-based workload only; no live FireBot DB connection or production telemetry integration is established."
+      ]
+    }
+  ]
+}
