@@ -269,7 +269,83 @@
       "description": "Illustrative DUSRM profile definition; no product implementation is identified."
     }
   ],
-  "relationships": [],
+  "relationships": [
+    {
+      "id": "SW-REL-APP-MEMBER",
+      "type": "memberOf",
+      "source": {
+        "kind": "element",
+        "id": "swapp-app-core"
+      },
+      "target": {
+        "kind": "system",
+        "id": "profile-standalone-application-0-2-soi"
+      },
+      "rationale": "Application core is part of the selected application SOI.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "SW-REL-HOST-DEPENDENCY",
+      "type": "dependsOn",
+      "source": {
+        "kind": "element",
+        "id": "swapp-app-core"
+      },
+      "target": {
+        "kind": "environmentParticipant",
+        "id": "swapp-host"
+      },
+      "rationale": "The application requires an external host execution platform.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "SW-REL-UI-USER",
+      "type": "interactsWith",
+      "source": {
+        "kind": "element",
+        "id": "swapp-ui"
+      },
+      "target": {
+        "kind": "environmentParticipant",
+        "id": "swapp-user"
+      },
+      "rationale": "The local UI interacts with the human user.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "SW-REL-EXPOSES-UI",
+      "type": "exposes",
+      "source": {
+        "kind": "element",
+        "id": "swapp-ui"
+      },
+      "target": {
+        "kind": "interface",
+        "id": "SW-IF-LOCAL-UI"
+      },
+      "rationale": "The local UI exposes the application interaction interface.",
+      "designDisposition": "accepted",
+      "assessmentResult": "notAssessed"
+    },
+    {
+      "id": "SW-REL-TRANSITIONS",
+      "type": "transitionsTo",
+      "source": {
+        "kind": "state",
+        "id": "SW-STATE-ACTIVE"
+      },
+      "target": {
+        "kind": "state",
+        "id": "SW-STATE-COMPLETE"
+      },
+      "rationale": "A task may transition from active to completed.",
+      "designDisposition": "proposed",
+      "assessmentResult": "notAssessed"
+    }
+  ],
   "operations": [
     {
       "id": "SW-OP-COMPLETE-TASK",
