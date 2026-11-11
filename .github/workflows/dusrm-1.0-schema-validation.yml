@@ -24,6 +24,7 @@ on:
       - "schema/fixtures/0.2/**"
       - "profiles/**"
       - "tests/test_profiles_0_2.py"
+      - "tests/test_sand_os_profile_0_2.py"
       - "scripts/validate_schema_0_2_fixtures.py"
       - "scripts/validate_semantics_0_2.py"
       - "scripts/migrate_schema_0_1_to_0_2.py"
