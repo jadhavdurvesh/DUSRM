@@ -151,5 +151,31 @@ class ValidationKitTests(unittest.TestCase):
             self.assertIn("does not resolve", result.stderr)
 
 
+    def test_omitted_core_layer_fails_profile_validation(self):
+        model = json.loads(MODEL.read_text(encoding="utf-8"))
+        profile = model["extensions"]["org.dmj.dusrm.profile.operating-system"]
+        for stratum in profile["implementationStrata"]:
+            stratum["dusrmLayers"] = [layer for layer in stratum["dusrmLayers"] if layer != "L8"]
+        with tempfile.TemporaryDirectory() as temp:
+            model_path = Path(temp) / "missing-layer.json"
+            model_path.write_text(json.dumps(model), encoding="utf-8")
+            result = self.run_cli(str(model_path), "--report", str(Path(temp) / "report.json"))
+            self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+            self.assertIn("omits core DUSRM layer", result.stderr)
+
+    def test_implemented_domain_cannot_reference_inprogress_elements(self):
+        model = json.loads(MODEL.read_text(encoding="utf-8"))
+        profile = model["extensions"]["org.dmj.dusrm.profile.operating-system"]
+        domain = next(item for item in profile["subsystemCoverage"] if item["domainId"] == "processIsolation")
+        domain["implementationState"] = "implemented"
+        with tempfile.TemporaryDirectory() as temp:
+            model_path = Path(temp) / "overstated-maturity.json"
+            model_path.write_text(json.dumps(model), encoding="utf-8")
+            result = self.run_cli(str(model_path), "--report", str(Path(temp) / "report.json"))
+            self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+            self.assertIn("not marked implemented", result.stderr)
+
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
