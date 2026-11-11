@@ -241,6 +241,33 @@ class SemanticValidator02Tests(unittest.TestCase):
 
 
 
+    def test_os_profile_must_map_all_eight_core_layers(self):
+        doc = self.os_fixture()
+        extension = doc["extensions"]["org.dmj.dusrm.profile.operating-system"]
+        extension["implementationStrata"][0]["dusrmLayers"] = ["L3"]
+        extension["implementationStrata"][1]["dusrmLayers"] = ["L3"]
+        findings = validate_semantics(doc, REGISTRY)
+        self.assertTrue(any(
+            item.code == "DUSRM-OS-P-005" and "omits core DUSRM layer" in item.message
+            for item in findings
+        ))
+
+    def test_os_profile_cannot_mark_inprogress_elements_implemented(self):
+        doc = self.os_fixture()
+        extension = doc["extensions"]["org.dmj.dusrm.profile.operating-system"]
+        domain = next(
+            item for item in extension["subsystemCoverage"]
+            if item["domainId"] == "processIsolation"
+        )
+        domain["implementationState"] = "implemented"
+        findings = validate_semantics(doc, REGISTRY)
+        self.assertTrue(any(
+            item.code == "DUSRM-OS-P-004" and "not marked implemented" in item.message
+            for item in findings
+        ))
+
+
+
 class Migration02Tests(unittest.TestCase):
     def test_minimal_01_description_becomes_review_draft(self):
         source = json.loads((ROOT / "conformance/fixtures/valid-minimal.json").read_text())
