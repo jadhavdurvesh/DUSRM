@@ -29,7 +29,7 @@ DUSRM is informed by and should complement existing architecture-description, sy
 
 ## Executable validation result
 
-The dedicated [DUSRM SAND OS validation kit CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43032173672) passed on 2026-11-11 at commit `d7af1cc07ac69bf76b2590c8fedd11af059ab7e3`.
+The dedicated [DUSRM SAND OS validation kit CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43032761981) passed on 2026-11-11 at commit `cbd9a9e2ec4d7a808c07a6598c3657c3d2d9672b`.
 
 - Bundled source integrity: **4/4 files verified** against recorded Git blob object IDs.
 - Portable-kit regression tests: **14 passed**.
