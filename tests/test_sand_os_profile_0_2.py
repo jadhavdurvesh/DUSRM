@@ -48,7 +48,7 @@ class SandOSProfileTests(unittest.TestCase):
         )
         mapping = DOC["extensions"]["org.dmj.dusrm.profile.operating-system"]["implementationStrata"]
         self.assertEqual(len(mapping), 9)
-        self.assertEqual({item["sandStratum"] for item in mapping}, set(range(1, 10)))
+        self.assertEqual({item["stratumId"] for item in mapping}, {f"sand-stratum-{i:02d}" for i in range(1, 10)})
         used = {layer for item in mapping for layer in item["dusrmLayers"]}
         self.assertEqual(used, {f"L{i}" for i in range(1, 9)})
 
