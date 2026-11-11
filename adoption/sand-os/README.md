@@ -1,11 +1,11 @@
 # DUSRM SAND OS Validation Kit
 
-**Kit:** DUSRM-SAND-OS-VALIDATION-KIT 0.2.2-draft  
+**Kit:** DUSRM-SAND-OS-VALIDATION-KIT 0.2.3-draft  
 **Status:** Experimental, host-side architecture-description validation  
 **Canonical source:** [jadhavdurvesh/DUSRM](https://github.com/jadhavdurvesh/DUSRM)  
 **Target architecture:** [jadhavdurvesh/sand-os](https://github.com/jadhavdurvesh/sand-os)
 
-**Latest completed validation:** [DUSRM SAND OS kit CI passed](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031057224) on 2026-11-11. Four bundled files verified, 13 tests passed, all 16 required OS domains covered, all eight DUSRM layers mapped, zero semantic errors and one expected profile compatibility warning.
+**Latest completed validation:** [DUSRM SAND OS kit CI passed](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031919228) on 2026-11-11. Four bundled files verified, 14 tests passed, all 16 required OS domains covered, all eight DUSRM layers mapped, zero semantic errors and one expected profile compatibility warning.
 
 ## What this actually is
 
