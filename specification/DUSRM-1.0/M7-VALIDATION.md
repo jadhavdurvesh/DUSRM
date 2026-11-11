@@ -1,7 +1,7 @@
 # DUSRM 1.0 Preparation — WP7 Portable Kit Validation
 
 **Workflow:** DUSRM SAND OS validation kit  
-**Run:** [GitHub Actions run #43031919228](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43026965428)  
+**Run:** [GitHub Actions run #43031919228](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031919228)  
 **Conclusion:** success  
 **Checked commit:** `a83bb0107c29939d85246f69566600a857b8c36a`  
 **Date:** 2026-11-11
@@ -48,7 +48,7 @@ The workflow uploaded `dusrm-sand-os-architecture-report` as an artifact. It con
 - error/warning counts and full semantic findings;
 - compatibility state and validation limitations.
 
-The artifact is attached to the [workflow run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43026965428).
+The artifact [dusrm-sand-os-architecture-report](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031919228/artifacts/13860938644) is attached to the successful workflow run.
 
 ## Scope
 
