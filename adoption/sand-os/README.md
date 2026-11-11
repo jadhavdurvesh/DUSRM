@@ -5,7 +5,7 @@
 **Canonical source:** [jadhavdurvesh/DUSRM](https://github.com/jadhavdurvesh/DUSRM)  
 **Target architecture:** [jadhavdurvesh/sand-os](https://github.com/jadhavdurvesh/sand-os)
 
-**Latest completed validation:** [DUSRM SAND OS kit CI passed](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43032173672) on 2026-11-11. Four bundled files verified, 14 tests passed, all 16 required OS domains covered, all eight DUSRM layers mapped, zero semantic errors and one expected profile compatibility warning.
+**Latest completed validation:** [DUSRM SAND OS kit CI passed](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43032761981) on 2026-11-11. Four bundled files verified, 14 tests passed, all 16 required OS domains covered, all eight DUSRM layers mapped, zero semantic errors and one expected profile compatibility warning.
 
 ## What this actually is
 
