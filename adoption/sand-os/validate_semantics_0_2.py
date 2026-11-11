@@ -644,7 +644,7 @@ def validate_semantics(
                     if not isinstance(layers, list) or not layers:
                         add("DUSRM-OS-P-005", "error", f"{path}.dusrmLayers", "Each implementation stratum must map to at least one DUSRM layer.")
                     else:
-                        invalid_layers = sorted({layer for layer in layers if layer not in CORE_LAYERS})
+                        invalid_layers = sorted({str(layer) for layer in layers if not isinstance(layer, str) or layer not in CORE_LAYERS})
                         if invalid_layers:
                             add(
                                 "DUSRM-OS-P-005", "error", f"{path}.dusrmLayers",
@@ -712,11 +712,11 @@ def validate_semantics(
                 applicability_value = item.get("applicability")
                 implementation_value = item.get("implementationState")
                 evidence_value = item.get("evidenceLevel")
-                if applicability_value not in allowed_applicability:
+                if not isinstance(applicability_value, str) or applicability_value not in allowed_applicability:
                     add("DUSRM-OS-P-002", "error", f"{path}.applicability", "Unknown applicability value.")
-                if implementation_value not in allowed_implementation:
+                if not isinstance(implementation_value, str) or implementation_value not in allowed_implementation:
                     add("DUSRM-OS-P-004", "error", f"{path}.implementationState", "Unknown implementation maturity value.")
-                if evidence_value not in allowed_evidence:
+                if not isinstance(evidence_value, str) or evidence_value not in allowed_evidence:
                     add("DUSRM-OS-P-004", "error", f"{path}.evidenceLevel", "Unknown evidence maturity value.")
 
                 element_refs = item.get("elementRefs", [])
@@ -826,12 +826,12 @@ def validate_semantics(
                         "verified requires supporting test, formal, measurement or observation evidence.",
                     )
 
-                if implementation_value == "implemented" and evidence_value in {"planned", "documented", "sourceInspected"}:
+                if implementation_value == "implemented" and isinstance(evidence_value, str) and evidence_value in {"planned", "documented", "sourceInspected"}:
                     add(
                         "DUSRM-OS-P-004", "warning", f"{path}.implementationState",
                         "Implemented maturity is paired with design/documentation-only evidence; confirm implementation evidence.",
                     )
-                if implementation_value == "planned" and evidence_value in {"testOnHardware", "independentlyReviewed", "verified"}:
+                if implementation_value == "planned" and isinstance(evidence_value, str) and evidence_value in {"testOnHardware", "independentlyReviewed", "verified"}:
                     add(
                         "DUSRM-OS-P-004", "warning", f"{path}.implementationState",
                         "Planned implementation is paired with advanced evidence; confirm that the evidence refers to the planned capability rather than another subsystem.",
