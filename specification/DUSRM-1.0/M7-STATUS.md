@@ -22,17 +22,17 @@ DUSRM is informed by and should complement existing architecture-description, sy
 - [Pinned kit manifest](../../adoption/sand-os/manifest.json)
 - [One-command validator and report generator](../../adoption/sand-os/validate.py)
 - [Git blob integrity verifier](../../adoption/sand-os/verify_bundle.py)
-- [Five kit regression tests](../../adoption/sand-os/tests/test_validation_kit.py)
+- [Thirteen kit regression tests](../../adoption/sand-os/tests/test_validation_kit.py)
 - [WP7 SAND CI adoption proposal](M7-SAND-CI-ADOPTION.md)
 - [WP7 review checklist](M7-REVIEW-CHECKLIST.md)
 - [WP7 validation record](M7-VALIDATION.md)
 
 ## Executable validation result
 
-The dedicated [DUSRM SAND OS validation kit CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43026965428) passed on 2026-11-11 at commit `3b36bd93879ae9a0d757bad9dd5f44d47e58a364`.
+The dedicated [DUSRM SAND OS validation kit CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031057224) passed on 2026-11-11 at commit `780e3d23008e0dbe85e7e64452104b94da1ada08`.
 
 - Bundled source integrity: **4/4 files verified** against recorded Git blob object IDs.
-- Portable-kit regression tests: **5 passed**.
+- Portable-kit regression tests: **13 passed**.
 - SAND OS architecture description: structurally and semantically valid.
 - Semantic errors: **0**.
 - Warnings: **1**, intentionally retained.
@@ -43,7 +43,7 @@ The CI run is executable evidence that the DUSRM schema/validator toolchain work
 
 ## How the kit works
 
-The kit contains a pinned copy of:
+The kit is version `0.2.2-draft` and contains a pinned copy of:
 - DUSRM schema 0.2-draft;
 - DUSRM 0.2 semantic validator;
 - profile registry;
@@ -61,7 +61,7 @@ No SAND OS branch, file, commit, workflow, build configuration or release was cr
 
 ## Compatibility and review status
 
-The operating-system profile remains `not-assessed`. A successful validator run is not a compatibility approval. The known SAND documentation questions in [WP6 review findings](M6-REVIEW-FINDINGS.md) remain open.
+The operating-system profile remains `not-assessed`. A successful validator run is not a compatibility approval. The OS-profile semantic rules now require complete domain coverage, resolvable element/evidence references, all eight mapped layers, context-appropriate test evidence and consistent implementation maturity. The known SAND documentation questions in [WP6 review findings](M6-REVIEW-FINDINGS.md) remain open.
 
 ## Exit criteria
 
@@ -72,4 +72,4 @@ WP7 is not complete until:
 4. the OS profile receives an explicit compatibility disposition;
 5. separate explicit authorization is obtained before any SAND OS repository change.
 
-Until these gates are met, the portable kit remains an experimental DUSRM-side tool and no SAND CI changes are made.
+WP8 now proposes DUSRM as SAND's primary project-level responsibility architecture; see [WP8 governance](M8-SAND-OS-ARCHITECTURE-GOVERNANCE.md). Until the owner approves adoption and independent review is complete, the portable kit remains an experimental DUSRM-side tool and no SAND CI changes are made.
