@@ -67,6 +67,34 @@ def main() -> int:
         return 2
 
     counts = Counter(item.get("severity", "unknown") for item in findings)
+    os_extension = (model.get("extensions") or {}).get(
+        "org.dmj.dusrm.profile.operating-system", {}
+    )
+    required_domains = os_extension.get("requiredDomains", [])
+    domain_coverage = os_extension.get("subsystemCoverage", [])
+    covered_domains = sorted({
+        item.get("domainId") for item in domain_coverage
+        if isinstance(item, dict) and isinstance(item.get("domainId"), str)
+    })
+    required_domain_set = set(required_domains) if isinstance(required_domains, list) else set()
+    covered_domain_set = set(covered_domains)
+    mapped_layers = sorted({
+        layer
+        for stratum in os_extension.get("implementationStrata", [])
+        if isinstance(stratum, dict)
+        for layer in stratum.get("dusrmLayers", [])
+        if isinstance(layer, str)
+    })
+    profile_coverage = {
+        "requiredDomainCount": len(required_domain_set),
+        "coveredDomainCount": len(required_domain_set & covered_domain_set),
+        "missingDomains": sorted(required_domain_set - covered_domain_set),
+        "extraDomains": sorted(covered_domain_set - required_domain_set),
+        "complete": required_domain_set == covered_domain_set,
+        "implementationStrataCount": len(os_extension.get("implementationStrata", [])),
+        "mappedDusrmLayers": mapped_layers,
+        "allEightLayersMapped": mapped_layers == [f"L{i}" for i in range(1, 9)],
+    }
     compatibility_findings = [
         item for item in findings if item.get("code") == "DUSRM-02-P-001"
     ]
@@ -93,6 +121,7 @@ def main() -> int:
             "registrySha256": sha256(REGISTRY),
             "validatorSha256": sha256(VALIDATOR),
         },
+        "profileCoverage": profile_coverage,
         "summary": {
             "valid": errors == 0,
             "errors": errors,
@@ -117,6 +146,11 @@ def main() -> int:
     print(f"Semantic errors: {errors}")
     print(f"Warnings: {warnings}")
     print(f"Profile compatibility warnings: {len(compatibility_findings)}")
+    print(
+        "OS domain coverage: "
+        f"{profile_coverage['coveredDomainCount']}/{profile_coverage['requiredDomainCount']}"
+    )
+    print(f"All eight DUSRM layers mapped: {profile_coverage['allEightLayersMapped']}")
     print(f"Report: {args.report}")
     if compatibility_findings:
         print("NOTE: profile compatibility is not approved; warning intentionally retained.")
