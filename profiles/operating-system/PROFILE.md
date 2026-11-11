@@ -2,7 +2,7 @@
 
 **Profile ID:** DUSRM-PROFILE-OPERATING-SYSTEM-0.1  
 **Profile version:** 0.1-draft  
-**Status:** WP6 adoption pilot; non-normative  
+**Status:** WP6–WP8 SAND OS adoption pilot and governance proposal; non-normative  
 **Core target:** DUSRM 1.0-preparation / schema 0.2-draft  
 **Compatibility:** not-assessed  
 **Reference implementation case:** SAND OS
