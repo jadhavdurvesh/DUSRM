@@ -14,13 +14,17 @@ These 0.1-draft profiles preserve their historical identity and origin. They wer
 
 ## DUSRM 1.0-preparation reconciliation
 
-WP5 has prepared schema 0.2 typed pilot descriptions for all three profiles:
+WP5 has prepared schema 0.2 typed pilot descriptions for the standalone, ANANTA and FireBot profiles:
 
 - [Standalone application fixture](../schema/fixtures/0.2/profiles/standalone-application.json)
 - [ANANTA database-engine fixture](../schema/fixtures/0.2/profiles/ananta-database-engine.json)
 - [FireBot cyber-physical robotics fixture](../schema/fixtures/0.2/profiles/firebot-cyber-physical-robotics.json)
 
-See the [WP5 reconciliation report](../specification/DUSRM-1.0/M5-RECONCILIATION.md), [compatibility matrix](../specification/DUSRM-1.0/M5-COMPATIBILITY-MATRIX.md), and [review package](../specification/DUSRM-1.0/M5-REVIEW-PACKAGE.md).
+WP6 has added a fourth profile:
+- [Operating system — SAND OS pilot](operating-system/PROFILE.md)
+- [SAND OS schema 0.2 fixture](../schema/fixtures/0.2/profiles/sand-os-operating-system.json)
+
+See the [WP5 reconciliation report](../specification/DUSRM-1.0/M5-RECONCILIATION.md), [WP6 SAND OS adoption plan](../specification/DUSRM-1.0/M6-SAND-OS-ADOPTION.md), and [WP6 status](../specification/DUSRM-1.0/M6-STATUS.md).
 
 ## Registry
 
