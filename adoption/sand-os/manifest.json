@@ -1,0 +1,51 @@
+{
+  "kitId": "DUSRM-SAND-OS-VALIDATION-KIT",
+  "kitVersion": "0.1.0-draft",
+  "status": "experimental",
+  "purpose": "Standalone host-side validation kit for a DUSRM 0.2-draft SAND OS architecture description.",
+  "dusrmRepository": "https://github.com/jadhavdurvesh/DUSRM",
+  "dusrmSourceCommit": "fa67073740ef4563fac48010a12b08d058cd3c73",
+  "canonicalProfileId": "DUSRM-PROFILE-OPERATING-SYSTEM-0.1",
+  "profileVersion": "0.1-draft",
+  "compatibilityStatus": "not-assessed",
+  "targetRepository": "https://github.com/jadhavdurvesh/sand-os",
+  "targetRevision": "661cdedd38e2e24e202dee22798047fd7311353a",
+  "files": [
+    {
+      "path": "validate_semantics_0_2.py",
+      "sourcePath": "scripts/validate_semantics_0_2.py",
+      "gitBlobSha": "3a40116b5b99f67012d7e2f956a31940a7f3f9a0"
+    },
+    {
+      "path": "dusrm-description-0.2.schema.json",
+      "sourcePath": "schema/dusrm-description-0.2.schema.json",
+      "gitBlobSha": "c9af9e4dff4360a0da70ade897e5c3d6d8c70540"
+    },
+    {
+      "path": "profile-registry.json",
+      "sourcePath": "profiles/registry.json",
+      "gitBlobSha": "d7a4e082d7b36cefd5d4a58b05987d3d9dc24245"
+    },
+    {
+      "path": "sand-os-architecture.json",
+      "sourcePath": "schema/fixtures/0.2/profiles/sand-os-operating-system.json",
+      "gitBlobSha": "b01fe7a4648e1b3e3abf3606161450eef856ab6d"
+    }
+  ],
+  "validationContract": {
+    "structuralSchema": "JSON Schema Draft 2020-12",
+    "semanticChecker": "Bundled DUSRM 0.2 semantic validator",
+    "expectedWarnings": [
+      "DUSRM-02-P-001"
+    ],
+    "warningsAreErrorsByDefault": false,
+    "strictCompatibilityExitCode": 3,
+    "reportFormat": "JSON"
+  },
+  "limitations": [
+    "This validates a DUSRM architecture description, not the SAND OS kernel binary or runtime.",
+    "Passing QEMU evidence remains emulator-scoped and is not physical hardware verification.",
+    "The OS profile remains not-assessed for compatibility.",
+    "The kit is experimental and must be independently reviewed before production CI adoption."
+  ]
+}
