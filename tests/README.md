@@ -8,7 +8,8 @@
 ## Schema 0.2 tooling
 
 - `test_semantics_0_2.py` — typed-reference, relationship, realization, state, interface, resource, evidence, profile and migration regression tests.
-- `test_profiles_0_2.py` — schema and semantic consistency checks for standalone, ANANTA and FireBot profile fixtures; confirms compatibility warnings remain present.
+- `test_profiles_0_2.py` — schema and semantic checks for standalone, ANANTA and FireBot fixtures.
+- `test_sand_os_profile_0_2.py` — SAND OS operating-system profile checks, many-to-many mapping, evidence pinning, planned-subsystem maturity and runtime-independence boundary.
 - `../scripts/validate_schema_0_2_fixtures.py` — core schema 0.2 structural fixture expectations.
 - `../scripts/validate_semantics_0_2.py` — schema 0.2 cross-reference and semantic checks.
 - `../scripts/migrate_schema_0_1_to_0_2.py` — loss-aware migration CLI.
@@ -22,6 +23,7 @@ python -m unittest discover -s tests -v
 python scripts/validate_semantics_0_2.py schema/fixtures/0.2/valid-minimal.json
 python scripts/validate_semantics_0_2.py schema/fixtures/0.2/valid-sand-os-architecture.json
 python -m unittest discover -s tests -p 'test_profiles_0_2.py' -v
+python -m unittest discover -s tests -p 'test_sand_os_profile_0_2.py' -v
 ```
 
 The profile fixtures should produce no semantic errors. They intentionally produce a profile-compatibility warning until their registry compatibility status is independently assessed and explicitly changed.
