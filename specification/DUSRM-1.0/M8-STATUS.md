@@ -47,7 +47,7 @@ The portable kit includes:
 - JSON validation report with domain coverage and input hashes;
 - positive and negative regression tests.
 
-The latest portable-kit CI run is [run #43031919228](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031919228). It passed 4/4 bundle-integrity checks and 14 portable-kit tests. The canonical schema 0.2 [run #43031844187](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031844187) passed 31 semantic/migration tests, 4 existing profile tests and 8 SAND OS profile tests. The legacy 0.8 and 0.9 suites each passed 55 tests. The canonical schema/semantic workflow is being rerun after the final negative-test correction; see the Actions history for the latest result.
+The latest portable-kit CI run is [run #43031919228](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031919228). It passed 4/4 bundle-integrity checks and 14 portable-kit tests. The canonical schema 0.2 [run #43031844187](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031844187) passed 31 semantic/migration tests, 4 existing profile tests and 8 SAND OS profile tests. The legacy 0.8 and 0.9 suites each passed 55 tests. The canonical schema/semantic workflow [run #43031844187](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031844187) also passed after the final negative-test correction. The 0.8 [run #43031844011](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031844011) and 0.9 [run #43031843986](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43031843986) each passed 55 tests.
 
 ## Proposed project rule
 
