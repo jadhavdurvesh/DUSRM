@@ -1526,7 +1526,7 @@
     {
       "id": "sand-os-assert-ci",
       "statement": "The latest inspected SAND OS Native Boot CI run passed boot-image build, SDK/ABI host checks and QEMU self-tests at the inspected repository head.",
-      "category": "verification",
+      "category": "assessment",
       "subjectRefs": [
         {
           "kind": "system",
@@ -1851,7 +1851,7 @@
       "relation": "supports",
       "description": "SAND OS Native Boot CI run #42876341368 passed on the inspected main commit 661cdedd38e2e24e202dee22798047fd7311353a. It ran make clean/check, SAPP unit tests, Veyra descriptor host tests and booted the image in QEMU with kernel self-test assertions.",
       "sourceUri": "https://github.com/jadhavdurvesh/sand-os/actions/runs/42876341368",
-      "revision": "661cdedd38e2e24e202dee22798047",
+      "revision": "661cdedd38e2e24e202dee22798047fd7311353a",
       "scopeRefs": [
         {
           "kind": "system",
@@ -1981,5 +1981,6 @@
         "Production security is not established."
       ]
     }
-  }
+  },
+  "properties": []
 }
