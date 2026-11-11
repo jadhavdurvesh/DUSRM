@@ -28,7 +28,9 @@ Schema 0.1 uses the 0.x status vocabulary and untyped relationship endpoint IDs.
 - [WP4 migration tooling guide](../specification/DUSRM-1.0/M4-MIGRATION-TOOLING.md)
 - [Dedicated CI workflow](../.github/workflows/dusrm-1.0-schema-validation.yml)
 
-Schema 0.2 structural, semantic and migration CI [final run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/42872607370) passed on 2026-11-10. The workflow validated both positive fixtures, rejected both structural negatives, passed 22 regression tests, semantically validated the minimal and SAND OS fixtures without findings, and exercised a 0.1→0.2 review-draft migration. The legacy 0.8 and 0.9 workflows also passed at the same tested commit.
+Schema 0.2 structural, semantic, migration and WP5 profile CI [run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43020354463) passed on 2026-11-11. The workflow passed 22 semantic/migration tests and 4 profile tests, validated all three domain fixtures with zero semantic errors and the expected not-assessed profile warning, and exercised a 0.1→0.2 review-draft migration. The schema 0.1, 0.8 and 0.9 compatibility workflows also passed after the WP5 updates.
+
+The three profile fixtures are [standalone application](fixtures/0.2/profiles/standalone-application.json), [ANANTA](fixtures/0.2/profiles/ananta-database-engine.json), and [FireBot](fixtures/0.2/profiles/firebot-cyber-physical-robotics.json). Their registry compatibility states remain not-assessed; profile fixture success is not an approval.
 
 ## Validation boundaries
 
