@@ -1,0 +1,528 @@
+{
+  "schemaVersion": "0.2-draft",
+  "dusrmVersion": "1.0-preparation-WP5",
+  "descriptionId": "profile-standalone-application-0-2",
+  "title": "DUSRM 0.2 Pilot — Standalone Task Application",
+  "summary": "WP5 profile-reconciliation pilot. Documentation-level architecture description; not a conformance approval.",
+  "descriptionState": "draft",
+  "profileRefs": [
+    {
+      "profileId": "DUSRM-PROFILE-SWAPP-0.1",
+      "version": "0.1-draft",
+      "compatibility": "not-assessed"
+    }
+  ],
+  "context": {
+    "systemOfInterest": {
+      "id": "profile-standalone-application-0-2-soi",
+      "name": "Single-user task-list application",
+      "category": "computational",
+      "kind": "standalone-software-application",
+      "description": "Illustrative single-user task application; no deployed implementation is claimed.",
+      "realizationState": "inProgress",
+      "evidenceRefs": []
+    },
+    "purpose": "Test whether DUSRM can describe a small application without inventing network or database subsystems.",
+    "scope": "Application logic, local UI, in-process task state and optional local persistence.",
+    "abstractionLevel": "domain profile architecture pilot",
+    "boundary": {
+      "id": "profile-standalone-application-0-2-boundary",
+      "inclusions": [
+        "application logic",
+        "local user interface",
+        "task state",
+        "optional local persistence"
+      ],
+      "exclusions": [
+        "host operating system",
+        "host hardware",
+        "network service",
+        "cloud account service"
+      ],
+      "notes": "Boundary selected for the profile pilot; use explicit external participants and planned realization states."
+    },
+    "environment": [
+      {
+        "id": "swapp-user",
+        "name": "Single application user",
+        "category": "humanOrganizational",
+        "kind": "human-user",
+        "roles": [
+          "task-author",
+          "task-consumer"
+        ],
+        "description": "External human user.",
+        "evidenceRefs": []
+      },
+      {
+        "id": "swapp-host",
+        "name": "Host operating system and computer",
+        "category": "physical",
+        "kind": "execution-platform",
+        "roles": [
+          "execution-host",
+          "resource-provider"
+        ],
+        "description": "External execution platform.",
+        "evidenceRefs": []
+      }
+    ],
+    "assumptions": [
+      "This is an illustrative profile fixture, not evidence from an actual deployed application.",
+      "A transient and a local-file persistence variant are both permitted."
+    ]
+  },
+  "extensions": {
+    "org.dmj.dusrm.profile.swapp": {
+      "persistenceVariants": [
+        "transient",
+        "local-file"
+      ],
+      "networkRequired": false,
+      "singleUser": true,
+      "notes": "Illustrative profile refinements; not core DUSRM fields."
+    }
+  },
+  "elements": [
+    {
+      "id": "swapp-app-core",
+      "name": "Application core",
+      "category": "computational",
+      "kind": "application-component",
+      "roles": [
+        "task-operations",
+        "state-owner"
+      ],
+      "realizationState": "planned",
+      "description": "Illustrative application logic.",
+      "evidenceRefs": []
+    },
+    {
+      "id": "swapp-ui",
+      "name": "Local user interface",
+      "category": "computational",
+      "kind": "user-interface",
+      "roles": [
+        "interaction-surface"
+      ],
+      "realizationState": "planned",
+      "description": "Local event-driven interface.",
+      "evidenceRefs": []
+    },
+    {
+      "id": "swapp-task-store",
+      "name": "Task state store",
+      "category": "informational",
+      "kind": "application-state-store",
+      "roles": [
+        "task-state"
+      ],
+      "realizationState": "planned",
+      "description": "In-process task state with optional local persistence.",
+      "evidenceRefs": []
+    }
+  ],
+  "responsibilities": [
+    {
+      "id": "SW-R-RESOURCE",
+      "name": "Use host resources",
+      "description": "Run within host CPU, memory, display and optional local filesystem resources.",
+      "primaryLayer": "L2",
+      "realizationState": "planned"
+    },
+    {
+      "id": "SW-R-EXEC",
+      "name": "Execute task operations",
+      "description": "Handle application startup, user events and task operations.",
+      "primaryLayer": "L3",
+      "realizationState": "planned"
+    },
+    {
+      "id": "SW-R-STATE",
+      "name": "Maintain task state",
+      "description": "Represent task identity, content and completion state.",
+      "primaryLayer": "L4",
+      "realizationState": "planned"
+    },
+    {
+      "id": "SW-R-COMPUTE",
+      "name": "Transform task information",
+      "description": "Validate, filter and sort task data.",
+      "primaryLayer": "L5",
+      "realizationState": "planned"
+    },
+    {
+      "id": "SW-R-INTERACT",
+      "name": "Support user interaction",
+      "description": "Exchange user input and application responses through a local interface.",
+      "primaryLayer": "L6",
+      "realizationState": "planned"
+    },
+    {
+      "id": "SW-R-CAP",
+      "name": "Provide task management",
+      "description": "Create, edit, complete, delete and organize tasks.",
+      "primaryLayer": "L7",
+      "realizationState": "planned"
+    },
+    {
+      "id": "SW-R-OUTCOME",
+      "name": "Support individual task organization",
+      "description": "Help one user organize and track personal tasks.",
+      "primaryLayer": "L8",
+      "realizationState": "planned"
+    }
+  ],
+  "realizations": [
+    {
+      "id": "SW-REAL-EXEC",
+      "elementRef": "swapp-app-core",
+      "responsibilityRef": "SW-R-EXEC",
+      "realizationState": "planned",
+      "rationale": "The application core is the intended owner of task operations."
+    },
+    {
+      "id": "SW-REAL-STATE",
+      "elementRef": "swapp-task-store",
+      "responsibilityRef": "SW-R-STATE",
+      "realizationState": "planned",
+      "rationale": "The task store is the intended state representation."
+    },
+    {
+      "id": "SW-REAL-COMPUTE",
+      "elementRef": "swapp-app-core",
+      "responsibilityRef": "SW-R-COMPUTE",
+      "realizationState": "planned",
+      "rationale": "Validation, filtering and sorting are application computations."
+    },
+    {
+      "id": "SW-REAL-INTERACT",
+      "elementRef": "swapp-ui",
+      "responsibilityRef": "SW-R-INTERACT",
+      "realizationState": "planned",
+      "rationale": "The local UI handles user interaction."
+    },
+    {
+      "id": "SW-REAL-CAP",
+      "elementRef": "swapp-app-core",
+      "responsibilityRef": "SW-R-CAP",
+      "realizationState": "planned",
+      "rationale": "The application core offers task-management capabilities."
+    },
+    {
+      "id": "SW-REAL-OUTCOME",
+      "elementRef": "swapp-app-core",
+      "responsibilityRef": "SW-R-OUTCOME",
+      "realizationState": "planned",
+      "rationale": "The application is intended to support personal organization."
+    }
+  ],
+  "layerApplicability": [
+    {
+      "layer": "L1",
+      "applicability": "externalDependency",
+      "rationale": "Hardware and host infrastructure are external to the application SOI."
+    },
+    {
+      "layer": "L2",
+      "applicability": "internal",
+      "rationale": "The application consumes bounded process and optional local storage resources."
+    },
+    {
+      "layer": "L3",
+      "applicability": "internal",
+      "rationale": "Startup and task operations are in scope."
+    },
+    {
+      "layer": "L4",
+      "applicability": "internal",
+      "rationale": "Task state is represented."
+    },
+    {
+      "layer": "L5",
+      "applicability": "internal",
+      "rationale": "Task validation and filtering are represented."
+    },
+    {
+      "layer": "L6",
+      "applicability": "internal",
+      "rationale": "Local UI interaction is represented; network interaction is not required."
+    },
+    {
+      "layer": "L7",
+      "applicability": "internal",
+      "rationale": "Task management is a core application capability."
+    },
+    {
+      "layer": "L8",
+      "applicability": "internal",
+      "rationale": "Individual task organization is the intended outcome."
+    }
+  ],
+  "properties": [],
+  "specifications": [
+    {
+      "id": "SW-SPEC-PROFILE",
+      "name": "Standalone application profile v0.1",
+      "kind": "designDefinition",
+      "status": "draft",
+      "description": "Illustrative DUSRM profile definition; no product implementation is identified."
+    }
+  ],
+  "relationships": [],
+  "operations": [
+    {
+      "id": "SW-OP-COMPLETE-TASK",
+      "name": "CompleteTask",
+      "ownerRef": {
+        "kind": "element",
+        "id": "swapp-app-core"
+      },
+      "purpose": "Mark an existing task as complete.",
+      "designDisposition": "proposed",
+      "realizationState": "planned",
+      "preconditions": [
+        "Task exists",
+        "Task is editable"
+      ],
+      "postconditions": [
+        "Task state is completed"
+      ],
+      "failureConditions": [
+        "Unknown task identifier",
+        "Task store unavailable"
+      ],
+      "evidenceRefs": []
+    }
+  ],
+  "executions": [],
+  "events": [
+    {
+      "id": "SW-EVENT-COMPLETE-CLICK",
+      "name": "User completes task",
+      "eventKind": "generated",
+      "sourceRef": {
+        "kind": "element",
+        "id": "swapp-ui"
+      },
+      "description": "Illustrative local UI event."
+    }
+  ],
+  "stateVariables": [
+    {
+      "id": "SW-SV-TASK-STATE",
+      "subjectRef": {
+        "kind": "element",
+        "id": "swapp-task-store"
+      },
+      "name": "taskState",
+      "meaning": "Lifecycle state of a task.",
+      "valueType": "enumeration",
+      "allowedValues": [
+        "active",
+        "completed"
+      ],
+      "authority": "application-core"
+    }
+  ],
+  "states": [
+    {
+      "id": "SW-STATE-ACTIVE",
+      "stateVariableRef": {
+        "kind": "stateVariable",
+        "id": "SW-SV-TASK-STATE"
+      },
+      "value": "active",
+      "meaning": "Task is open."
+    },
+    {
+      "id": "SW-STATE-COMPLETE",
+      "stateVariableRef": {
+        "kind": "stateVariable",
+        "id": "SW-SV-TASK-STATE"
+      },
+      "value": "completed",
+      "meaning": "Task is complete."
+    }
+  ],
+  "transitions": [
+    {
+      "id": "SW-TRANS-COMPLETE",
+      "subjectRef": {
+        "kind": "element",
+        "id": "swapp-task-store"
+      },
+      "fromStateRef": {
+        "kind": "state",
+        "id": "SW-STATE-ACTIVE"
+      },
+      "toStateRef": {
+        "kind": "state",
+        "id": "SW-STATE-COMPLETE"
+      },
+      "triggerEventRefs": [
+        {
+          "kind": "event",
+          "id": "SW-EVENT-COMPLETE-CLICK"
+        }
+      ],
+      "guard": "Task identifier resolves and task is editable.",
+      "effect": "Set taskState to completed.",
+      "designDisposition": "proposed",
+      "realizationState": "planned"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "SW-IF-LOCAL-UI",
+      "name": "Local task interaction interface",
+      "interfaceKind": "human",
+      "participantRoles": [
+        {
+          "role": "user",
+          "participantRef": {
+            "kind": "environmentParticipant",
+            "id": "swapp-user"
+          }
+        },
+        {
+          "role": "application",
+          "participantRef": {
+            "kind": "element",
+            "id": "swapp-ui"
+          }
+        }
+      ],
+      "operationRefs": [
+        {
+          "kind": "operation",
+          "id": "SW-OP-COMPLETE-TASK"
+        }
+      ],
+      "designDisposition": "proposed",
+      "description": "Local human/application interaction; no network contract is implied."
+    }
+  ],
+  "interactions": [
+    {
+      "id": "SW-INT-COMPLETE",
+      "name": "Complete task interaction",
+      "interactionKind": "requestResponse",
+      "participantRoles": [
+        {
+          "role": "user",
+          "participantRef": {
+            "kind": "environmentParticipant",
+            "id": "swapp-user"
+          }
+        },
+        {
+          "role": "application",
+          "participantRef": {
+            "kind": "element",
+            "id": "swapp-ui"
+          }
+        }
+      ],
+      "direction": "directed",
+      "interfaceRef": {
+        "kind": "interface",
+        "id": "SW-IF-LOCAL-UI"
+      },
+      "exchangedItems": [
+        "task identifier",
+        "completion request",
+        "updated task state"
+      ],
+      "designDisposition": "proposed"
+    }
+  ],
+  "resources": [],
+  "allocations": [],
+  "capabilities": [
+    {
+      "id": "SW-CAP-TASK-MGMT",
+      "name": "Task management",
+      "description": "Create, edit, complete, delete, filter and sort tasks.",
+      "providerRef": {
+        "kind": "element",
+        "id": "swapp-app-core"
+      },
+      "operationRefs": [
+        {
+          "kind": "operation",
+          "id": "SW-OP-COMPLETE-TASK"
+        }
+      ],
+      "preconditions": [
+        "Application initialized"
+      ],
+      "limitations": [
+        "Illustrative profile only"
+      ],
+      "realizationState": "planned"
+    }
+  ],
+  "services": [
+    {
+      "id": "SW-SERVICE-TASK-UI",
+      "name": "Local task service",
+      "description": "Expose task operations to the local user.",
+      "providerRef": {
+        "kind": "element",
+        "id": "swapp-app-core"
+      },
+      "capabilityRef": {
+        "kind": "capability",
+        "id": "SW-CAP-TASK-MGMT"
+      },
+      "interfaceRef": {
+        "kind": "interface",
+        "id": "SW-IF-LOCAL-UI"
+      },
+      "consumerRefs": [
+        {
+          "kind": "environmentParticipant",
+          "id": "swapp-user"
+        }
+      ],
+      "qualityConstraints": [
+        "No network dependency is required."
+      ],
+      "realizationState": "planned"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "SW-REQ-OFFLINE",
+      "statement": "The application shall remain usable without a network connection.",
+      "sourceRef": {
+        "kind": "specification",
+        "id": "SW-SPEC-PROFILE"
+      },
+      "priority": "medium",
+      "acceptanceCriteria": [
+        "All defined task operations complete locally."
+      ],
+      "designDisposition": "proposed"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "SW-CON-NETWORK",
+      "statement": "The selected standalone profile variant must not require a network service.",
+      "category": "structural",
+      "subjectRefs": [
+        {
+          "kind": "system",
+          "id": "profile-standalone-application-0-2-soi"
+        }
+      ],
+      "applicability": "internal"
+    }
+  ],
+  "invariants": [],
+  "assertions": [],
+  "decisions": [],
+  "evidence": []
+}
