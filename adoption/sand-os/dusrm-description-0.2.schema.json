@@ -1,0 +1,2998 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dusrm:schema:description:0.2-draft",
+  "title": "DUSRM 1.0 Draft System Description",
+  "description": "Typed, versioned structural interchange shape proposed for DUSRM 1.0 preparation. Structural validation only; semantic reference resolution and conformance assessment are separate.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "dusrmVersion",
+    "descriptionId",
+    "title",
+    "descriptionState",
+    "profileRefs",
+    "context",
+    "elements",
+    "responsibilities",
+    "realizations",
+    "layerApplicability",
+    "properties",
+    "specifications",
+    "relationships",
+    "operations",
+    "executions",
+    "events",
+    "stateVariables",
+    "states",
+    "transitions",
+    "interfaces",
+    "interactions",
+    "resources",
+    "allocations",
+    "capabilities",
+    "services",
+    "requirements",
+    "constraints",
+    "invariants",
+    "assertions",
+    "decisions",
+    "evidence"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "0.2-draft"
+    },
+    "dusrmVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "descriptionId": {
+      "$ref": "#/$defs/identifier"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "string"
+    },
+    "descriptionState": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "baseline",
+        "superseded",
+        "withdrawn"
+      ]
+    },
+    "profileRefs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/profileRef"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "context": {
+      "$ref": "#/$defs/context"
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Namespaced profile/tool extensions; keys must be documented by their namespace owner.",
+      "additionalProperties": true
+    },
+    "elements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/element"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "responsibilities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/responsibility"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "realizations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/realization"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "layerApplicability": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/layerApplicability"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "properties": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/property"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "specifications": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/specification"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/relationship"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "operations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/operation"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "executions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/execution"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/event"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "stateVariables": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/stateVariable"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "states": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/state"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "transitions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/transition"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "interfaces": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/interface"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "interactions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/interaction"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/resource"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "allocations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/allocation"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/capability"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "services": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/service"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/requirement"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/constraint"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "invariants": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/invariant"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "assertions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/assertion"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/decision"
+      },
+      "minItems": 0,
+      "default": []
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      },
+      "minItems": 0,
+      "default": []
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]*$"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "physical",
+        "computational",
+        "informational",
+        "humanOrganizational",
+        "environmental",
+        "composite",
+        "other"
+      ]
+    },
+    "realizationState": {
+      "type": "string",
+      "enum": [
+        "notStarted",
+        "planned",
+        "inProgress",
+        "implemented",
+        "retired",
+        "unknown"
+      ]
+    },
+    "designDisposition": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "accepted",
+        "rejected",
+        "superseded"
+      ]
+    },
+    "applicability": {
+      "type": "string",
+      "enum": [
+        "internal",
+        "externalDependency",
+        "notApplicable",
+        "notModeled",
+        "unknown"
+      ]
+    },
+    "assessmentResult": {
+      "type": "string",
+      "enum": [
+        "notAssessed",
+        "pass",
+        "passWithFindings",
+        "fail",
+        "inconclusive"
+      ]
+    },
+    "participantKind": {
+      "type": "string",
+      "enum": [
+        "system",
+        "element",
+        "environmentParticipant"
+      ]
+    },
+    "typedReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "system",
+            "element",
+            "environmentParticipant",
+            "boundary",
+            "realization",
+            "responsibility",
+            "property",
+            "specification",
+            "operation",
+            "execution",
+            "event",
+            "stateVariable",
+            "state",
+            "transition",
+            "interface",
+            "interaction",
+            "resource",
+            "allocation",
+            "capability",
+            "service",
+            "requirement",
+            "constraint",
+            "invariant",
+            "assertion",
+            "decision",
+            "evidence"
+          ]
+        },
+        "id": {
+          "$ref": "#/$defs/identifier"
+        }
+      }
+    },
+    "participantReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "system",
+            "element",
+            "environmentParticipant"
+          ]
+        },
+        "id": {
+          "$ref": "#/$defs/identifier"
+        }
+      }
+    },
+    "roleAssignment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "participantRef"
+      ],
+      "properties": {
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "participantRef": {
+          "$ref": "#/$defs/participantReference"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "profileRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profileId",
+        "version"
+      ],
+      "properties": {
+        "profileId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "compatibility": {
+          "type": "string"
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "systemOfInterest",
+        "purpose",
+        "scope",
+        "abstractionLevel",
+        "boundary",
+        "environment"
+      ],
+      "properties": {
+        "systemOfInterest": {
+          "$ref": "#/$defs/systemOfInterest"
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "abstractionLevel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "boundary": {
+          "$ref": "#/$defs/boundary"
+        },
+        "environment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/environmentParticipant"
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "systemOfInterest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "category",
+        "kind",
+        "realizationState"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "$ref": "#/$defs/category"
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string"
+        },
+        "realizationState": {
+          "$ref": "#/$defs/realizationState"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "inclusions",
+        "exclusions"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "inclusions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "exclusions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "environmentParticipant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "category",
+        "kind",
+        "roles"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "$ref": "#/$defs/category"
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "default": []
+        },
+        "description": {
+          "type": "string"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "element": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "category",
+        "kind",
+        "roles",
+        "realizationState"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "$ref": "#/$defs/category"
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "description": {
+          "type": "string"
+        },
+        "realizationState": {
+          "$ref": "#/$defs/realizationState"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "responsibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "description",
+        "primaryLayer",
+        "realizationState"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "primaryLayer": {
+          "type": "string",
+          "enum": [
+            "L1",
+            "L2",
+            "L3",
+            "L4",
+            "L5",
+            "L6",
+            "L7",
+            "L8"
+          ]
+        },
+        "realizationState": {
+          "$ref": "#/$defs/realizationState"
+        },
+        "parentResponsibilityRef": {
+          "$ref": "#/$defs/identifier"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "realization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "elementRef",
+        "responsibilityRef",
+        "realizationState",
+        "rationale"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "elementRef": {
+          "$ref": "#/$defs/identifier"
+        },
+        "responsibilityRef": {
+          "$ref": "#/$defs/identifier"
+        },
+        "realizationState": {
+          "$ref": "#/$defs/realizationState"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "layerApplicability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "layer",
+        "applicability",
+        "rationale"
+      ],
+      "properties": {
+        "layer": {
+          "type": "string",
+          "enum": [
+            "L1",
+            "L2",
+            "L3",
+            "L4",
+            "L5",
+            "L6",
+            "L7",
+            "L8"
+          ]
+        },
+        "applicability": {
+          "$ref": "#/$defs/applicability"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "property": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "subjectRef",
+        "name",
+        "valueType",
+        "meaning"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "subjectRef": {
+          "$ref": "#/$defs/typedReference"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "valueType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "meaning": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit": {
+          "type": "string"
+        },
+        "value": {},
+        "uncertainty": {
+          "type": "number",
+          "minimum": 0
+        },
+        "sourceRef": {
+          "$ref": "#/$defs/typedReference"
+        }
+      }
+    },
+    "specification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "kind",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "designDefinition",
+            "interfaceContract",
+            "technicalSpecification",
+            "externalStandard",
+            "testSpecification",
+            "other"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "published",
+            "superseded",
+            "withdrawn"
+          ]
+        },
+        "sourceUri": {
+          "type": "string"
+        },
+        "revision": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string"
+        }
+      }
+    },
+    "operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "ownerRef",
+        "purpose",
+        "designDisposition",
+        "realizationState"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ownerRef": {
+          "$ref": "#/$defs/participantReference"
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "designDisposition": {
+          "$ref": "#/$defs/designDisposition"
+        },
+        "realizationState": {
+          "$ref": "#/$defs/realizationState"
+        },
+        "preconditions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "postconditions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "failureConditions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "inputRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/typedReference"
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "outputRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/typedReference"
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "operationRef",
+        "subjectRef",
+        "executionState"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "operationRef": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "id"
+          ],
+          "properties": {
+            "kind": {
+              "const": "operation"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            }
+          }
+        },
+        "subjectRef": {
+          "$ref": "#/$defs/participantReference"
+        },
+        "executionState": {
+          "type": "string",
+          "enum": [
+            "queued",
+            "admitted",
+            "running",
+            "suspended",
+            "completed",
+            "failed",
+            "cancelled",
+            "aborted"
+          ]
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "outcome": {
+          "type": "string"
+        },
+        "context": {
+          "type": "string"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "eventKind",
+        "sourceRef"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "eventKind": {
+          "type": "string",
+          "enum": [
+            "generated",
+            "observed",
+            "external",
+            "derived"
+          ]
+        },
+        "sourceRef": {
+          "$ref": "#/$defs/typedReference"
+        },
+        "description": {
+          "type": "string"
+        },
+        "time": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "clockDomain"
+          ],
+          "properties": {
+            "value": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "clockDomain": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertaintySeconds": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "stateVariable": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "subjectRef",
+        "name",
+        "meaning",
+        "valueType"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "subjectRef": {
+          "$ref": "#/$defs/participantReference"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "meaning": {
+          "type": "string",
+          "minLength": 1
+        },
+        "valueType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit": {
+          "type": "string"
+        },
+        "allowedValues": {
+          "type": "array",
+          "items": {},
+          "minItems": 0,
+          "default": []
+        },
+        "authority": {
+          "type": "string"
+        },
+        "observationContext": {
+          "type": "string"
+        }
+      }
+    },
+    "state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "stateVariableRef",
+        "value",
+        "meaning"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "stateVariableRef": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "id"
+          ],
+          "properties": {
+            "kind": {
+              "const": "stateVariable"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            }
+          }
+        },
+        "value": {},
+        "meaning": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "transition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "subjectRef",
+        "fromStateRef",
+        "toStateRef",
+        "designDisposition"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "subjectRef": {
+          "$ref": "#/$defs/participantReference"
+        },
+        "fromStateRef": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "id"
+          ],
+          "properties": {
+            "kind": {
+              "const": "state"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            }
+          }
+        },
+        "toStateRef": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "id"
+          ],
+          "properties": {
+            "kind": {
+              "const": "state"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            }
+          }
+        },
+        "triggerEventRefs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "id"
+            ],
+            "properties": {
+              "kind": {
+                "const": "event"
+              },
+              "id": {
+                "$ref": "#/$defs/identifier"
+              }
+            }
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "guard": {
+          "type": "string"
+        },
+        "effect": {
+          "type": "string"
+        },
+        "designDisposition": {
+          "$ref": "#/$defs/designDisposition"
+        },
+        "realizationState": {
+          "$ref": "#/$defs/realizationState"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "interface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "interfaceKind",
+        "participantRoles",
+        "designDisposition"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "interfaceKind": {
+          "type": "string",
+          "enum": [
+            "logical",
+            "physical",
+            "informational",
+            "human",
+            "spatial",
+            "organizational",
+            "other"
+          ]
+        },
+        "participantRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/roleAssignment"
+          },
+          "minItems": 2,
+          "default": []
+        },
+        "contractSpecificationRef": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "id"
+          ],
+          "properties": {
+            "kind": {
+              "const": "specification"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            }
+          }
+        },
+        "operationRefs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "id"
+            ],
+            "properties": {
+              "kind": {
+                "const": "operation"
+              },
+              "id": {
+                "$ref": "#/$defs/identifier"
+              }
+            }
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "designDisposition": {
+          "$ref": "#/$defs/designDisposition"
+        },
+        "description": {
+          "type": "string"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "interaction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "interactionKind",
+        "participantRoles",
+        "direction",
+        "designDisposition"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "interactionKind": {
+          "type": "string",
+          "enum": [
+            "requestResponse",
+            "eventExchange",
+            "commandControl",
+            "coordination",
+            "observation",
+            "physicalTransfer",
+            "humanProcedure",
+            "other"
+          ]
+        },
+        "participantRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/roleAssignment"
+          },
+          "minItems": 2,
+          "default": []
+        },
+        "direction": {
+          "type": "string",
+          "enum": [
+            "directed",
+            "bidirectional",
+            "multilateral"
+          ]
+        },
+        "interfaceRef": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "id"
+          ],
+          "properties": {
+            "kind": {
+              "const": "interface"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            }
+          }
+        },
+        "exchangedItems": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "ordering": {
+          "type": "string"
+        },
+        "failureBehavior": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "designDisposition": {
+          "$ref": "#/$defs/designDisposition"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "resource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "resourceKind",
+        "realizationState"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resourceKind": {
+          "type": "string",
+          "enum": [
+            "capacity",
+            "asset",
+            "consumable",
+            "renewable",
+            "serviceQuota",
+            "workspace",
+            "attention",
+            "other"
+          ]
+        },
+        "ownerRef": {
+          "$ref": "#/$defs/participantReference"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "capacity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit"
+          ],
+          "properties": {
+            "value": {
+              "type": "number",
+              "minimum": 0
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "realizationState": {
+          "$ref": "#/$defs/realizationState"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "allocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "allocatorRef",
+        "resourceRef",
+        "recipientRef",
+        "quantity",
+        "unit",
+        "designDisposition"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "allocatorRef": {
+          "$ref": "#/$defs/participantReference"
+        },
+        "resourceRef": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "id"
+          ],
+          "properties": {
+            "kind": {
+              "const": "resource"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            }
+          }
+        },
+        "recipientRef": {
+          "$ref": "#/$defs/participantReference"
+        },
+        "quantity": {
+          "type": "number",
+          "minimum": 0
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "validFrom": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "validTo": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "policy": {
+          "type": "string"
+        },
+        "designDisposition": {
+          "$ref": "#/$defs/designDisposition"
+        },
+        "realizationState": {
+          "$ref": "#/$defs/realizationState"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "description",
+        "providerRef",
+        "realizationState"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "providerRef": {
+          "$ref": "#/$defs/participantReference"
+        },
+        "operationRefs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "id"
+            ],
+            "properties": {
+              "kind": {
+                "const": "operation"
+              },
+              "id": {
+                "$ref": "#/$defs/identifier"
+              }
+            }
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "preconditions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "realizationState": {
+          "$ref": "#/$defs/realizationState"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "service": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "description",
+        "providerRef",
+        "capabilityRef",
+        "interfaceRef",
+        "realizationState"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "providerRef": {
+          "$ref": "#/$defs/participantReference"
+        },
+        "capabilityRef": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "id"
+          ],
+          "properties": {
+            "kind": {
+              "const": "capability"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            }
+          }
+        },
+        "interfaceRef": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "id"
+          ],
+          "properties": {
+            "kind": {
+              "const": "interface"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            }
+          }
+        },
+        "consumerRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/participantReference"
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "qualityConstraints": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "realizationState": {
+          "$ref": "#/$defs/realizationState"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "statement",
+        "designDisposition"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceRef": {
+          "$ref": "#/$defs/typedReference"
+        },
+        "priority": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "acceptanceCriteria": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "designDisposition": {
+          "$ref": "#/$defs/designDisposition"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "constraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "statement",
+        "category",
+        "subjectRefs"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "structural",
+            "state",
+            "transition",
+            "resource",
+            "temporal",
+            "authority",
+            "safety",
+            "security",
+            "environmental",
+            "other"
+          ]
+        },
+        "subjectRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/typedReference"
+          },
+          "minItems": 1,
+          "default": []
+        },
+        "applicability": {
+          "$ref": "#/$defs/applicability"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "invariant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "statement",
+        "subjectRefs",
+        "assessmentResult",
+        "assumptions"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subjectRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/typedReference"
+          },
+          "minItems": 1,
+          "default": []
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "assessmentResult": {
+          "$ref": "#/$defs/assessmentResult"
+        },
+        "method": {
+          "type": "string"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "assertion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "statement",
+        "category",
+        "subjectRefs"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "design",
+            "implementation",
+            "behavior",
+            "requirement",
+            "assumption",
+            "assessment"
+          ]
+        },
+        "subjectRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/typedReference"
+          },
+          "minItems": 1,
+          "default": []
+        },
+        "designDisposition": {
+          "$ref": "#/$defs/designDisposition"
+        },
+        "realizationState": {
+          "$ref": "#/$defs/realizationState"
+        },
+        "applicability": {
+          "$ref": "#/$defs/applicability"
+        },
+        "assessmentResult": {
+          "$ref": "#/$defs/assessmentResult"
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "validFrom": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "validTo": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "statement",
+        "disposition",
+        "rationale"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "disposition": {
+          "$ref": "#/$defs/designDisposition"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "alternatives": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "subjectRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/typedReference"
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "method",
+        "context",
+        "relation",
+        "description",
+        "limitations"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "sourceDocument",
+            "sourceCode",
+            "testResult",
+            "toolOutput",
+            "measurement",
+            "observation",
+            "analysis",
+            "simulation",
+            "formalResult",
+            "review",
+            "assumption"
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "sourceInspection",
+            "designReview",
+            "staticAnalysis",
+            "test",
+            "measurement",
+            "observation",
+            "simulation",
+            "modelChecking",
+            "mathematicalProof",
+            "audit",
+            "other"
+          ]
+        },
+        "context": {
+          "type": "string",
+          "enum": [
+            "paperDesign",
+            "sourceRepository",
+            "simulation",
+            "laboratory",
+            "hardwareInLoop",
+            "deployedSoftware",
+            "physicalOperation",
+            "analysisModel",
+            "other"
+          ]
+        },
+        "relation": {
+          "type": "string",
+          "enum": [
+            "supports",
+            "contradicts",
+            "qualifies",
+            "inconclusive"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceUri": {
+          "type": "string"
+        },
+        "revision": {
+          "type": "string"
+        },
+        "scopeRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/typedReference"
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "producedBy": {
+          "type": "string"
+        },
+        "collectedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "resultSummary": {
+          "type": "string"
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "uncertainty": {
+          "type": "string"
+        }
+      }
+    },
+    "relationship": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "source",
+        "target",
+        "rationale",
+        "designDisposition"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "memberOf",
+            "decomposesInto",
+            "containedWithin",
+            "dependsOn",
+            "exposes",
+            "requires",
+            "interactsWith",
+            "allocates",
+            "performs",
+            "triggers",
+            "transitionsTo",
+            "observes",
+            "controls",
+            "constrainedBy",
+            "satisfies",
+            "derivedFrom",
+            "implements"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/typedReference"
+        },
+        "target": {
+          "$ref": "#/$defs/typedReference"
+        },
+        "scopeRef": {
+          "$ref": "#/$defs/typedReference"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "designDisposition": {
+          "$ref": "#/$defs/designDisposition"
+        },
+        "assessmentResult": {
+          "$ref": "#/$defs/assessmentResult"
+        },
+        "validFrom": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "validTo": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 0,
+          "default": []
+        },
+        "realizationState": {
+          "$ref": "#/$defs/realizationState"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "memberOf"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "element"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              },
+              "target": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "system",
+                      "element"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "decomposesInto"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "system",
+                      "element"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              },
+              "target": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "element"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "containedWithin"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "element"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              },
+              "target": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "element",
+                      "boundary"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "dependsOn"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "system",
+                      "element",
+                      "environmentParticipant"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              },
+              "target": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "system",
+                      "element",
+                      "environmentParticipant"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "exposes"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "system",
+                      "element",
+                      "environmentParticipant"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              },
+              "target": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "interface"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "requires"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "system",
+                      "element",
+                      "environmentParticipant"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              },
+              "target": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "interface",
+                      "capability",
+                      "resource"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "interactsWith"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "system",
+                      "element",
+                      "environmentParticipant"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              },
+              "target": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "system",
+                      "element",
+                      "environmentParticipant"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "allocates"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "system",
+                      "element",
+                      "environmentParticipant"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              },
+              "target": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "resource"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "performs"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "execution"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              },
+              "target": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "operation"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "triggers"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "event"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              },
+              "target": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "transition",
+                      "operation"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "transitionsTo"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "state"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              },
+              "target": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "state"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "observes"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "system",
+                      "element",
+                      "environmentParticipant"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              },
+              "target": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "element",
+                      "event",
+                      "property",
+                      "state"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "controls"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "system",
+                      "element",
+                      "environmentParticipant"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              },
+              "target": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "element",
+                      "operation",
+                      "execution"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "constrainedBy"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "element",
+                      "operation",
+                      "execution"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              },
+              "target": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "constraint"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "satisfies"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "element",
+                      "responsibility",
+                      "operation",
+                      "capability",
+                      "service"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              },
+              "target": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "requirement"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "derivedFrom"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "requirement",
+                      "decision",
+                      "assertion"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              },
+              "target": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "evidence",
+                      "requirement",
+                      "decision",
+                      "assertion"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "implements"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "element"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              },
+              "target": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "specification"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
