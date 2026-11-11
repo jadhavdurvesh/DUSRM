@@ -18,13 +18,14 @@ python -m unittest discover -s tests -p 'test_profiles_0_2.py' -v
 
 ## WP5 domain profile fixtures
 
-The following three profile descriptions are stored under `profiles/` and tested structurally and semantically by `tests/test_profiles_0_2.py`:
+The following four profile descriptions are stored under `profiles/` and tested structurally and semantically by dedicated profile regression suites:
 
 - `profiles/standalone-application.json` — illustrative single-user local task application.
 - `profiles/ananta-database-engine.json` — repository-informed ANANTA native DBMS profile with explicit transaction, WAL and embedded API boundaries.
 - `profiles/firebot-cyber-physical-robotics.json` — FireBot system description that distinguishes software simulation, planned physical platform and local safety requirements.
+- `profiles/sand-os-operating-system.json` — SAND OS operating-system profile pilot covering boot, kernel, memory, scheduler, process, Veyra, storage, SANDFS and SAPP.
 
-All three profile fixtures are expected to have zero semantic errors. Each deliberately emits one profile-compatibility warning because its registry status remains `not-assessed`. This is expected and must not be suppressed.
+All four profile fixtures are expected to have zero semantic errors. Each deliberately emits one profile-compatibility warning because its registry status remains `not-assessed`. This is expected and must not be suppressed. The SAND OS fixture is a DUSRM-side model only; no SAND OS repository is changed.
 
 The SAND OS and FireBot/ANANTA repository references are used as DUSRM-side architecture examples only. No external project repository is modified by fixture validation.
 
