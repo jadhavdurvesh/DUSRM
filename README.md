@@ -35,12 +35,13 @@ The 1.0 preparation work is tracked separately from the 0.9 draft:
 - **WP4 — Semantic Validator and Migration Tooling:** typed reference resolution, global ID checks, semantic consistency checks and loss-aware 0.1→0.2 migrator. [Status](specification/DUSRM-1.0/M4-STATUS.md)
 - **WP5 — Domain Profile Reconciliation:** standalone application, ANANTA and FireBot schema 0.2 profile pilots, compatibility matrix, evidence snapshot and independent-review cases. [Status](specification/DUSRM-1.0/M5-STATUS.md)
 - **WP6 — SAND OS Adoption Pilot:** operating-system profile, nine-to-eight-strata architecture mapping, read-only SAND evidence, desk review findings, standards crosswalk and host-side CI adoption plan. [Status](specification/DUSRM-1.0/M6-STATUS.md)
+- **WP7 — Portable Validation Kit:** bundled schema/validator/profile/model, Git-blob integrity checking, JSON validation reports, regression tests and a proposed SAND host-CI integration. [Status](specification/DUSRM-1.0/M7-STATUS.md)
 
 The final [WP6 schema 0.2/profile validation run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43024813575) passed on 2026-11-11. Twenty-two semantic/migration tests, four existing profile tests and eight SAND OS profile tests passed. The SAND OS fixture had zero semantic errors and the expected not-assessed profile warning. The [schema 0.1](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43024813742), [0.8](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43024813499) and [0.9](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43024813600) workflows also passed on the tested commit.
 
 **Important:** none of the three profiles has been approved as compatible. ANANTA's inspected sources contain a Windows checkpoint-rotation wording conflict, and FireBot's inspected current-state snapshot is dated 2026-10-11. See the [WP5 reconciliation report](specification/DUSRM-1.0/M5-RECONCILIATION.md) and [review package](specification/DUSRM-1.0/M5-REVIEW-PACKAGE.md).
 
-The SAND OS adoption package is documented in the [WP6 adoption plan](specification/DUSRM-1.0/M6-SAND-OS-ADOPTION.md). The DUSRM-side profile is validated, but its compatibility remains not-assessed and no SAND OS repository changes were made. The next phase is **WP7 — Independent Review Findings and SAND OS Adoption Approval**. CI results are internal engineering evidence, not peer approval or a stable 1.0 release.
+The SAND OS adoption package is documented in the [WP6 adoption plan](specification/DUSRM-1.0/M6-SAND-OS-ADOPTION.md). WP7 has now produced a [portable executable validation kit](adoption/sand-os/README.md); its [CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43026965428) passed 4/4 integrity checks and 5 tests. The OS profile compatibility remains not-assessed, no SAND OS repository changes were made, and independent review is pending. CI results are internal engineering evidence, not peer approval or a stable 1.0 release.
 
 ## Previous milestones
 
@@ -86,7 +87,8 @@ These technologies remain independently specified. DUSRM may map their roles to 
 - **DUSRM 1.0 preparation — WP4:** semantic validator and migration tooling. [Status](specification/DUSRM-1.0/M4-STATUS.md)
 - **DUSRM 1.0 preparation — WP5:** domain profile reconciliation and independent-review preparation. [Status](specification/DUSRM-1.0/M5-STATUS.md)
 - **DUSRM 1.0 preparation — WP6:** SAND OS adoption pilot and release-gate review. [Status](specification/DUSRM-1.0/M6-STATUS.md)
-- **Next work package:** WP7 — independent review findings and SAND OS adoption approval.
+- **DUSRM 1.0 preparation — WP7:** portable validation kit and SAND OS adoption review. [Status](specification/DUSRM-1.0/M7-STATUS.md)
+- **Next step:** independent review and explicit approval before any SAND OS repository changes.
 
 ## Repository map
 
