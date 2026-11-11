@@ -115,14 +115,3 @@ The SAND OS repository remains unchanged. Its proposed host-side CI adoption req
 - [SAND OS DUSRM change-review template](../../adoption/sand-os/CHANGE-REVIEW-TEMPLATE.md)
 
 WP8 proposes DUSRM as SAND's primary project-level responsibility architecture, replacing inconsistent top-level layer diagrams. SAND-specific technical contracts such as Veyra, SAPP and SANDFS remain authoritative for their implementation details. No SAND OS repository changes have been made.
-
-
-## WP8 — DUSRM as the Primary SAND OS Architecture Reference
-
-**Status:** Governance policy and change-review process prepared; SAND-side adoption pending.
-
-- [WP8 status](M8-STATUS.md)
-- [SAND OS architecture governance](M8-SAND-OS-ARCHITECTURE-GOVERNANCE.md)
-- [DUSRM-based SAND architecture change-review template](../../adoption/sand-os/CHANGE-REVIEW-TEMPLATE.md)
-
-WP8 proposes DUSRM as the top-level project-wide responsibility reference for SAND OS. It replaces informal whole-project layer diagrams as the responsibility map, while SAND's concrete specifications (Veyra, SAPP, SANDFS, CPU and driver contracts) remain authoritative for implementation details. SAND OS has not been modified.
