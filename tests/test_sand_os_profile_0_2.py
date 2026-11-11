@@ -62,7 +62,7 @@ class SandOSProfileTests(unittest.TestCase):
         self.assertIn("not linked into the boot chain", decision["statement"])
 
     def test_planned_subsystems_are_not_marked_implemented(self):
-        for identifier in ("sand-os-networking", "sand-os-service-ipc", "sand-os-compositor"):
+        for identifier in ("sand-os-networking", "sand-os-service-ipc", "sand-os-compositor", "sand-os-user-runtime"):
             element = next(item for item in DOC["elements"] if item["id"] == identifier)
             self.assertEqual(element["realizationState"], "planned")
 
