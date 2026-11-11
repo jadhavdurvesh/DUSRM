@@ -1,6 +1,6 @@
 {
   "registryVersion": "0.2-draft",
-  "coreVersion": "0.7-draft",
+  "coreVersion": "1.0-preparation",
   "status": "provisional",
   "profiles": [
     {
@@ -35,12 +35,14 @@
     "The previous candidateCoreVersion 0.7-draft is retained in the profile documents as the historical basis.",
     "The current reconciliation target is DUSRM 1.0-preparation with schema 0.2-draft.",
     "review-prepared means profile mappings, cases and evidence have been prepared for independent assessment; it is not compatibility approval.",
-    "All compatibilityStatus values intentionally remain not-assessed."
+    "All compatibilityStatus values intentionally remain not-assessed.",
+    "Historical profile definitions originated under the 0.7-draft core; the new assessment target is 1.0-preparation/schema 0.2-draft."
   ],
   "assessmentTarget": {
     "coreVersion": "1.0-preparation",
     "schemaVersion": "0.2-draft",
     "assessmentDate": "2026-11-11",
     "assessmentStatus": "review-prepared-not-assessed"
-  }
+  },
+  "previousCoreVersion": "0.7-draft"
 }
