@@ -54,12 +54,29 @@ This directory contains versioned work packages for preparing a proposed 1.0 cor
 - [Regression tests](../../tests/test_semantics_0_2.py)
 - [WP4 CI workflow](../../.github/workflows/dusrm-1.0-schema-validation.yml)
 
+## WP5 — Domain Profile Reconciliation and Independent Review Preparation
+
+**Status:** Internal reconciliation complete; CI passed; independent review pending.
+
+- [Status](M5-STATUS.md)
+- [Profile reconciliation report](M5-RECONCILIATION.md)
+- [Compatibility matrix](M5-COMPATIBILITY-MATRIX.md)
+- [Independent reviewer cases](M5-REVIEW-CASES.md)
+- [Read-only evidence snapshot](M5-EVIDENCE-SNAPSHOT.md)
+- [Proposed decisions](M5-DECISIONS.md)
+- [Independent reviewer package](M5-REVIEW-PACKAGE.md)
+- [Validation report](M5-VALIDATION.md)
+- [Profile fixtures](../../schema/fixtures/0.2/profiles/)
+- [Profile regression tests](../../tests/test_profiles_0_2.py)
+
+All three profiles remain `not-assessed`. A clean fixture result is not a profile compatibility approval.
+
 ## Proposed next work package
 
-**WP5 — Domain Profile Reconciliation and Independent Review Preparation**
+**WP6 — Independent Review Findings and Release Candidate Gate**
 
-Reconcile the standalone application, ANANTA and FireBot profiles against the 1.0 ontology/schema; identify profile-specific typed concepts and compatibility; build review cases; and prepare an independent reviewer package with objections, expected behaviors, and change-control records.
+Collect independent review responses, disposition blockers and major findings, reconcile the core ontology/schema/profile decisions, and determine whether a DUSRM 1.0 release candidate is justified. Do not declare a stable release without explicit governance approval.
 
 ## Release gate
 
-DUSRM 1.0 must not be declared stable solely because WP1–WP4 artifacts and CI exist. The core ontology, relationship semantics, metamodel, schema, semantic rules, migration behavior, conformance checks, domain profiles, and independent review findings must be reconciled and approved through the repository's governance process.
+DUSRM 1.0 must not be declared stable solely because WP1–WP5 artifacts and CI exist. The core ontology, relationship semantics, metamodel, schema, semantic rules, migration behavior, conformance checks, domain profiles, evidence, and independent review findings must be reconciled and approved through the repository's governance process.
