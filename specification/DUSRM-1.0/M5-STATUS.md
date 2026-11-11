@@ -1,7 +1,7 @@
 # DUSRM 1.0 Preparation — WP5 Status
 
 **Work package:** WP5 — Domain Profile Reconciliation and Independent Review Preparation  
-**Status:** Internal reconciliation and fixture validation in progress; compatibility not-assessed  
+**Status:** Internally complete; profile fixtures and CI passed; independent review pending  
 **Date:** 2026-11-11  
 **Assessment target:** DUSRM 1.0-preparation / schema 0.2-draft
 
@@ -17,6 +17,7 @@ Reconcile standalone application, ANANTA and FireBot profiles against the 1.0-pr
 - [Read-only evidence snapshot](M5-EVIDENCE-SNAPSHOT.md)
 - [Proposed decisions](M5-DECISIONS.md)
 - [Independent reviewer package](M5-REVIEW-PACKAGE.md)
+- [Automated validation report](M5-VALIDATION.md)
 - [Schema 0.2 profile fixtures](../../schema/fixtures/0.2/profiles/)
 - [Profile regression tests](../../tests/test_profiles_0_2.py)
 
@@ -24,16 +25,30 @@ Reconcile standalone application, ANANTA and FireBot profiles against the 1.0-pr
 
 | Profile | Fixture status | Compatibility |
 |---|---|---|
-| Standalone application | Structural/semantic CI pending final run | not-assessed |
-| ANANTA DBMS | Structural/semantic CI pending final run | not-assessed |
-| FireBot CPS | Structural/semantic CI pending final run | not-assessed |
+| Standalone application | Structural and semantic CI passed | not-assessed |
+| ANANTA DBMS | Structural and semantic CI passed | not-assessed |
+| FireBot CPS | Structural and semantic CI passed | not-assessed |
 
-The profile registry now targets DUSRM 1.0-preparation/schema 0.2-draft while preserving the original profile IDs/versions and `not-assessed` compatibility status. `review-prepared` indicates only that a mapping and review materials exist.
+The profile registry targets DUSRM 1.0-preparation/schema 0.2-draft while preserving the original profile IDs/versions and `not-assessed` compatibility status. `review-prepared` means only that a mapping and review materials exist.
+
+## Automated validation
+
+The dedicated [WP5 CI run](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43019955491) passed on 2026-11-11 at commit `a8a91447e3220904a6dade343d5dd90d649fda1f`.
+
+- 22 schema 0.2 semantic/migration tests passed.
+- 4 profile regression tests passed.
+- All three profile CLI checks reported zero semantic errors and the expected single not-assessed compatibility warning.
+- The migration smoke test passed.
+
+The [schema 0.1](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43019955486), [0.8](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43019955487) and [0.9](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43019955712) workflows also passed on the same commit.
+
+These runs validate fixtures and the implemented check subset only; they are not profile approvals or independent review.
 
 ## Preserved evidence limits
 
-- ANANTA remains an independently specified native database; its file-based FireBot JSONL workload is not a live integration.
-- ANANTA's inspected README and older WAL/concurrency specifications disagree on Windows checkpoint rotation support. This is open, not silently resolved.
+- ANANTA remains an independently specified native database; its FireBot JSONL workload is a file-based adapter, not live integration.
+- ANANTA's inspected README and older WAL/concurrency specifications disagree on Windows checkpoint rotation support. This remains open.
+- ANANTA's embedded API M7.1 status remains in progress in the inspected source.
 - FireBot's inspected current-state snapshot is dated 2026-10-11 and reports physical hardware and several integrations pending/unverified.
 - The standalone profile is illustrative; no deployed application was used.
 - No independent reviewer has responded yet.
@@ -44,13 +59,10 @@ All WP5 work is in DUSRM. ANANTA and FireBot files were fetched for read-only so
 
 ## Exit criteria
 
-WP5 can close only after:
-- all three fixtures pass schema and semantic checks;
-- evidence snapshot and reviewer cases are complete;
-- open source conflicts and maturity limitations are visible;
-- independent reviewers have recorded dispositions or the project explicitly defers approval;
-- registry compatibility statuses remain not-assessed until a documented approval decision exists.
+WP5 is complete as an internal reconciliation and reviewer-preparation milestone. Its remaining external gate is independent review, source-conflict resolution and explicit profile compatibility decisions. Do not change compatibility status without documented reviewer disposition.
 
-## Next step
+## Next work package
 
-Run the WP5 CI suite, then obtain independent review of the ontology/schema, profile mappings, evidence boundaries and open issues. Do not declare DUSRM 1.0 stable from fixture success alone.
+**WP6 — Independent Review Findings and Release Candidate Gate**
+
+Obtain reviewer responses, resolve blockers/major findings, update core/profile decisions and only then determine whether a DUSRM 1.0 release candidate is justified.
