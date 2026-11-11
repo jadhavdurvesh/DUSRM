@@ -9,6 +9,7 @@ on:
       - "schema/fixtures/0.2/**"
       - "profiles/**"
       - "tests/test_profiles_0_2.py"
+      - "tests/test_sand_os_profile_0_2.py"
       - "scripts/validate_schema_0_2_fixtures.py"
       - "scripts/validate_semantics_0_2.py"
       - "scripts/migrate_schema_0_1_to_0_2.py"
@@ -60,6 +61,8 @@ jobs:
       - name: Validate domain profile fixtures
         run: |
           python -m unittest discover -s tests -p 'test_profiles_0_2.py' -v
+          python -m unittest discover -s tests -p 'test_sand_os_profile_0_2.py' -v
+          python scripts/validate_semantics_0_2.py schema/fixtures/0.2/profiles/sand-os-operating-system.json
           python scripts/validate_semantics_0_2.py schema/fixtures/0.2/profiles/standalone-application.json
           python scripts/validate_semantics_0_2.py schema/fixtures/0.2/profiles/ananta-database-engine.json
           python scripts/validate_semantics_0_2.py schema/fixtures/0.2/profiles/firebot-cyber-physical-robotics.json
