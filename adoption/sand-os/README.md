@@ -5,6 +5,8 @@
 **Canonical source:** [jadhavdurvesh/DUSRM](https://github.com/jadhavdurvesh/DUSRM)  
 **Target architecture:** [jadhavdurvesh/sand-os](https://github.com/jadhavdurvesh/sand-os)
 
+**Latest validation:** [DUSRM SAND OS kit CI passed](https://github.com/jadhavdurvesh/DUSRM/actions/runs/43026965428) on 2026-11-11. Four bundled files verified, five tests passed, zero semantic errors and one expected profile compatibility warning.
+
 ## What this actually is
 
 This is a portable, executable copy of the DUSRM schema 0.2 draft, semantic validator, profile registry and SAND OS architecture description.
@@ -73,6 +75,8 @@ Before using this kit in another repository, run `python verify_bundle.py`. If a
 This kit is a snapshot, not a self-updating network client. It does not fetch code during validation.
 
 ## Proposed use in SAND OS CI — not yet installed there
+
+See the [WP7 SAND CI adoption proposal](../../specification/DUSRM-1.0/M7-SAND-CI-ADOPTION.md) and [independent review checklist](../../specification/DUSRM-1.0/M7-REVIEW-CHECKLIST.md).
 
 After separate approval, a SAND host-side CI job may:
 1. install the pinned Python dependency;
