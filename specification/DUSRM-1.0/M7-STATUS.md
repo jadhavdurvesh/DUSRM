@@ -43,7 +43,7 @@ The CI run is executable evidence that the DUSRM schema/validator toolchain work
 
 ## How the kit works
 
-The kit is version `0.2.2-draft` and contains a pinned copy of:
+The kit is version `0.2.3-draft` and contains a pinned copy of:
 - DUSRM schema 0.2-draft;
 - DUSRM 0.2 semantic validator;
 - profile registry;
