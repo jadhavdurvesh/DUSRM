@@ -13,7 +13,7 @@ MANIFEST = ROOT / "manifest.json"
 
 
 def git_blob_sha1(data: bytes) -> str:
-    header = f"blob {len(data)}\\0".encode("ascii")
+    header = f"blob {len(data)}\0".encode("ascii")
     return hashlib.sha1(header + data).hexdigest()
 
 
@@ -51,7 +51,7 @@ def main() -> int:
         for item in results:
             print(f"{item['status'].upper():8} {item['path']}")
     failures = [item for item in results if item["status"] != "ok"]
-    print(f"\\nBundle integrity: {len(results) - len(failures)}/{len(results)} files verified.")
+    print(f"\nBundle integrity: {len(results) - len(failures)}/{len(results)} files verified.")
     return 1 if failures else 0
 
 
