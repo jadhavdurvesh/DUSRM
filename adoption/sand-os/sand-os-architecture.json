@@ -1880,16 +1880,16 @@
       ],
       "implementationStrata": [
         {
-          "sandStratum": 1,
-          "name": "Boot and platform entry",
+          "stratumId": "sand-stratum-01",
+          "sourceStratumName": "Boot and platform entry",
           "dusrmLayers": [
             "L1",
             "L3"
           ]
         },
         {
-          "sandStratum": 2,
-          "name": "Architecture-specific CPU, interrupt, paging and context-switch code",
+          "stratumId": "sand-stratum-02",
+          "sourceStratumName": "Architecture-specific CPU, interrupt, paging and context-switch code",
           "dusrmLayers": [
             "L1",
             "L2",
@@ -1898,8 +1898,8 @@
           ]
         },
         {
-          "sandStratum": 3,
-          "name": "Kernel core: memory, scheduler, synchronization, IPC and object model",
+          "stratumId": "sand-stratum-03",
+          "sourceStratumName": "Kernel core: memory, scheduler, synchronization, IPC and object model",
           "dusrmLayers": [
             "L2",
             "L3",
@@ -1909,8 +1909,8 @@
           ]
         },
         {
-          "sandStratum": 4,
-          "name": "Device framework and hardware drivers",
+          "stratumId": "sand-stratum-04",
+          "sourceStratumName": "Device framework and hardware drivers",
           "dusrmLayers": [
             "L1",
             "L2",
@@ -1920,8 +1920,8 @@
           ]
         },
         {
-          "sandStratum": 5,
-          "name": "Storage and native filesystem",
+          "stratumId": "sand-stratum-05",
+          "sourceStratumName": "Storage and native filesystem",
           "dusrmLayers": [
             "L2",
             "L4",
@@ -1929,8 +1929,8 @@
           ]
         },
         {
-          "sandStratum": 6,
-          "name": "System-call ABI and user-mode runtime",
+          "stratumId": "sand-stratum-06",
+          "sourceStratumName": "System-call ABI and user-mode runtime",
           "dusrmLayers": [
             "L3",
             "L4",
@@ -1939,8 +1939,8 @@
           ]
         },
         {
-          "sandStratum": 7,
-          "name": "Native services and shell",
+          "stratumId": "sand-stratum-07",
+          "sourceStratumName": "Native services and shell",
           "dusrmLayers": [
             "L4",
             "L5",
@@ -1950,8 +1950,8 @@
           ]
         },
         {
-          "sandStratum": 8,
-          "name": "Graphics, windowing and input",
+          "stratumId": "sand-stratum-08",
+          "sourceStratumName": "Graphics, windowing and input",
           "dusrmLayers": [
             "L1",
             "L3",
@@ -1961,8 +1961,8 @@
           ]
         },
         {
-          "sandStratum": 9,
-          "name": "Applications, package management and SDK",
+          "stratumId": "sand-stratum-09",
+          "sourceStratumName": "Applications, package management and SDK",
           "dusrmLayers": [
             "L3",
             "L4",
@@ -1979,6 +1979,266 @@
         "SANDFS v1 is not a production filesystem.",
         "Unsigned SAPP is not production-ready.",
         "Production security is not established."
+      ],
+      "integrationBoundary": {
+        "mode": "designTime",
+        "requiredAtBoot": false,
+        "includedInKernelImage": false,
+        "requiredForRuntimeOperation": false,
+        "explanation": "DUSRM descriptions and validation govern architecture and host-side CI only. The SAND boot chain, kernel, drivers and SAPP applications remain operational without DUSRM."
+      },
+      "securityPosture": "experimental",
+      "requiredDomains": [
+        "bootFirmware",
+        "processorArchitecture",
+        "kernelCore",
+        "memoryManagement",
+        "executionScheduling",
+        "processIsolation",
+        "deviceDrivers",
+        "storageFilesystems",
+        "kernelInterfaces",
+        "userRuntime",
+        "nativeServicesIPC",
+        "graphicsInput",
+        "applicationPackaging",
+        "networking",
+        "securityTrust",
+        "buildVerification"
+      ],
+      "subsystemCoverage": [
+        {
+          "domainId": "bootFirmware",
+          "applicability": "internal",
+          "implementationState": "inProgress",
+          "evidenceLevel": "testInSimulation",
+          "elementRefs": [
+            "sand-os-boot-chain"
+          ],
+          "evidenceRefs": [
+            "SAND-EV-ARCH",
+            "SAND-EV-CI"
+          ],
+          "rationale": "Legacy BIOS boot path is implemented and exercised by the QEMU boot workflow; physical firmware coverage is not established."
+        },
+        {
+          "domainId": "processorArchitecture",
+          "applicability": "internal",
+          "implementationState": "inProgress",
+          "evidenceLevel": "testInSimulation",
+          "elementRefs": [
+            "sand-os-x86-arch"
+          ],
+          "evidenceRefs": [
+            "SAND-EV-ARCH",
+            "SAND-EV-CI"
+          ],
+          "rationale": "Current target is x86-32 with GDT, IDT, interrupt and paging support; broader architecture coverage is not established."
+        },
+        {
+          "domainId": "kernelCore",
+          "applicability": "internal",
+          "implementationState": "inProgress",
+          "evidenceLevel": "testInSimulation",
+          "elementRefs": [
+            "sand-os-kernel-core"
+          ],
+          "evidenceRefs": [
+            "SAND-EV-ARCH",
+            "SAND-EV-CI"
+          ],
+          "rationale": "Freestanding kernel and self-test path are present and exercised by QEMU CI."
+        },
+        {
+          "domainId": "memoryManagement",
+          "applicability": "internal",
+          "implementationState": "inProgress",
+          "evidenceLevel": "testInSimulation",
+          "elementRefs": [
+            "sand-os-memory-manager"
+          ],
+          "evidenceRefs": [
+            "SAND-EV-ARCH",
+            "SAND-EV-CI"
+          ],
+          "rationale": "Bounded frame allocation, non-PAE paging and early heap are prototype capabilities exercised in the emulator."
+        },
+        {
+          "domainId": "executionScheduling",
+          "applicability": "internal",
+          "implementationState": "inProgress",
+          "evidenceLevel": "testInSimulation",
+          "elementRefs": [
+            "sand-os-scheduler-sync"
+          ],
+          "evidenceRefs": [
+            "SAND-EV-ARCH",
+            "SAND-EV-CI"
+          ],
+          "rationale": "Uniprocessor kernel-thread scheduling and synchronization are prototype capabilities; SMP safety is not claimed."
+        },
+        {
+          "domainId": "processIsolation",
+          "applicability": "internal",
+          "implementationState": "inProgress",
+          "evidenceLevel": "testInSimulation",
+          "elementRefs": [
+            "sand-os-process-manager"
+          ],
+          "evidenceRefs": [
+            "SAND-EV-ARCH",
+            "SAND-EV-PROCESS",
+            "SAND-EV-CI"
+          ],
+          "rationale": "Bounded process records and distinct address spaces are present; complete fault isolation and user-process scheduling are not claimed."
+        },
+        {
+          "domainId": "deviceDrivers",
+          "applicability": "internal",
+          "implementationState": "inProgress",
+          "evidenceLevel": "testInSimulation",
+          "elementRefs": [
+            "sand-os-block-storage",
+            "sand-os-ata-driver"
+          ],
+          "evidenceRefs": [
+            "SAND-EV-ARCH",
+            "SAND-EV-API",
+            "SAND-EV-CI"
+          ],
+          "rationale": "Block-device registration and primary-master ATA PIO prototype are represented; broad device support is not claimed."
+        },
+        {
+          "domainId": "storageFilesystems",
+          "applicability": "internal",
+          "implementationState": "inProgress",
+          "evidenceLevel": "testInSimulation",
+          "elementRefs": [
+            "sand-os-sandfs"
+          ],
+          "evidenceRefs": [
+            "SAND-EV-ARCH",
+            "SAND-EV-FS",
+            "SAND-EV-CI"
+          ],
+          "rationale": "SANDFS v1 has limited format/mount/read/write paths; journaling, crash consistency and permissions are absent."
+        },
+        {
+          "domainId": "kernelInterfaces",
+          "applicability": "internal",
+          "implementationState": "inProgress",
+          "evidenceLevel": "testInSimulation",
+          "elementRefs": [
+            "sand-os-syscall-gateway",
+            "sand-os-veyra"
+          ],
+          "evidenceRefs": [
+            "SAND-EV-VEYRA",
+            "SAND-EV-API",
+            "SAND-EV-CI"
+          ],
+          "rationale": "A limited syscall proof-of-concept and Veyra descriptor foundation exist; a stable general-purpose syscall ABI is not claimed."
+        },
+        {
+          "domainId": "userRuntime",
+          "applicability": "internal",
+          "implementationState": "planned",
+          "evidenceLevel": "documented",
+          "elementRefs": [
+            "sand-os-sapp-sdk"
+          ],
+          "evidenceRefs": [
+            "SAND-EV-SAPP",
+            "SAND-EV-SAPP-README"
+          ],
+          "rationale": "A complete user-mode runtime, libraries, dynamic linker and filesystem-backed application launch remain planned."
+        },
+        {
+          "domainId": "nativeServicesIPC",
+          "applicability": "internal",
+          "implementationState": "planned",
+          "evidenceLevel": "documented",
+          "elementRefs": [
+            "sand-os-service-ipc"
+          ],
+          "evidenceRefs": [
+            "SAND-EV-API",
+            "SAND-EV-ROADMAP"
+          ],
+          "rationale": "General service IPC and supervision are explicitly future work."
+        },
+        {
+          "domainId": "graphicsInput",
+          "applicability": "internal",
+          "implementationState": "inProgress",
+          "evidenceLevel": "testInSimulation",
+          "elementRefs": [
+            "sand-os-graphics"
+          ],
+          "evidenceRefs": [
+            "SAND-EV-ARCH",
+            "SAND-EV-API",
+            "SAND-EV-CI"
+          ],
+          "rationale": "Framebuffer and early windowing/input paths are exercised by QEMU self-tests; a complete compositor is not claimed."
+        },
+        {
+          "domainId": "applicationPackaging",
+          "applicability": "internal",
+          "implementationState": "inProgress",
+          "evidenceLevel": "sourceInspected",
+          "elementRefs": [
+            "sand-os-sapp-sdk"
+          ],
+          "evidenceRefs": [
+            "SAND-EV-SAPP",
+            "SAND-EV-SAPP-README"
+          ],
+          "rationale": "SAPP format, packer, SDK and example tooling are present; signing, trust-store and full launch path remain incomplete."
+        },
+        {
+          "domainId": "networking",
+          "applicability": "internal",
+          "implementationState": "planned",
+          "evidenceLevel": "documented",
+          "elementRefs": [
+            "sand-os-networking"
+          ],
+          "evidenceRefs": [
+            "SAND-EV-ROADMAP",
+            "SAND-EV-API"
+          ],
+          "rationale": "Network stack and socket services are roadmap work and are not represented as implemented."
+        },
+        {
+          "domainId": "securityTrust",
+          "applicability": "internal",
+          "implementationState": "inProgress",
+          "evidenceLevel": "documented",
+          "elementRefs": [
+            "sand-os-process-manager",
+            "sand-os-syscall-gateway",
+            "sand-os-sapp-sdk"
+          ],
+          "evidenceRefs": [
+            "SAND-EV-SEC",
+            "SAND-EV-VEYRA",
+            "SAND-EV-SAPP"
+          ],
+          "rationale": "Security requirements and prototype boundaries are documented; verified boot, sandboxing, signature trust and independent audit are absent."
+        },
+        {
+          "domainId": "buildVerification",
+          "applicability": "externalDependency",
+          "implementationState": "inProgress",
+          "evidenceLevel": "testInSimulation",
+          "elementRefs": [],
+          "evidenceRefs": [
+            "SAND-EV-BUILD",
+            "SAND-EV-CI"
+          ],
+          "rationale": "Host toolchain and QEMU are external development/test dependencies; their CI workflow does not become part of the guest runtime."
+        }
       ]
     }
   },
